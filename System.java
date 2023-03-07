@@ -8,6 +8,7 @@ public class System {
         frame.setVisible(true);
 
         JButton button = new JButton();
+        button.setBounds(490, 155, 89, 23);
         frame.getContentPane().add(button);
     }
 
