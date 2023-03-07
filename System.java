@@ -58,6 +58,17 @@ public class System {
 		
     }
 
+
+    // validate user email when user signs up
+    public boolean authenticateEmail() {
+        return true;
+    }
+
+    // validate user password when user signs up
+    public boolean authenticatePassword() {
+        return true;
+    }
+
     public static void main(String args[]) {
         System s = new System();
         s.frame.setVisible(true);
