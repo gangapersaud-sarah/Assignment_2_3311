@@ -1,6 +1,8 @@
+import javax.swing.JFrame;
+
 public class System {
     public System() {
-        int x = 1;
+        JFrame frame = new JFrame();
     }
 }
 
