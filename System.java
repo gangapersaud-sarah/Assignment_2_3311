@@ -8,43 +8,59 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
 public class System {
+    JFrame frame = new JFrame();
+    JTextField txt_username = new JTextField();
+    JTextField txt_password = new JTextField();
+    JLabel lblNewLabel = new JLabel("");
+    JButton btnNewButton = new JButton("Enter");
+
     public System() {
-        JFrame frame = new JFrame();
-        frame.setVisible(true);
+        
+        frame = new JFrame();
 		frame.setBounds(100, 100, 451, 301);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JTextField textField = new JTextField();
-        textField.setVisible(true);
-		textField.setBounds(94, 71, 165, 19);
-		frame.getContentPane().add(textField);
+		txt_username = new JTextField();
+		txt_username.setBounds(175, 29, 165, 19);
+		frame.getContentPane().add(txt_username);
 		
-		JTextField textField_1 = new JTextField();
-        textField_1.setVisible(true);
-		textField_1.setBounds(94, 143, 165, 19);
-		frame.getContentPane().add(textField_1);
+		txt_password = new JTextField();
+		txt_password.setBounds(175, 79, 165, 19);
+		frame.getContentPane().add(txt_password);
 		
-		JLabel lblNewLabel = new JLabel("");
-		lblNewLabel.setBounds(94, 194, 165, 42);
-		frame.getContentPane().add(lblNewLabel);
+		JLabel lbl_response = new JLabel("");
+		lbl_response.setBounds(139, 164, 165, 42);
+		frame.getContentPane().add(lbl_response);
 		
-		JButton btnNewButton = new JButton("Enter");
-        btnNewButton.setVisible(true);
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btn_SignUp = new JButton("Sign Up");
+		btn_SignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String userName = textField.getText();
-				String password = textField_1.getText();
-				lblNewLabel.setText(userName + " " + password);
+				String userName = txt_username.getText();
+				String password = txt_password.getText();
+				lbl_response.setText(userName + " " + password);
 			}
 		});
-		btnNewButton.setBounds(295, 108, 85, 21);
-		frame.getContentPane().add(btnNewButton);
+		btn_SignUp.setBounds(119, 118, 85, 21);
+		frame.getContentPane().add(btn_SignUp);
+		
+		JButton btn_LogIn = new JButton("Log In");
+		btn_LogIn.setBounds(239, 118, 85, 21);
+		frame.getContentPane().add(btn_LogIn);
+		
+		JLabel lbl_password = new JLabel("Password:");
+		lbl_password.setBounds(73, 75, 83, 21);
+		frame.getContentPane().add(lbl_password);
+		
+		JLabel lbl_username = new JLabel("Username:");
+		lbl_username.setBounds(73, 25, 83, 21);
+		frame.getContentPane().add(lbl_username);
 		
     }
 
     public static void main(String args[]) {
-        new System();
+        System s = new System();
+        s.frame.setVisible(true);
     }
 }
 
