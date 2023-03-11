@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Manager",
+            "request": "launch",
+            "mainClass": "Manager",
+            "projectName": "EECS3311-Assignment-2_cb58a42d"
+        },
+        {
+            "type": "java",
+            "name": "System",
+            "request": "launch",
+            "mainClass": "System",
+            "projectName": "EECS3311-Assignment-2_cb58a42d"
+        },
+        {
+            "type": "java",
             "name": "System",
             "request": "launch",
             "mainClass": "System",
