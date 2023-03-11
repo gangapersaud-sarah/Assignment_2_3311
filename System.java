@@ -17,16 +17,16 @@ public class System {
     public System() {
         
         frame = new JFrame();
-		frame.setBounds(100, 100, 451, 301);
+		frame.setBounds(100, 100, 800, 600);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
 		txt_username = new JTextField();
-		txt_username.setBounds(175, 29, 165, 19);
+		txt_username.setBounds(309, 141, 410, 50);
 		frame.getContentPane().add(txt_username);
 		
 		txt_password = new JTextField();
-		txt_password.setBounds(175, 79, 165, 19);
+		txt_password.setBounds(309, 281, 410, 50);
 		frame.getContentPane().add(txt_password);
 		
 		JLabel lbl_response = new JLabel("");
@@ -34,26 +34,33 @@ public class System {
 		frame.getContentPane().add(lbl_response);
 		
 		JButton btn_SignUp = new JButton("Sign Up");
+		btn_SignUp.setBounds(97, 415, 250, 70);
 		btn_SignUp.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Sign_in newFrame = new Sign_in();
+				newFrame.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
+		frame.getContentPane().add(btn_SignUp);
+		
+		JButton btn_LogIn = new JButton("Log In");
+		btn_LogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String userName = txt_username.getText();
 				String password = txt_password.getText();
 				lbl_response.setText(userName + " " + password);
 			}
 		});
-		btn_SignUp.setBounds(119, 118, 85, 21);
-		frame.getContentPane().add(btn_SignUp);
-		
-		JButton btn_LogIn = new JButton("Log In");
-		btn_LogIn.setBounds(239, 118, 85, 21);
+		btn_LogIn.setBounds(421, 415, 250, 70);
 		frame.getContentPane().add(btn_LogIn);
 		
 		JLabel lbl_password = new JLabel("Password:");
-		lbl_password.setBounds(73, 75, 83, 21);
+		lbl_password.setBounds(53, 238, 246, 131);
 		frame.getContentPane().add(lbl_password);
 		
-		JLabel lbl_username = new JLabel("Username:");
-		lbl_username.setBounds(73, 25, 83, 21);
+		JLabel lbl_username = new JLabel("Email:");
+		lbl_username.setBounds(53, 125, 184, 66);
 		frame.getContentPane().add(lbl_username);
 		
     }
