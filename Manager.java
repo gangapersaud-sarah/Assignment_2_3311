@@ -158,7 +158,10 @@ public class Manager {
 		validateAccounts.add(scrollPane);
 		
 		ValidationTable = new JTable();
-		
+		/*
+		 * String[] idk = {"SOMETHING", "HI", "HELLO", "NOOOO"};
+				tableModel.addRow(idk);
+		 */
 		DefaultTableModel tableModel = new DefaultTableModel(
 			new Object[][] {
 				{null, null, null, ""},
