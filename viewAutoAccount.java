@@ -34,10 +34,11 @@ public class viewAutoAccount {
 		panel.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(10, 231, 415, -168);
+		scrollPane.setBounds(20, 39, 405, 166);
 		panel.add(scrollPane);
 		
 		table_1 = new JTable();
+		scrollPane.setViewportView(table_1);
 		//Pull data from backend
 		table_1.setModel(new DefaultTableModel(
 			new Object[][] {
@@ -69,24 +70,14 @@ public class viewAutoAccount {
 				return columnEditables[column];
 			}
 		});
-		table_1.setBounds(20, 63, 405, 156);
-		panel.add(table_1);
 		
 		JButton btn_return = new JButton("Return");
-		btn_return.setBounds(10, 231, 89, 23);
+		btn_return.setBounds(10, 228, 89, 23);
 		panel.add(btn_return);
 		
 		JLabel lbl_title = new JLabel("View Auto Account");
 		lbl_title.setBounds(171, 11, 254, 30);
 		panel.add(lbl_title);
-		
-		JLabel lbl_username = new JLabel("Username");
-		lbl_username.setBounds(62, 37, 112, 23);
-		panel.add(lbl_username);
-		
-		JLabel lbl_password = new JLabel("Password");
-		lbl_password.setBounds(254, 37, 128, 26);
-		panel.add(lbl_password);
 		
 		btn_return.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
