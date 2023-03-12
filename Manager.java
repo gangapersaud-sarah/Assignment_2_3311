@@ -52,7 +52,7 @@ import javax.swing.border.LineBorder;
 
 public class Manager {
 
-	private JFrame frame;
+	JFrame frame;
 	private JTable ValidationTable;
 
 	/**

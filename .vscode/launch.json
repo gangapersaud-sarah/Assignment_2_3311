@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "manager_medium",
+            "request": "launch",
+            "mainClass": "manager_medium",
+            "projectName": "EECS3311-Assignment-2_fe7ab5e9"
+        },
+        {
+            "type": "java",
             "name": "Manager",
             "request": "launch",
             "mainClass": "Manager",

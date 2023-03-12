@@ -1,4 +1,3 @@
-package windows_builder_test;
 import java.awt.Component;
 
 import javax.swing.JButton;
