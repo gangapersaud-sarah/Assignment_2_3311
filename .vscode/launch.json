@@ -6,6 +6,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "AddBooking",
+            "request": "launch",
+            "mainClass": "AddBooking",
+            "projectName": "EECS3311-Assignment-2_ad8c86af"
+        },
+        {
+            "type": "java",
+            "name": "ClientWindow",
+            "request": "launch",
+            "mainClass": "ClientWindow",
+            "projectName": "EECS3311-Assignment-2_ad8c86af"
+        },
+        {
+            "type": "java",
             "name": "manager_medium",
             "request": "launch",
             "mainClass": "manager_medium",
