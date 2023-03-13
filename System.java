@@ -1,11 +1,12 @@
 import java.awt.Component;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import javax.swing.JLabel;
+import java.awt.Font;
 
 public class System {
     JFrame frame = new JFrame();
@@ -22,18 +23,20 @@ public class System {
 		frame.getContentPane().setLayout(null);
 		
 		txt_username = new JTextField();
-		txt_username.setBounds(309, 141, 410, 50);
+		txt_username.setBounds(321, 141, 410, 50);
 		frame.getContentPane().add(txt_username);
 		
 		txt_password = new JTextField();
-		txt_password.setBounds(309, 281, 410, 50);
+		txt_password.setBounds(321, 281, 410, 50);
 		frame.getContentPane().add(txt_password);
 		
 		JLabel lbl_response = new JLabel("");
-		lbl_response.setBounds(139, 164, 165, 42);
+		lbl_response.setBounds(129, 164, 165, 42);
+		lbl_response.setFont(new Font("Tahoma", Font.PLAIN, 17));
 		frame.getContentPane().add(lbl_response);
 		
 		JButton btn_SignUp = new JButton("Sign Up");
+		btn_SignUp.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btn_SignUp.setBounds(97, 415, 250, 70);
 		btn_SignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -45,6 +48,7 @@ public class System {
 		frame.getContentPane().add(btn_SignUp);
 		
 		JButton btn_LogIn = new JButton("Log In");
+		btn_LogIn.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btn_LogIn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String userName = txt_username.getText();
@@ -56,13 +60,14 @@ public class System {
 		frame.getContentPane().add(btn_LogIn);
 		
 		JLabel lbl_password = new JLabel("Password:");
-		lbl_password.setBounds(53, 238, 246, 131);
+		lbl_password.setBounds(43, 238, 251, 131);
+		lbl_password.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		frame.getContentPane().add(lbl_password);
 		
-		JLabel lbl_username = new JLabel("Email:");
-		lbl_username.setBounds(53, 125, 184, 66);
+		JLabel lbl_username = new JLabel("Username:");
+		lbl_username.setBounds(43, 125, 246, 66);
+		lbl_username.setFont(new Font("Tahoma", Font.PLAIN, 50));
 		frame.getContentPane().add(lbl_username);
-		
     }
 
 
