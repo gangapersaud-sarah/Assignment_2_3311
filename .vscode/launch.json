@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "WriteCSV",
+            "request": "launch",
+            "mainClass": "WriteCSV",
+            "projectName": "EECS3311-Assignment-2_ad8c86af"
+        },
+        {
+            "type": "java",
             "name": "AddBooking",
             "request": "launch",
             "mainClass": "AddBooking",

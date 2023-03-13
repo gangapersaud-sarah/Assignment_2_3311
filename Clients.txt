@@ -1,0 +1,2 @@
+HappyBuddy, Mary, Nguyen, Mary@gmail.com, 1234, Student
+HappyBuddy, null, null, null, 1234, Manager
