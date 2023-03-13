@@ -49,31 +49,34 @@ public class ClientWindow {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton btnNewButton = new JButton("View Booking");
-		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnNewButton.setBackground(new Color(192, 192, 192));
-		btnNewButton.addActionListener(new ActionListener() {
+		JButton btn_View = new JButton("View Booking");
+		btn_View.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btn_View.setBackground(new Color(192, 192, 192));
+		btn_View.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btnNewButton.setBounds(281, 240, 262, 82);
-		frame.getContentPane().add(btnNewButton);
+		btn_View.setBounds(281, 240, 262, 82);
+		frame.getContentPane().add(btn_View);
 		
-		JButton btnNewButton_1 = new JButton("Pay Booking");
-		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnNewButton_1.setBackground(new Color(192, 192, 192));
-		btnNewButton_1.setBounds(281, 426, 262, 82);
-		frame.getContentPane().add(btnNewButton_1);
+		JButton btn_Pay = new JButton("Pay Booking");
+		btn_Pay.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btn_Pay.setBackground(new Color(192, 192, 192));
+		btn_Pay.setBounds(281, 426, 262, 82);
+		frame.getContentPane().add(btn_Pay);
 		
-		JButton btnNewButton_2 = new JButton("Add Booking");
-		btnNewButton_2.setBackground(new Color(192, 192, 192));
-		btnNewButton_2.addActionListener(new ActionListener() {
+		JButton btn_Add = new JButton("Add Booking");
+		btn_Add.setBackground(new Color(192, 192, 192));
+		btn_Add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				AddBooking newFrame = new AddBooking();
+				newFrame.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
-		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 30));
-		btnNewButton_2.setBounds(281, 333, 262, 82);
-		frame.getContentPane().add(btnNewButton_2);
+		btn_Add.setFont(new Font("Tahoma", Font.PLAIN, 30));
+		btn_Add.setBounds(281, 333, 262, 82);
+		frame.getContentPane().add(btn_Add);
 		
 		JLabel lblNewLabel = new JLabel("Welcome, Client!");
 		lblNewLabel.setBackground(new Color(192, 192, 192));
