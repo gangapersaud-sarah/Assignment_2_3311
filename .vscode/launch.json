@@ -6,6 +6,7 @@
     "configurations": [
         {
             "type": "java",
+<<<<<<< HEAD
             "name": "PayBooking",
             "request": "launch",
             "mainClass": "PayBooking",
@@ -13,6 +14,8 @@
         },
         {
             "type": "java",
+=======
+>>>>>>> 7098bd30f6b97c49e2ee982ef08ed261c73182c7
             "name": "superManagerMainPage",
             "request": "launch",
             "mainClass": "superManagerMainPage",
