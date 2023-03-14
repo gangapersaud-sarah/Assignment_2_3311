@@ -6,6 +6,27 @@
     "configurations": [
         {
             "type": "java",
+            "name": "PayBooking",
+            "request": "launch",
+            "mainClass": "PayBooking",
+            "projectName": "EECS3311-Assignment-2_ad8c86af"
+        },
+        {
+            "type": "java",
+            "name": "superManagerMainPage",
+            "request": "launch",
+            "mainClass": "superManagerMainPage",
+            "projectName": "EECS3311-Assignment-2_fe7ab5e9"
+        },
+        {
+            "type": "java",
+            "name": "createAutoAccount",
+            "request": "launch",
+            "mainClass": "createAutoAccount",
+            "projectName": "EECS3311-Assignment-2_fe7ab5e9"
+        },
+        {
+            "type": "java",
             "name": "WriteCSV",
             "request": "launch",
             "mainClass": "WriteCSV",

@@ -54,12 +54,22 @@ public class ClientWindow {
 		btn_View.setBackground(new Color(192, 192, 192));
 		btn_View.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				View_Bookings newFrame = new View_Bookings();
+				newFrame.setVisible(true);
+				frame.setVisible(false);
 			}
 		});
 		btn_View.setBounds(281, 240, 262, 82);
 		frame.getContentPane().add(btn_View);
 		
 		JButton btn_Pay = new JButton("Pay Booking");
+		btn_Pay.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PayBooking newFrame = new PayBooking();
+				newFrame.setVisible(true);
+				frame.setVisible(false);
+			}
+		});
 		btn_Pay.setFont(new Font("Tahoma", Font.PLAIN, 30));
 		btn_Pay.setBackground(new Color(192, 192, 192));
 		btn_Pay.setBounds(281, 426, 262, 82);
