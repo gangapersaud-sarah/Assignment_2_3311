@@ -1,4 +1,3 @@
-
 import java.awt.Component;
 
 import javax.swing.JButton;
@@ -8,6 +7,8 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
+
+import java.util.Random;
 
 public class createAutoAccount {
     JFrame frame = new JFrame();
@@ -36,10 +37,31 @@ public class createAutoAccount {
 		JButton btn_create_account = new JButton("Create Account");
 		btn_create_account.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//method called from System class that generates and returns
-				String userName = "userID generated from System";
-				String password = "password generated from System";
-				txt_username.setText(userName);
+				//method called from System class that generates and return
+				Random random = new Random();
+				String new_Name = "";
+				String password = "";
+				
+				String alphanumericCharacters = "abcdefghijklmnopqrstuvxyz12345678910";
+				StringBuffer randomString = new StringBuffer(10);
+				for (int i = 0; i < 10; i++) {
+					int randomIndex = random.nextInt(alphanumericCharacters.length());
+					char randomChar = alphanumericCharacters.charAt(randomIndex);
+					randomString.append(randomChar);
+				}
+				new_Name = randomString.toString();
+
+				String password_alphabet = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVxXwWyYzZ12345678910!#$%%^*";
+				StringBuffer randomPassword = new StringBuffer(10);
+				for (int i = 0; i < 10; i++) {
+					int randomIndex = random.nextInt(password_alphabet.length());
+					char randomChar = password_alphabet.charAt(randomIndex);
+					randomPassword.append(randomChar);
+				}
+				password = randomPassword.toString();
+
+				WriteCSV.CreateAutoAccounts(new_Name, password);
+				txt_username.setText(new_Name);
 				txt_password.setText(password);
 			}
 		});
