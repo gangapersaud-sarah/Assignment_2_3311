@@ -37,18 +37,9 @@ public class superManagerMainPage {
 		JButton btn_view_auto1 = new JButton("View auto accounts");
 		btn_view_auto1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//method called from System class that generates and returns
 				frame.setVisible(false);
-				EventQueue.invokeLater(new Runnable() {
-					public void run() {
-						try {
-							viewAutoAccount frame = new viewAutoAccount();
-							frame.setVisible(true);
-						} catch (Exception e) {
-							e.printStackTrace();
-						}
-					}
-				});
+				viewAutoAccount a2 = new viewAutoAccount();
+				a2.frame.setVisible(true);
 				
 			}
 		});

@@ -13,37 +13,30 @@ import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.SwingConstants;
 
-public class viewAutoAccount extends JFrame {
-
-	private JPanel contentPane;
-	private JTable table;
-	private JTextField textField;
+public class viewAutoAccount{
+	 JFrame frame = new JFrame();
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					viewAutoAccount frame = new viewAutoAccount();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+			viewAutoAccount s = new viewAutoAccount();
+			s.frame.setVisible(true);
 	}
 
 	/**
 	 * Create the frame.
 	 */
 	public viewAutoAccount() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 800, 600);
+		frame = new JFrame();
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setBounds(100, 100, 800, 600);
+		JPanel contentPane = new JPanel();
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
@@ -54,14 +47,14 @@ public class viewAutoAccount extends JFrame {
 		lblViewBooking.setBounds(39, 0, 701, 100);
 		contentPane.add(lblViewBooking);
 
-		setContentPane(contentPane);
+		frame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(63, 131, 650, 245);
 		contentPane.add(scrollPane);
 		
-		table = new JTable();
+		JTable table = new JTable();
 		DefaultTableModel tableModel = new DefaultTableModel(
 				new Object[][] {
 					
@@ -101,11 +94,17 @@ public class viewAutoAccount extends JFrame {
 		scrollPane.setViewportView(table);
 		table.setModel(tableModel);
 		
-		textField = new JTextField();
-		textField.setBackground(new Color(192, 192, 192));
-		textField.setBounds(0, 0, 800, 100);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		JButton button = new JButton("Return");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				frame.setVisible(false);
+				superManagerMainPage a2 = new superManagerMainPage();
+				a2.frame.setVisible(true);
+			}
+		});
+		
+		button.setBounds(10, 494, 124, 45);
+		contentPane.add(button);
 		table.getColumnModel().getColumn(4).setPreferredWidth(107);
 	}
 }
