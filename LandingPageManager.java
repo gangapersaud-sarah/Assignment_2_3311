@@ -1,4 +1,3 @@
-package YazanCode;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
@@ -18,8 +17,6 @@ import javax.swing.JTable;
 public class LandingPageManager {
 
 	public JFrame landingPageFrame;
-	private JTable ValidationTable;
-
 	/**
 	 * Launch the application.
 	 */
