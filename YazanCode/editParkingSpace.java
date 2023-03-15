@@ -97,10 +97,9 @@ public class editParkingSpace {
 				for (int i =0; i < rows.length; i++) {
 					if(rows[i] !=1) {
 						tableModel.setValueAt("enabled", rows[i], 1);
-						tableModel.fireTableCellUpdated(rows[i], 1);
 					}
 				}
-				
+                tableModel.fireTableDataChanged();
 			}
 		});
 		enableParkingSpace.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -116,9 +115,9 @@ public class editParkingSpace {
 				for (int i =0; i < rows.length; i++) {
 					if(rows[i] !=1) {
 						tableModel.setValueAt("disabled", rows[i], 1);
-						tableModel.fireTableDataChanged();
 					}
 				}
+                tableModel.fireTableDataChanged();
 			}
 		});
 		disableParkingSpace.setBorder(new LineBorder(new Color(0, 0, 0), 2));
