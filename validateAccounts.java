@@ -1,4 +1,3 @@
-package YazanCode;
 
 import java.awt.EventQueue;
 
@@ -87,6 +86,7 @@ public class validateAccounts {
 		validateAccounts.add(scrollPane);
 		
 		validateTable = new JTable();
+
 		String[][] random = {{"Yazan", "yazan@gmail.com", "idk", "Chad"},{"Mary", "Mary@gmail.com", "idek", "Chad"}, {"Sarah", "Sarah@gmail.com", "idkk", "Chad"}, {"Moh", "Moh@gmail.com", "idk", ":("}};
 		DefaultTableModel tableModel = new DefaultTableModel(
 			random,
