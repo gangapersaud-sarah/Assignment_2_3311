@@ -91,7 +91,7 @@ public class viewAutoAccount extends JFrame {
                 list[j] = returnList.get(i).get(j);
             }
 
-			if(list[5].equals(" Manager"))
+			if(list[1].equals(" null"))
 			{
 				tableModel.addRow(list);
 			}
