@@ -75,7 +75,8 @@ public class WriteCSV {
 		try {
 			
 			// create file writers
-			String filepath = "Clients.txt";
+			String filepath = "Clients.csv";
+			//original was String filepath = "Clients.txt"
 			FileWriter fw = new FileWriter(filepath , true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
