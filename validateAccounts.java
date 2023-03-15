@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
 public class validateAccounts {
@@ -86,10 +87,10 @@ public class validateAccounts {
 		validateAccounts.add(scrollPane);
 		
 		validateTable = new JTable();
-
-		String[][] random = {{"Yazan", "yazan@gmail.com", "idk", "Chad"},{"Mary", "Mary@gmail.com", "idek", "Chad"}, {"Sarah", "Sarah@gmail.com", "idkk", "Chad"}, {"Moh", "Moh@gmail.com", "idk", ":("}};
+		ArrayList<ArrayList<String>>  test = ReadCSV.findNotUserType("Visitor", "Clients.txt");
+		String[][] stringArray = test.stream().map(u -> u.toArray(new String[0])).toArray(String[][]::new);
 		DefaultTableModel tableModel = new DefaultTableModel(
-			random,
+			stringArray,
 			new String[] {
 				"Name", "Email", "Password", "ClientType"
 			}
