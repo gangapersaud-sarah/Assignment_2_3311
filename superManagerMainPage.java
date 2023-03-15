@@ -1,6 +1,6 @@
 
 import java.awt.Component;
-
+import java.awt.EventQueue;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -39,8 +39,16 @@ public class superManagerMainPage {
 			public void actionPerformed(ActionEvent e) {
 				//method called from System class that generates and returns
 				frame.setVisible(false);
-				viewAutoAccount b2 = new viewAutoAccount();
-				b2.frame.setVisible(true);
+				EventQueue.invokeLater(new Runnable() {
+					public void run() {
+						try {
+							viewAutoAccount frame = new viewAutoAccount();
+							frame.setVisible(true);
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+					}
+				});
 				
 			}
 		});
@@ -67,9 +75,7 @@ public class superManagerMainPage {
 		
 		JLabel lbl_title = new JLabel("Super Manager Main Page");
 		lbl_title.setBounds(144, 11, 214, 30);
-		frame.getContentPane().add(lbl_title);
-		
-		
+		frame.getContentPane().add(lbl_title);	
 		
     }
 

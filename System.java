@@ -7,6 +7,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 public class System {
+    public static Object out;
     JFrame frame = new JFrame();
     JTextField txt_username = new JTextField();
     JTextField txt_password = new JTextField();
