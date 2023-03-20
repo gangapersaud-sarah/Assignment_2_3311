@@ -69,7 +69,7 @@ public class System {
 		frame.getContentPane().add(lbl_username);
     }
 
-
+	// Can we have a validate-User-Type? Since a manager can add valid user types 
     // validate user email when user signs up
     public boolean authenticateEmail() {
         return true;

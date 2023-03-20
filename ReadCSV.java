@@ -251,9 +251,7 @@ public class ReadCSV {
 		return returnList;
 	}
 	
-	
-	
-public static ArrayList<ArrayList<String>> allBookings(String filepath) {
+	public static ArrayList<ArrayList<String>> allBookings(String filepath) {
 	
 		
 		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
@@ -304,4 +302,76 @@ public static ArrayList<ArrayList<String>> allBookings(String filepath) {
 		}
 		return returnList;
 	}
+
+
+	public static String[] allParkingLots(){
+	String parkingLot = "";
+	ArrayList<String> returnList = new ArrayList<String>();
+	try {
+		
+		// create reading tools, x is the file
+		x = new Scanner(new File("Parking.txt"));
+		// Separate values in x using "," and "\n"
+		x.useDelimiter("[,\n]");
+
+
+		String prev = "";
+		// Return List
+		while (x.hasNext()) {
+			//Get next Character.
+			parkingLot = x.nextLine();
+			//JOptionPane.showMessageDialog(null, parkingLot);
+			parkingLot = parkingLot.substring(0, 1);
+			//JOptionPane.showMessageDialog(null, parkingLot);
+			//Check if it's a unique name
+			if (!parkingLot.equals(prev)){
+				//add parking lot name to list and update prev
+				returnList.add("Parking Lot " + parkingLot);
+				prev = parkingLot;
+			}			
+		}
+		
+	}
+	catch (Exception e){
+		
+	}
+	//return list as String array
+	return returnList.toArray(new String[0]);
+}
+
+public static String[] allParking(){
+	String parking = "";
+	ArrayList<String> returnList = new ArrayList<String>();
+	try {
+		
+		// create reading tools, x is the file
+		x = new Scanner(new File("Parking.txt"));
+		// Separate values in x using "," and "\n"
+		x.useDelimiter("[,\n]");
+
+
+		String prev = "";
+		// Return List
+		while (x.hasNext()) {
+			//Get next Character.
+			parking = x.nextLine();
+
+			//parking = A,1
+			//String[] split = parking.split(",");
+			parking = parking.substring(0, 1);
+			//Check if it's a unique name
+			if (!parking.equals(prev)){
+				//add parking lot name to list and update prev
+				returnList.add("Parking Lot " + parking);
+				prev = parking;
+			}			
+		}
+		
+	}
+	catch (Exception e){
+		
+	}
+	//return list as String array
+	return returnList.toArray(new String[0]);
+}
 }

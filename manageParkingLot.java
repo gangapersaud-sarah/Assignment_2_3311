@@ -11,6 +11,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
@@ -90,10 +91,12 @@ public class manageParkingLot {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(0, 110, 294, 422);
 		manageParkingLot.add(scrollPane_1);
+		ArrayList<ArrayList<String>> temp = ReadCSV.allParking();
+		String[] parkingLots = ReadCSV.allParkingLots();
 		
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
-			String[] values = new String[] {"Parking Lot A", "Parking Lot B", "Parking Lot C"};
+			String[] values = parkingLots;
 			public int getSize() {
 				return values.length;
 			}
