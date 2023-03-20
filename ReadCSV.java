@@ -343,30 +343,15 @@ public static String[] allParking(){
 	String parking = "";
 	ArrayList<String> returnList = new ArrayList<String>();
 	try {
-		
 		// create reading tools, x is the file
 		x = new Scanner(new File("Parking.txt"));
 		// Separate values in x using "," and "\n"
 		x.useDelimiter("[,\n]");
-
-
-		String prev = "";
-		// Return List
-		while (x.hasNext()) {
-			//Get next Character.
+		while(x.hasNext()){
 			parking = x.nextLine();
-
-			//parking = A,1
-			//String[] split = parking.split(",");
-			parking = parking.substring(0, 1);
-			//Check if it's a unique name
-			if (!parking.equals(prev)){
-				//add parking lot name to list and update prev
-				returnList.add("Parking Lot " + parking);
-				prev = parking;
-			}			
+			returnList.add(parking);
 		}
-		
+
 	}
 	catch (Exception e){
 		

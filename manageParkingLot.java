@@ -12,6 +12,8 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Hashtable;
 
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
@@ -91,12 +93,16 @@ public class manageParkingLot {
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(0, 110, 294, 422);
 		manageParkingLot.add(scrollPane_1);
-		ArrayList<ArrayList<String>> temp = ReadCSV.allParking();
-		String[] parkingLots = ReadCSV.allParkingLots();
-		
+
+		String[] parking = ReadCSV.allParking();
+		Hashtable<String, Integer> parkingInfo = new Hashtable<String, Integer>();
+		//A,3
+		for(int i = 0; i < parking.length; i++){
+			parkingInfo.put("Parking Lot " + parking[i].substring(0,1), Integer.valueOf(parking[i].substring(parking[i].length() - 1)));
+		}
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
-			String[] values = parkingLots;
+			String[] values = parkingInfo.keySet().toArray(new String[0]);
 			public int getSize() {
 				return values.length;
 			}
