@@ -27,9 +27,10 @@ public class WriteCSV {
 		
 		// apply the functions (testing)
 		// comment out funstions when not testing the specific function
-		saveClient(username, first, last, email, pwd, type);
-		CreateAutoAccounts(username, pwd);
-		CreateBooking(username, lp, pl, ps, date, time, duration);
+		//saveClient(username, first, last, email, pwd, type);
+		//CreateAutoAccounts(username, pwd);
+		//CreateBooking(username, lp, pl, ps, date, time, duration);
+		addDisabled("A", 1);
 	}
 
 	
@@ -52,14 +53,14 @@ public class WriteCSV {
 			PrintWriter pw = new PrintWriter(bw);
 			
 			// what to write in file
-			pw.print(username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type);
+			pw.println(username + "," + first + "," + last + "," + email + "," + pwd + "," + type);
 			
 			//push and close file
 			pw.flush();
 			pw.close();
 			
 			// update user if writing is successful
-			//JOptionPane.showMessageDialog(null, "User Registered");
+			JOptionPane.showMessageDialog(null, "User Registered");
 		}
 		catch (Exception e){
 			JOptionPane.showMessageDialog(null, "User not Registered, there has been a problem with our system please try again");
@@ -75,14 +76,13 @@ public class WriteCSV {
 		try {
 			
 			// create file writers
-			String filepath = "Clients.csv";
-			//original was String filepath = "Clients.txt"
+			String filepath = "Clients.txt";
 			FileWriter fw = new FileWriter(filepath , true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
 			
 			// what to write in file
-			pw.println(username + ", " + null + ", " + null + ", " + null + ", " + pwd + ", " + "Manager");
+			pw.println(username + "," + null + "," + null + "," + null + "," + pwd + "," + "Manager");
 			
 			//push and close file
 			pw.flush();
@@ -116,7 +116,7 @@ public class WriteCSV {
 			PrintWriter pw = new PrintWriter(bw);
 			
 			// what to write in file
-			pw.println(username + ", " + lp + ", " + pl + ", " + ps + ", " + date + ", " + time + ", " + duration);
+			pw.println(username + "," + lp + "," + pl + "," + ps + "," + date + "," + time + "," + duration);
 			
 			//push and close file
 			pw.flush();
@@ -125,6 +125,30 @@ public class WriteCSV {
 			// update user if writing is successful
 			JOptionPane.showMessageDialog(null, "Booking Created for " + username + " at parking Lot " + pl + " parking space " + ps +
 					" from " + time + " to " + duration);
+		}
+		catch (Exception e){
+			JOptionPane.showMessageDialog(null, "Booking not Created, there has been a problem with our system please try again");
+		}
+	}
+	
+	public static void addDisabled(String pl, int ps) {
+		try {
+			
+			// create file writers
+			String filepath = "Parking.txt";
+			FileWriter fw = new FileWriter(filepath , true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			// what to write in file
+			pw.println(pl + "," + ps);
+			
+			//push and close file
+			pw.flush();
+			pw.close();
+			
+			// update user if writing is successful
+			JOptionPane.showMessageDialog(null, pl + "," + ps);
 		}
 		catch (Exception e){
 			JOptionPane.showMessageDialog(null, "Booking not Created, there has been a problem with our system please try again");
