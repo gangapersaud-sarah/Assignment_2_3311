@@ -87,17 +87,18 @@ public class validateAccounts {
 		validateAccounts.add(scrollPane);
 		
 		validateTable = new JTable();
-		ArrayList<ArrayList<String>>  test = ReadCSV.findNotUserType("Visitor", "Clients.txt");
+		ArrayList<ArrayList<String>>  test = ReadCSV.allUsers("validatingClients.txt");
 		String[][] stringArray = test.stream().map(u -> u.toArray(new String[0])).toArray(String[][]::new);
+
 		DefaultTableModel tableModel = new DefaultTableModel(
 			stringArray,
 			new String[] {
-				"Name", "Email", "Password", "ClientType"
+				"Username", "First Name", "Last Name" , "Email", "Password", "Client-Type"
 			}
 		)
 		{
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, String.class
+				String.class, String.class, String.class, String.class, String.class, String.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -115,12 +116,36 @@ public class validateAccounts {
 		acceptButton.setBorder(new LineBorder(new Color(0, 0, 0)));
 		acceptButton.setBounds(720, 124, 66, 204);
 		validateAccounts.add(acceptButton);
-		
+		//String username, String first, String last, String email, String pwd, String type
+		acceptButton.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				int row = validateTable.getSelectedRow();
+				while(row != -1){
+					WriteCSV.saveClient(tableModel.getValueAt(row, 0).toString(), tableModel.getValueAt(row, 1).toString(), tableModel.getValueAt(row, 2).toString(), tableModel.getValueAt(row, 3).toString(), tableModel.getValueAt(row, 4).toString(), tableModel.getValueAt(row, 5).toString());
+					tableModel.removeRow(row);
+					row = validateTable.getSelectedRow();
+				}
+                tableModel.fireTableDataChanged();
+			}
+		});
+
 		JButton declineButton = new JButton("DECLINE");
 		declineButton.setBackground(new Color(204, 204, 153));
 		declineButton.setBorder(new LineBorder(new Color(0, 0, 0)));
 		declineButton.setBounds(720, 329, 66, 204);
 		validateAccounts.add(declineButton);
+
+		declineButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				int row = validateTable.getSelectedRow();
+				while(row != -1){
+					tableModel.removeRow(row);
+					row = validateTable.getSelectedRow();
+				}
+                tableModel.fireTableDataChanged();
+			}
+		});
+
 	}
 
 	public void setVisible(boolean b) {

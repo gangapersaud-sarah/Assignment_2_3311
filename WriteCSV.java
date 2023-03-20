@@ -59,7 +59,7 @@ public class WriteCSV {
 			pw.close();
 			
 			// update user if writing is successful
-			JOptionPane.showMessageDialog(null, "User Registered");
+			//JOptionPane.showMessageDialog(null, "User Registered");
 		}
 		catch (Exception e){
 			JOptionPane.showMessageDialog(null, "User not Registered, there has been a problem with our system please try again");
