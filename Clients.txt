@@ -1,7 +1,1 @@
-HappyBuddy, Mary, Nguyen, Mary@gmail.com, 1234, Student
-HappyBuddy, null, null, null, 1234, Manager
-2uugbn2egv, null, null, null, RofeCUTCgv, Manager
-h4hvqr41dj, null, null, null, Bl%92IaCR8, Manager
-6fbl67p19h, null, null, null, wKr9J^y%7B, Manager
-scko6240an, null, null, null, XkqzdCGNvt, Manager
-2uugbn2egv, null, null, null, RofeCUTCgv, Visitor
+HappyBuddy,  Mary,  Nguyen,  Mary@gmail.com,  1234,  StudentHappyBuddy,  null,  null,  null,  1234,  Manager2uugbn2egv,  null,  null,  null,  RofeCUTCgv,  Managerh4hvqr41dj,  null,  null,  null,  Bl%92IaCR8,  Staff6fbl67p19h,  null,  null,  null,  wKr9J^y%7B,  Manager

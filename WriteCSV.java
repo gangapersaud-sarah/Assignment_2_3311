@@ -52,7 +52,7 @@ public class WriteCSV {
 			PrintWriter pw = new PrintWriter(bw);
 			
 			// what to write in file
-			pw.println(username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type);
+			pw.print(username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type);
 			
 			//push and close file
 			pw.flush();
