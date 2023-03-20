@@ -323,4 +323,68 @@ public static String[] allParking(){
 	//return list as String array
 	return returnList.toArray(new String[0]);
 }
+
+public static String[] allParkingLots(){
+	String parkingLot = "";
+	String parkingSpace = "";
+	ArrayList<String> returnList = new ArrayList<String>();
+	try {
+		
+		// create reading tools, x is the file
+		x = new Scanner(new File("Parking.txt"));
+		// Separate values in x using "," and "\n"
+		x.useDelimiter("[,\n]");
+
+		// Return List
+		while (x.hasNext()) {
+			//Get next Character.
+			parkingLot = x.next();
+			parkingSpace = x.next();
+			//parking = A,1
+			//Check if it's a unique name
+			if (!returnList.contains("Parking Lot " + parkingLot)){
+				//add parking lot name to list and update prev
+				returnList.add("Parking Lot " + parkingLot);
+			}			
+		}
+		
+	}
+catch (Exception e){
+	
+}
+//return list as String array
+return returnList.toArray(new String[0]);
+}
+
+public static String[] allParkingSpaces(){
+String parkingLot = "";
+String parkingSpace = "";
+ArrayList<String> returnList = new ArrayList<String>();
+try {
+	
+	// create reading tools, x is the file
+	x = new Scanner(new File("Parking.txt"));
+	// Separate values in x using "," and "\n"
+	x.useDelimiter("[,\n]");
+
+	// Return List
+	while (x.hasNext()) {
+		//Get next Character.
+		parkingLot = x.next();
+		parkingSpace = x.next();
+		//parking = A,1
+		//Check if it's a unique name
+		if (!returnList.contains(parkingSpace)){
+			//add parking lot name to list and update prev
+			returnList.add("Parking Space " + parkingSpace);
+		}			
+	}
+	
+}
+catch (Exception e){
+	
+}
+//return list as String array
+return returnList.toArray(new String[0]);
+}
 }
