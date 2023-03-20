@@ -304,41 +304,8 @@ public class ReadCSV {
 	}
 
 
-	public static String[] allParkingLots(){
-		String parkingLot = "";
-		String parkingSpace = "";
-		ArrayList<String> returnList = new ArrayList<String>();
-		try {
-			
-			// create reading tools, x is the file
-			x = new Scanner(new File("Parking.txt"));
-			// Separate values in x using "," and "\n"
-			x.useDelimiter("[,\n]");
+public static String[] allParking(){
 
-			// Return List
-			while (x.hasNext()) {
-				//Get next Character.
-				parkingLot = x.next();
-				parkingSpace = x.next();
-				//parking = A,1
-				//Check if it's a unique name
-				if (!returnList.contains("Parking Lot " + parkingLot)){
-					//add parking lot name to list and update prev
-					returnList.add("Parking Lot " + parkingLot);
-				}			
-			}
-			
-		}
-	catch (Exception e){
-		
-	}
-	//return list as String array
-	return returnList.toArray(new String[0]);
-}
-
-public static String[] allParkingSpaces(){
-	String parkingLot = "";
-	String parkingSpace = "";
 	ArrayList<String> returnList = new ArrayList<String>();
 	try {
 		// create reading tools, x is the file
@@ -346,8 +313,7 @@ public static String[] allParkingSpaces(){
 		// Separate values in x using "," and "\n"
 		x.useDelimiter("[,\n]");
 		while(x.hasNext()){
-			parking = x.nextLine();
-			returnList.add(parking);
+			returnList.add(x.nextLine());
 		}
 
 	}
