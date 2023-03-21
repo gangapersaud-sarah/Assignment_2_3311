@@ -414,4 +414,22 @@ public class ReadCSV {
 		//return list as String array
 		return returnList.toArray(new String[0]);
 	}
+
+	public static String[] allParking(){
+		ArrayList<String> returnList = new ArrayList<String>();
+	try {
+		// create reading tools, x is the file
+		x = new Scanner(new File("Parking.txt"));
+		// Separate values in x using "," and "\n"
+		x.useDelimiter("[,\n]");
+		while(x.hasNext()){
+			returnList.add(x.nextLine());
+		}
+	}
+	catch (Exception e){
+		
+	}
+	return returnList.toArray(new String[0]);
+}
+	
 }
