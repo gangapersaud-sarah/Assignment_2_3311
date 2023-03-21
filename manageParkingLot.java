@@ -14,11 +14,13 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Hashtable;
+import java.util.Map.Entry;
 
 import javax.swing.JEditorPane;
 import javax.swing.JScrollPane;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.AbstractListModel;
@@ -97,8 +99,11 @@ public class manageParkingLot {
 		String[] parking = ReadCSV.allParking();
 		Hashtable<String, Integer> parkingInfo = new Hashtable<String, Integer>();
 		//A,3
+		String[] temp = new String[2];
 		for(int i = 0; i < parking.length; i++){
-			parkingInfo.put("Parking Lot " + parking[i].substring(0,1), Integer.valueOf(parking[i].substring(parking[i].length() - 1)));
+			temp = parking[i].split(",");
+			parkingInfo.put("Parking Lot " + temp[0], Integer.valueOf(temp[1]));
+			//parkingInfo.put("Parking Lot " + parking[i].substring(0,1), Integer.valueOf(parking[i].substring(parking[i].length() - 1)));
 		}
 		JList list = new JList();
 		list.setModel(new AbstractListModel() {
@@ -117,11 +122,20 @@ public class manageParkingLot {
             public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
                  Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
                  //CHANGE TO ENABLE/DISABLE
-                      if (index %2 == 0 ) {
-                           setBackground(Color.GREEN);
+                      if (parkingInfo.values().contains(-1)){
+						for(Entry<String, Integer> entry: parkingInfo.entrySet()){
+							if(entry.getValue() == -1){
+								if(entry.){
+
+								}
+								String key = entry.getKey();
+								setBackground(Color.RED);
+							}
+						}
                       } 
                       else{
-                           setBackground(Color.RED);
+						   JOptionPane.showMessageDialog(null,parkingInfo.get("Parking Lot E"));
+                           setBackground(Color.GREEN);
                       }
                       if (isSelected) {
                            setBackground(getBackground().darker());
