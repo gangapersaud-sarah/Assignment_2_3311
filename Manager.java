@@ -1,6 +1,11 @@
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
@@ -50,9 +55,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.border.LineBorder;
 
-public class Manager {
+public class Manager extends JFrame {
 
-	JFrame frame;
+	private JPanel contentPane;
 	private JTable ValidationTable;
 
 	/**
@@ -62,8 +67,8 @@ public class Manager {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Manager window = new Manager();
-					window.frame.setVisible(true);
+					Manager frame = new Manager();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -72,22 +77,21 @@ public class Manager {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public Manager() {
-		initialize();
-	}
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 570);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.WHITE);
-		frame.getContentPane().setLayout(new CardLayout(0, 0));
+		setContentPane(contentPane);
+		
+		contentPane.setBackground(Color.WHITE);
+		contentPane.setLayout(new CardLayout(0, 0));
 		
 		JPanel landingPage = new JPanel();
-		frame.getContentPane().add(landingPage, "landingPage");
+		contentPane.add(landingPage, "landingPage");
 		landingPage.setLayout(null);
 		
 		JButton manageParkingButton = new JButton("MANAGE PARKING");
@@ -136,7 +140,7 @@ public class Manager {
 		
 		JPanel validateAccounts = new JPanel();
 		validateAccounts.setBackground(new Color(255, 255, 255));
-		frame.getContentPane().add(validateAccounts, "validateAccountsPage");
+		contentPane.add(validateAccounts, "validateAccountsPage");
 		validateAccounts.setLayout(null);
 		
 		JButton backButtonVal = new JButton("Back");
@@ -220,7 +224,7 @@ public class Manager {
 		
 		JPanel manageParkingLot = new JPanel();
 		manageParkingLot.setBackground(Color.WHITE);
-		frame.getContentPane().add(manageParkingLot, "manageParkingPage");
+		contentPane.add(manageParkingLot, "manageParkingPage");
 		manageParkingLot.setLayout(null);
 		
 		JLabel parkingLotLabel = new JLabel("Choose a Parking Lot");
@@ -296,7 +300,7 @@ public class Manager {
 				popframe.getContentPane().setLayout(new CardLayout(0, 0));
 				
 				JPanel popPanel = new JPanel();
-				frame.getContentPane().add(popPanel);
+				contentPane.add(popPanel);
 				popPanel.setLayout(null);
 			}
 		});
@@ -310,35 +314,32 @@ public class Manager {
 		editParkingLotButton.setBackground(new Color(204, 204, 153));
 		editParkingLotButton.setBounds(354, 340, 345, 75);
 		manageParkingLot.add(editParkingLotButton);
-		frame.setBounds(100, 100, 800, 570);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
-		
+		contentPane.setBounds(100, 100, 800, 570);
 		
 		
 		// BUTTON LISTENERS
-		manageParkingButton.addActionListener(new ActionListener() {
+		manageParkingButton.addActionListener(new ActionListener()  {
 			public void actionPerformed(ActionEvent e) {
-				frame.getContentPane().remove(landingPage);
-				frame.getContentPane().remove(validateAccounts);
-				frame.getContentPane().add(manageParkingLot);
+				contentPane.remove(landingPage);
+				contentPane.remove(validateAccounts);
+				contentPane.add(manageParkingLot);
 			}
 		});
 		
 		
 		backButtonVal.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.getContentPane().remove(validateAccounts);
+				contentPane.remove(validateAccounts);
 				//frame.getContentPane().remove(manageParking);
-				frame.getContentPane().add(landingPage);
+				contentPane.add(landingPage);
 			}
 		});
 		
 		ValidateButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.getContentPane().remove(landingPage);
-				frame.getContentPane().remove(manageParkingLot);
-				frame.getContentPane().add(validateAccounts);
+				contentPane.remove(landingPage);
+				contentPane.remove(manageParkingLot);
+				contentPane.add(validateAccounts);
 			}
 		});
 	}

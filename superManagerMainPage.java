@@ -1,33 +1,56 @@
+import java.awt.EventQueue;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
 import java.awt.Component;
 import java.awt.EventQueue;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
-import javax.swing.JPanel;
 
-public class superManagerMainPage {
-    JFrame frame = new JFrame();
+public class superManagerMainPage extends JFrame {
+
+	private JPanel contentPane;
     JTextField txt_username = new JTextField();
     JTextField txt_password = new JTextField();
     JLabel lblNewLabel = new JLabel("");
     JButton btnNewButton = new JButton("Enter");
 
-    public superManagerMainPage() {
-        
-        frame = new JFrame();
-		frame.setBounds(100, 100, 451, 301);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					superManagerMainPage frame = new superManagerMainPage();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public superManagerMainPage() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 300);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+
+		setContentPane(contentPane);
 		
 		JButton btn_create_auto = new JButton("Create Auto Account");
 		btn_create_auto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//method called from System class that generates and returns
-				frame.setVisible(false);
+				contentPane.setVisible(false);
 				createAutoAccount a2 = new createAutoAccount();
 				a2.frame.setVisible(true);
 				
@@ -37,7 +60,7 @@ public class superManagerMainPage {
 		JButton btn_view_auto1 = new JButton("View auto accounts");
 		btn_view_auto1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
+				contentPane.setVisible(false);
 				viewAutoAccount a2 = new viewAutoAccount();
 				a2.frame.setVisible(true);
 				
@@ -48,7 +71,7 @@ public class superManagerMainPage {
 		btn_return.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//method called from System class that generates and returns
-				frame.setVisible(false);
+				contentPane.setVisible(false);
 				manager_medium c2 = new manager_medium();
 				c2.frame.setVisible(true);
 				
@@ -56,17 +79,17 @@ public class superManagerMainPage {
 		});
 		
 		btn_create_auto.setBounds(34, 108, 149, 21);
-		frame.getContentPane().add(btn_create_auto);
+		contentPane.add(btn_create_auto);
 		
 		btn_view_auto1.setBounds(246, 107, 149, 22);
-		frame.getContentPane().add(btn_view_auto1);
+		contentPane.add(btn_view_auto1);
 		
 		btn_return.setBounds(10, 228, 89, 23);
-		frame.getContentPane().add(btn_return);
+		contentPane.add(btn_return);
 		
 		JLabel lbl_title = new JLabel("Super Manager Main Page");
 		lbl_title.setBounds(144, 11, 214, 30);
-		frame.getContentPane().add(lbl_title);	
+		contentPane.add(lbl_title);	
 		
     }
 
@@ -79,10 +102,5 @@ public class superManagerMainPage {
     // validate user password when user signs up
     public boolean authenticatePassword() {
         return true;
-    }
-
-    public static void main(String args[]) {
-        superManagerMainPage s = new superManagerMainPage();
-        s.frame.setVisible(true);
     }
 }

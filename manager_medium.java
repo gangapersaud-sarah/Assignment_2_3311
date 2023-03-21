@@ -27,7 +27,7 @@ public class manager_medium {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				superManagerMainPage a2 = new superManagerMainPage();
-				a2.frame.setVisible(true);
+				a2.setVisible(true);
 			}
 		});
 		
@@ -36,7 +36,7 @@ public class manager_medium {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				Manager b2 = new Manager();
-				b2.frame.setVisible(true);
+				b2.setVisible(true);
 			}
 		});
 		

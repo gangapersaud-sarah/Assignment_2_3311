@@ -99,7 +99,7 @@ public class viewAutoAccount{
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
 				superManagerMainPage a2 = new superManagerMainPage();
-				a2.frame.setVisible(true);
+				a2.setVisible(true);
 			}
 		});
 		
