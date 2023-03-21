@@ -125,7 +125,7 @@ public class manageParkingLot {
                       if (parkingInfo.values().contains(-1)){
 						for(Entry<String, Integer> entry: parkingInfo.entrySet()){
 							if(entry.getValue() == -1){
-								if(entry.){
+								if(){
 
 								}
 								String key = entry.getKey();
