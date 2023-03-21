@@ -2,6 +2,7 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import javax.swing.JLabel;
 import java.awt.Font;
@@ -29,11 +30,6 @@ public class System {
 		txt_password.setBounds(321, 281, 410, 50);
 		frame.getContentPane().add(txt_password);
 		
-		JLabel lbl_response = new JLabel("");
-		lbl_response.setBounds(129, 164, 165, 42);
-		lbl_response.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		frame.getContentPane().add(lbl_response);
-		
 		JButton btn_SignUp = new JButton("Sign Up");
 		btn_SignUp.setFont(new Font("Tahoma", Font.PLAIN, 25));
 		btn_SignUp.setBounds(97, 415, 250, 70);
@@ -52,7 +48,28 @@ public class System {
 			public void actionPerformed(ActionEvent e) {
 				String userName = txt_username.getText();
 				String password = txt_password.getText();
-				lbl_response.setText(userName + " " + password);
+				ArrayList<String> returnList = new ArrayList<String>();
+				returnList = ReadCSV.findUserName(userName, "Clients.txt");
+				if(returnList.get(4).equals(password)) {
+					if(returnList.get(5).equals("Student") || returnList.get(5).equals("Faculty") || returnList.get(5).equals("non-Faculty") || returnList.get(5).equals("Visitor")) {
+						ClientWindow newFrame = new ClientWindow();
+						newFrame.setUsername(userName);
+						newFrame.setType(returnList.get(5));
+						newFrame.setAmountDue(Integer.valueOf(returnList.get(6)));
+						newFrame.setVisible(true);
+						frame.setVisible(false);
+					}
+					else if(returnList.get(5).equals("Manager")) {
+						Manager newFrame = new Manager();
+						newFrame.setVisible(true);
+						frame.setVisible(false);
+					}
+					else if(returnList.get(5).equals("Super-Manager")) {
+						superManagerMainPage newFrame = new superManagerMainPage();
+						newFrame.setVisible(true);
+						frame.setVisible(false);
+					}
+				}
 			}
 		});
 		btn_LogIn.setBounds(421, 415, 250, 70);

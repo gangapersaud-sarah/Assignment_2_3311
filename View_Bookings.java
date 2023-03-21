@@ -21,7 +21,9 @@ public class View_Bookings extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private JTextField textField;
-
+	public String username = "";
+	public String type = "";
+	public int amountDue = -1;
 	/**
 	 * Launch the application.
 	 */
@@ -120,5 +122,15 @@ public class View_Bookings extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		table.getColumnModel().getColumn(4).setPreferredWidth(107);
+	}
+	
+	public void setUsername(String s) {
+		username = s;
+	}
+	public void setType(String s) {
+		type = s;
+	}
+	public void setAmountDue(int s) {
+		amountDue = s;
 	}
 }

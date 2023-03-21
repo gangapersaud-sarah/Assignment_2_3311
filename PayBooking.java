@@ -13,7 +13,9 @@ import javax.swing.border.EmptyBorder;
 public class PayBooking extends JFrame {
 
 	private JPanel contentPane;
-
+	public String username = "";
+	public String type = "";
+	public int amountDue = -1;
 	/**
 	 * Launch the application.
 	 */
@@ -83,6 +85,16 @@ public class PayBooking extends JFrame {
 		label_3.setFont(new Font("Tahoma", Font.BOLD, 20));
 		label_3.setBounds(298, 130, 216, 48);
 		contentPane.add(label_3);
+	}
+	
+	public void setUsername(String s) {
+		username = s;
+	}
+	public void setType(String s) {
+		type = s;
+	}
+	public void setAmountDue(int s) {
+		amountDue = s;
 	}
 
 }

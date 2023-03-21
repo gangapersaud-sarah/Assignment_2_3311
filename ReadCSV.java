@@ -14,9 +14,13 @@ public class ReadCSV {
 		String username = "HappyBuddy88";
 		String type = "Manager";
 		
-		findUserName(username, filepath);
-		findUserType(type, filepath);
+		//findUserName(username, filepath);
+		//findUserType(type, filepath);
 		//allUsers(filepath);
+//		String[] list = parkingSpacesOfLot("A");
+//		for(int i = 0; i < list.length; i++) {
+//			System.out.println(list[i]);
+//		}
 	}
 
 	
@@ -36,6 +40,7 @@ public class ReadCSV {
 		String email = "";
 		String pwd = "";
 		String type = "";
+		String amount = "";
 		
 		try {
 			
@@ -53,6 +58,7 @@ public class ReadCSV {
 				email = x.next();
 				pwd = x.next();
 				type = x.next();
+				amount = x.next();
 				
 				// when user is found (unique usernames)
 				if(username.equals(findUsername)) {
@@ -65,11 +71,12 @@ public class ReadCSV {
 					returnList.add(email);
 					returnList.add(pwd);
 					returnList.add(type);
+					returnList.add(amount);
 				}
 			}
 			
 			if(found) {
-				JOptionPane.showMessageDialog(null, username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type);
+				JOptionPane.showMessageDialog(null, username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type + ", " + amount);
 			}
 		}
 		catch (Exception e){
@@ -93,6 +100,7 @@ public class ReadCSV {
 		String email = "";
 		String pwd = "";
 		String type = "";
+		String amount = "";
 		
 		try {
 			
@@ -110,6 +118,7 @@ public class ReadCSV {
 				email = x.next();
 				pwd = x.next();
 				type = x.next();
+				amount = x.next();
 				
 				// when user is found (unique usernames)
 				if(type.equals(findtype)) {
@@ -121,10 +130,11 @@ public class ReadCSV {
 					list.add(email);
 					list.add(pwd);
 					list.add(type);
+					list.add(amount);
 					
 					returnList.add(list);
 					
-					JOptionPane.showMessageDialog(null, username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type);
+					JOptionPane.showMessageDialog(null, username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type + ", " + amount);
 
 				}
 			}
@@ -212,6 +222,7 @@ public class ReadCSV {
 		String email = "";
 		String pwd = "";
 		String type = "";
+		String amount = "";
 		
 		try {
 			
@@ -229,6 +240,7 @@ public class ReadCSV {
 				email = x.next();
 				pwd = x.next();
 				type = x.next();
+				amount = x.next();
 				
 				ArrayList<String> list = new ArrayList<String>();
 				// add the user details to the array
@@ -238,9 +250,12 @@ public class ReadCSV {
 				list.add(email);
 				list.add(pwd);
 				list.add(type);
+				list.add(amount);
 				
 				// add the user (array list of details) to the arraylist of users
 				returnList.add(list);
+				JOptionPane.showMessageDialog(null, username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type + ", " + amount);
+
 				
 			}
 			
@@ -304,19 +319,31 @@ public class ReadCSV {
 	}
 
 
-public static String[] allParking(){
+	public static String[] allParkingLots(){
+		String parkingLot = "";
+		String parkingSpace = "";
+		ArrayList<String> returnList = new ArrayList<String>();
+		try {
+			
+			// create reading tools, x is the file
+			x = new Scanner(new File("Parking.txt"));
+			// Separate values in x using "," and "\n"
+			x.useDelimiter("[,\n]");
 
-	ArrayList<String> returnList = new ArrayList<String>();
-	try {
-		// create reading tools, x is the file
-		x = new Scanner(new File("Parking.txt"));
-		// Separate values in x using "," and "\n"
-		x.useDelimiter("[,\n]");
-		while(x.hasNext()){
-			returnList.add(x.nextLine());
+			// Return List
+			while (x.hasNext()) {
+				//Get next Character.
+				parkingLot = x.next();
+				parkingSpace = x.next();
+				//parking = A,1
+				//Check if it's a unique name
+				if (!returnList.contains(parkingLot)){
+					//add parking lot name to list and update prev
+					returnList.add(parkingLot);
+				}			
+			}
+			
 		}
-
-	}
 	catch (Exception e){
 		
 	}
@@ -324,67 +351,67 @@ public static String[] allParking(){
 	return returnList.toArray(new String[0]);
 }
 
-public static String[] allParkingLots(){
-	String parkingLot = "";
-	String parkingSpace = "";
-	ArrayList<String> returnList = new ArrayList<String>();
-	try {
-		
-		// create reading tools, x is the file
-		x = new Scanner(new File("Parking.txt"));
-		// Separate values in x using "," and "\n"
-		x.useDelimiter("[,\n]");
-
-		// Return List
-		while (x.hasNext()) {
-			//Get next Character.
-			parkingLot = x.next();
-			parkingSpace = x.next();
-			//parking = A,1
-			//Check if it's a unique name
-			if (!returnList.contains("Parking Lot " + parkingLot)){
-				//add parking lot name to list and update prev
-				returnList.add("Parking Lot " + parkingLot);
-			}			
+	public static String[] allParkingSpaces(){
+		String parkingLot = "";
+		String parkingSpace = "";
+		ArrayList<String> returnList = new ArrayList<String>();
+		try {
+			
+			// create reading tools, x is the file
+			x = new Scanner(new File("Parking.txt"));
+			// Separate values in x using "," and "\n"
+			x.useDelimiter("[,\n]");
+	
+			// Return List
+			while (x.hasNext()) {
+				//Get next Character.
+				parkingLot = x.next();
+				parkingSpace = x.next();
+				//parking = A,1
+				//Check if it's a unique name
+				if (!returnList.contains(parkingSpace)){
+					//add parking lot name to list and update prev
+					returnList.add(parkingSpace);
+				}			
+			}
+			
 		}
-		
-	}
-catch (Exception e){
-	
-}
-//return list as String array
-return returnList.toArray(new String[0]);
-}
-
-public static String[] allParkingSpaces(){
-String parkingLot = "";
-String parkingSpace = "";
-ArrayList<String> returnList = new ArrayList<String>();
-try {
-	
-	// create reading tools, x is the file
-	x = new Scanner(new File("Parking.txt"));
-	// Separate values in x using "," and "\n"
-	x.useDelimiter("[,\n]");
-
-	// Return List
-	while (x.hasNext()) {
-		//Get next Character.
-		parkingLot = x.next();
-		parkingSpace = x.next();
-		//parking = A,1
-		//Check if it's a unique name
-		if (!returnList.contains(parkingSpace)){
-			//add parking lot name to list and update prev
-			returnList.add("Parking Space " + parkingSpace);
-		}			
+		catch (Exception e){
+			
+		}
+		//return list as String array
+		return returnList.toArray(new String[0]);
 	}
 	
-}
-catch (Exception e){
+	public static String[] parkingSpacesOfLot(String a){
+		String parkingLot = "";
+		String parkingSpace = "";
+		ArrayList<String> returnList = new ArrayList<String>();
+		try {
+			
+			// create reading tools, x is the file
+			x = new Scanner(new File("Parking.txt"));
+			// Separate values in x using "," and "\n"
+			x.useDelimiter("[,\n]");
 	
-}
-//return list as String array
-return returnList.toArray(new String[0]);
-}
+			// Return List
+			while (x.hasNext()) {
+				//Get next Character.
+				parkingLot = x.next();
+				parkingSpace = x.next();
+				//parking = A,1
+				//Check if it's a unique name
+				if (!returnList.contains(parkingSpace) && parkingLot.equals(a)){
+					//add parking lot name to list and update prev
+					returnList.add(parkingSpace);
+				}			
+			}
+			
+		}
+		catch (Exception e){
+			
+		}
+		//return list as String array
+		return returnList.toArray(new String[0]);
+	}
 }

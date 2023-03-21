@@ -43,7 +43,7 @@ public class WriteCSV {
 	 * @param pwd = password
 	 * @param type = type of user (eg. student, faculty, managers, super-managers...)
 	 */
-	public static void saveClient(String username, String first, String last, String email, String pwd, String type) {
+	public static void saveClient(String username, String first, String last, String email, String pwd, String type, int amount) {
 		try {
 			
 			// create file writers
@@ -53,7 +53,7 @@ public class WriteCSV {
 			PrintWriter pw = new PrintWriter(bw);
 			
 			// what to write in file
-			pw.println(username + "," + first + "," + last + "," + email + "," + pwd + "," + type);
+			pw.println(username + "," + first + "," + last + "," + email + "," + pwd + "," + type + "," + amount + ",");
 			
 			//push and close file
 			pw.flush();
@@ -82,7 +82,7 @@ public class WriteCSV {
 			PrintWriter pw = new PrintWriter(bw);
 			
 			// what to write in file
-			pw.println(username + "," + null + "," + null + "," + null + "," + pwd + "," + "Manager");
+			pw.println(username + "," + null + "," + null + "," + null + "," + pwd + "," + "Manager"+ "," + -1 + ",");
 			
 			//push and close file
 			pw.flush();

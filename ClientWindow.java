@@ -15,6 +15,9 @@ import javax.swing.border.EmptyBorder;
 public class ClientWindow extends JFrame {
 
 	private JPanel contentPane;
+	public String username = "";
+	public String type = "";
+	public int amountDue = -1;
 	/**
 	 * Launch the application.
 	 */
@@ -49,6 +52,9 @@ public class ClientWindow extends JFrame {
 		btn_View.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				View_Bookings newFrame = new View_Bookings();
+				newFrame.setUsername(username);
+				newFrame.setType(type);
+				newFrame.setAmountDue(amountDue);
 				newFrame.setVisible(true);
 				setVisible(false);
 			}
@@ -75,6 +81,9 @@ public class ClientWindow extends JFrame {
 		btn_Pay.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PayBooking newFrame = new PayBooking();
+				newFrame.setUsername(username);
+				newFrame.setType(type);
+				newFrame.setAmountDue(amountDue);
 				newFrame.setVisible(true);
 				setVisible(false);
 			}
@@ -89,6 +98,9 @@ public class ClientWindow extends JFrame {
 		btn_Add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				AddBooking newFrame = new AddBooking();
+				newFrame.setUsername(username);
+				newFrame.setType(type);
+				newFrame.setAmountDue(amountDue);
 				newFrame.setVisible(true);
 				setVisible(false);
 			}
@@ -103,6 +115,16 @@ public class ClientWindow extends JFrame {
 		btn_LogOut.setBounds(430, 387, 250, 100);
 		contentPane.add(btn_LogOut);
 		
+	}
+	
+	public void setUsername(String s) {
+		username = s;
+	}
+	public void setType(String s) {
+		type = s;
+	}
+	public void setAmountDue(int s) {
+		amountDue = s;
 	}
 
 }
