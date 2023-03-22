@@ -77,7 +77,7 @@ public class viewAutoAccount{
 		};
 		
 		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
-		returnList = ReadCSV.allUsers("Clients.csv");
+		returnList = ReadCSV.allUsers("Clients.txt");
 		String[] list = new String[6];
 		for (int i = 0; i < returnList.size(); i++) {
 			for (int j = 0; j < returnList.get(i).size(); j++) {
