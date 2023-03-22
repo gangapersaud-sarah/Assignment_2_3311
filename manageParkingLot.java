@@ -1,5 +1,4 @@
 
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -61,13 +60,13 @@ public class manageParkingLot {
 		parkingLotFrame.setBounds(100, 100, 800, 570);
 		parkingLotFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		parkingLotFrame.getContentPane().setLayout(null);
-		
+
 		JPanel manageParkingLot = new JPanel();
 		manageParkingLot.setLayout(null);
 		manageParkingLot.setBackground(Color.WHITE);
 		manageParkingLot.setBounds(0, 0, 786, 533);
 		parkingLotFrame.getContentPane().add(manageParkingLot);
-		
+
 		JButton backButton = new JButton("Back");
 		backButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -81,110 +80,133 @@ public class manageParkingLot {
 		backButton.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		backButton.setBounds(-5, -3, 91, 29);
 		manageParkingLot.add(backButton);
-		
+
 		JLabel parkingLotLabel = new JLabel("Choose a Parking Lot");
 		parkingLotLabel.setFont(new Font("Tahoma", Font.PLAIN, 43));
 		parkingLotLabel.setBounds(168, 24, 465, 75);
 		manageParkingLot.add(parkingLotLabel);
-		
+
 		JEditorPane editorPane_2 = new JEditorPane();
 		editorPane_2.setBackground(new Color(204, 204, 153));
 		editorPane_2.setBounds(0, 0, 786, 113);
 		manageParkingLot.add(editorPane_2);
-		
+
 		JScrollPane scrollPane_1 = new JScrollPane();
 		scrollPane_1.setBounds(0, 110, 294, 422);
 		manageParkingLot.add(scrollPane_1);
 
 		String[] parking = ReadCSV.allParking();
-		Hashtable<String, Integer> parkingInfo = new Hashtable<String, Integer>();
-		//A,3
+		Hashtable<String, ArrayList<Integer>> parkingInfo = new Hashtable<String, ArrayList<Integer>>();
+		// A,3
 		String[] temp = new String[2];
-		for(int i = 0; i < parking.length; i++){
+		String key = "";
+		for (int i = 0; i < parking.length; i++) {
 			temp = parking[i].split(",");
-			parkingInfo.put("Parking Lot " + temp[0], Integer.valueOf(temp[1]));
-			//parkingInfo.put("Parking Lot " + parking[i].substring(0,1), Integer.valueOf(parking[i].substring(parking[i].length() - 1)));
+			key = "Parking Lot " + temp[0];
+			if (!parkingInfo.containsKey(key)) {
+				ArrayList<Integer> values = new ArrayList<Integer>();
+				values.add(Integer.valueOf(temp[1]));
+				parkingInfo.put(key, values);
+			} else {
+				ArrayList<Integer> values = parkingInfo.get(key);
+				values.add(Integer.valueOf(temp[1]));
+				parkingInfo.put(key, values);
+			}			
 		}
-		JList list = new JList();
-		list.setModel(new AbstractListModel() {
+		JList<String> list = new JList<String>();
+		list.setModel(new AbstractListModel<String>() {
 			String[] values = parkingInfo.keySet().toArray(new String[0]);
+
 			public int getSize() {
 				return values.length;
 			}
-			public Object getElementAt(int index) {
+
+			public String getElementAt(int index) {
 				return values[index];
 			}
 		});
-		
+
 		list.setCellRenderer(new DefaultListCellRenderer() {
 
-            @Override
-            public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
-                 Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-                 //CHANGE TO ENABLE/DISABLE
-                      if (parkingInfo.values().contains(-1)){
-						for(Entry<String, Integer> entry: parkingInfo.entrySet()){
-							if(entry.getValue() == -1){
-								String key = entry.getKey();
-								
-								setBackground(Color.RED);
-							}
-						}
-                      } 
-                      else{
-						   JOptionPane.showMessageDialog(null,parkingInfo.get("Parking Lot E"));
-                           setBackground(Color.GREEN);
-                      }
-                      if (isSelected) {
-                           setBackground(getBackground().darker());
-                      }
-                 return c;
-            }
+			@Override
+			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
+				Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
+				// JOptionPane.showMessageDialog(null,"Index = " + index + " , Value = "+ value);	
+				if(parkingInfo.get(value).contains(-1)){
+					setBackground(Color.RED);
+				}
+				else{
+					setBackground(Color.GREEN);
+				}
 
-       });
+				if (isSelected) {
+					setBackground(getBackground().darker());
+				}
+				return c;
+			}
+
+		});
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL_WRAP);
 		list.setFont(new Font("Trebuchet MS", Font.PLAIN, 39));
 		scrollPane_1.setViewportView(list);
-		
+
 		JLabel lblNewLabel_2 = new JLabel("Existing Parking Lots");
 		lblNewLabel_2.setFont(new Font("Trebuchet MS", Font.BOLD, 27));
 		lblNewLabel_2.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		scrollPane_1.setColumnHeaderView(lblNewLabel_2);
-		
+
 		JButton disableParkingLotButton = new JButton("Disable Parking Lot");
 		disableParkingLotButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		disableParkingLotButton.setBackground(new Color(204, 204, 153));
 		disableParkingLotButton.setBounds(354, 230, 345, 75);
 		manageParkingLot.add(disableParkingLotButton);
-		
+		disableParkingLotButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(list.getSelectedValue()!=null){
+					parkingInfo.get(list.getSelectedValue()).add(-1);
+					list.clearSelection();
+				}
+			}
+		});
 		JButton enableParkingLotButton = new JButton("Enable Parking Lot");
 		enableParkingLotButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		enableParkingLotButton.setBackground(new Color(204, 204, 153));
 		enableParkingLotButton.setBounds(354, 124, 344, 75);
 		manageParkingLot.add(enableParkingLotButton);
 		
+		enableParkingLotButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(list.getSelectedValue()!=null){
+					parkingInfo.get(list.getSelectedValue()).removeAll(Collections.singletonList(-1));
+					list.clearSelection();
+				}
+			}
+		});
+
+
 		JButton addParkingLotButton = new JButton("Add Parking Lot");
 		addParkingLotButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addParkingLot addParkingLotFrame= new addParkingLot();
+				addParkingLot addParkingLotFrame = new addParkingLot();
 				addParkingLotFrame.setVisible(true);
 			}
 		});
+
 		addParkingLotButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		addParkingLotButton.setBackground(new Color(204, 204, 153));
 		addParkingLotButton.setBounds(354, 447, 345, 75);
 		manageParkingLot.add(addParkingLotButton);
-		
+
 		JButton editParkingLotButton = new JButton("Edit Parking Lot");
 		editParkingLotButton.setFont(new Font("Tahoma", Font.PLAIN, 21));
 		editParkingLotButton.setBackground(new Color(204, 204, 153));
 		editParkingLotButton.setBounds(354, 340, 345, 75);
 		manageParkingLot.add(editParkingLotButton);
-		
+
 		editParkingLotButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				editParkingSpace parkingSpaceFrame= new editParkingSpace();
+				editParkingSpace parkingSpaceFrame = new editParkingSpace();
 				parkingSpaceFrame.setVisible(true);
 				parkingLotFrame.setVisible(false);
 			}
@@ -196,4 +218,3 @@ public class manageParkingLot {
 	}
 
 }
-
