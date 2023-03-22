@@ -85,9 +85,40 @@ public class ExtendBooking extends JFrame  {
 		comboBox.addItem("6 Hours");
 		
 		JButton btnNewButton = new JButton("Extend Booking");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btnNewButton.setBounds(252, 398, 293, 88);
-		getContentPane().add(btnNewButton);
+		contentPane.add(btnNewButton);
 	}
+	
+//	    LocalDateTime ldt = null;
+//	    DateTimeFormatter fomatter = DateTimeFormatter.ofPattern(format, locale);
+//
+//	    try {
+//	        ldt = LocalDateTime.parse(value, fomatter);
+//	        String result = ldt.format(fomatter);
+//	        return result.equals(value);
+//	    } catch (DateTimeParseException e) {
+//	        try {
+//	            LocalDate ld = LocalDate.parse(value, fomatter);
+//	            String result = ld.format(fomatter);
+//	            return result.equals(value);
+//	        } catch (DateTimeParseException exp) {
+//	            try {
+//	                LocalTime lt = LocalTime.parse(value, fomatter);
+//	                String result = lt.format(fomatter);
+//	                return result.equals(value);
+//	            } catch (DateTimeParseException e2) {
+//	                // Debugging purposes
+//	                //e2.printStackTrace();
+//	            }
+//	        }
+//	    }
+//
+//	    return false;
+//	}
 
 }
