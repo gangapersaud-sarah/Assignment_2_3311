@@ -120,8 +120,15 @@ public class validateAccounts {
 		acceptButton.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {
 				int row = validateTable.getSelectedRow();
-				while(row != -1){					
-					WriteCSV.saveClient(tableModel.getValueAt(row, 0).toString(), tableModel.getValueAt(row, 1).toString(), tableModel.getValueAt(row, 2).toString(), tableModel.getValueAt(row, 3).toString(), tableModel.getValueAt(row, 4).toString(), tableModel.getValueAt(row, 5).toString());
+				int val;
+				while(row != -1){		
+					if(tableModel.getValueAt(row, 5).equals("Manager")){
+						val = -1;
+					}
+					else{
+						val = 0;
+					}
+					WriteCSV.saveClient(tableModel.getValueAt(row, 0).toString(), tableModel.getValueAt(row, 1).toString(), tableModel.getValueAt(row, 2).toString(), tableModel.getValueAt(row, 3).toString(), tableModel.getValueAt(row, 4).toString(), tableModel.getValueAt(row, 5).toString(),   val);
 					//REMOVE FROM VALIDATING CLIENTS FILE
 					tableModel.removeRow(row);
 					row = validateTable.getSelectedRow();

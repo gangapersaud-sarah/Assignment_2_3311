@@ -8,9 +8,11 @@ import java.awt.Component;
 
 import javax.swing.JLabel;
 import java.awt.Font;
+import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Hashtable;
 import java.util.Map.Entry;
@@ -22,13 +24,16 @@ import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.AbstractListModel;
 import javax.swing.DefaultListCellRenderer;
+import javax.swing.DefaultListModel;
 
 public class manageParkingLot {
 
-	private JFrame parkingLotFrame;
-
+	public JFrame parkingLotFrame;
+	public static JList<String> list;
+	public static DefaultListModel<String> model; 
 	/**
 	 * Launch the application.
 	 */
@@ -113,18 +118,26 @@ public class manageParkingLot {
 				parkingInfo.put(key, values);
 			}			
 		}
-		JList<String> list = new JList<String>();
-		list.setModel(new AbstractListModel<String>() {
-			String[] values = parkingInfo.keySet().toArray(new String[0]);
+		model = new DefaultListModel<String>();
+		model.addAll(parkingInfo.keySet());
+		list = new JList<String>(model);
+		// list.setModel(new AbstractListModel<String>() {
+		// 	String[] values = parkingInfo.keySet().toArray(new String[0]);
 
-			public int getSize() {
-				return values.length;
-			}
+		// 	public int getSize() {
+		// 		return values.length;
+		// 	}
 
-			public String getElementAt(int index) {
-				return values[index];
-			}
-		});
+		// 	public String getElementAt(int index) {
+		// 		return values[index];
+		// 	}
+
+		// 	public void addElement(String name){
+		// 		String[] temp = Arrays.copyOf(values, values.length+1); 
+		// 		temp[values.length] = name;
+		// 	}
+
+		// });
 
 		list.setCellRenderer(new DefaultListCellRenderer() {
 
@@ -146,6 +159,7 @@ public class manageParkingLot {
 			}
 
 		});
+
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		list.setLayoutOrientation(JList.VERTICAL_WRAP);
 		list.setFont(new Font("Trebuchet MS", Font.PLAIN, 39));
@@ -216,5 +230,4 @@ public class manageParkingLot {
 	public void setVisible(boolean b) {
 		this.parkingLotFrame.setVisible(b);
 	}
-
 }

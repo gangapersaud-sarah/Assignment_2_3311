@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class addParkingLot {
+public class addParkingLot extends manageParkingLot{
 
 	private JFrame addParkingLot;
 	private JTextField nameTF;
@@ -81,6 +81,8 @@ public class addParkingLot {
 				String name = nameTF.getText();
 				String location  = locationTF.getText();
 				if (name != null && location!=null) {
+					manageParkingLot.model.addElement(name);
+					manageParkingLot.model.lastElement();
 					addParkingLot.setVisible(false);
 				}
 			}
