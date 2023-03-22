@@ -1,20 +1,37 @@
-
-
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.BorderLayout;
+import java.awt.Label;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ActionEvent;
+import java.awt.BorderLayout;
 
-public class ExtendBooking {
 
-	private JFrame frame;
+public class ExtendBooking extends JFrame  {
+
+	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -24,7 +41,7 @@ public class ExtendBooking {
 			public void run() {
 				try {
 					ExtendBooking window = new ExtendBooking();
-					window.frame.setVisible(true);
+					window.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -36,38 +53,41 @@ public class ExtendBooking {
 	 * Create the application.
 	 */
 	public ExtendBooking() {
-		initialize();
-	}
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 800, 600);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Extend Booking");
+		lblNewLabel.setBackground(new Color(192, 192, 192));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 56));
 		lblNewLabel.setBounds(0, 0, 786, 124);
-		frame.getContentPane().add(lblNewLabel);
-		
-		JButton btnNewButton = new JButton("Extend Booking");
-		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 30));
-		btnNewButton.setBounds(252, 398, 293, 88);
-		frame.getContentPane().add(btnNewButton);
+		contentPane.add(lblNewLabel);
 		
 		JLabel lblNewLabel_1 = new JLabel("Select How Long You Want To Extend Your Booking For:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 22));
 		lblNewLabel_1.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel_1.setBounds(55, 149, 673, 79);
-		frame.getContentPane().add(lblNewLabel_1);
+		contentPane.add(lblNewLabel_1);
 		
 		JComboBox comboBox = new JComboBox();
 		comboBox.setBounds(198, 261, 386, 79);
-		frame.getContentPane().add(comboBox);
+		contentPane.add(comboBox);
+		comboBox.addItem("1 Hour");
+		comboBox.addItem("2 Hours");
+		comboBox.addItem("3 Hours");
+		comboBox.addItem("4 Hours");
+		comboBox.addItem("5 Hours");
+		comboBox.addItem("6 Hours");
+		
+		JButton btnNewButton = new JButton("Extend Booking");
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 30));
+		btnNewButton.setBounds(252, 398, 293, 88);
+		getContentPane().add(btnNewButton);
 	}
 
 }
