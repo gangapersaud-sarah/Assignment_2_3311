@@ -82,7 +82,7 @@ public class WriteCSV {
 			PrintWriter pw = new PrintWriter(bw);
 			
 			// what to write in file
-			pw.println(username + ", " + null + ", " + null + ", " + null + ", " + pwd + ", " + "Manager"+ ", " + -1);
+			pw.println(username + "," + null + "," + null + "," + null + "," + pwd + "," + "Manager"+ "," + -1);
 			
 			//push and close file
 			pw.flush();
