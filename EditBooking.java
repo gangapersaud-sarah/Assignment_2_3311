@@ -72,33 +72,37 @@ public class EditBooking extends JFrame {
 		lblNewLabel.setBounds(0, 0, 786, 124);
 		getContentPane().add(lblNewLabel);
 		
-		Label label = new Label("License Plate:");
-		label.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label.setBounds(33, 171, 154, 48);
-		contentPane.add(label);
+//		Label label = new Label("License Plate:");
+//		label.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		label.setBounds(33, 171, 154, 48);
+//		contentPane.add(label);
 		
 		Label label_1 = new Label("Date:");
 		label_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label_1.setBounds(33, 261, 130, 48);
+		label_1.setBounds(193, 171, 154, 48);
 		contentPane.add(label_1);
 		
 		Label label_2 = new Label("Time:");
 		label_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label_2.setBounds(33, 349, 130, 48);
+		label_2.setBounds(193, 261, 130, 48);
 		contentPane.add(label_2);
 		
 		Label label_2_1 = new Label("Duration:");
 		label_2_1.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label_2_1.setBounds(400, 349, 140, 48);
+		label_2_1.setBounds(193, 349, 178, 48);
 		contentPane.add(label_2_1);
 		
-		JTextField txt_lp = new JTextField();
-		txt_lp.setBounds(193, 171, 178, 48);
-		contentPane.add(txt_lp);
-		txt_lp.setColumns(10);
+//		JTextField txt_lp = new JTextField();
+//		txt_lp.setBounds(193, 171, 178, 48);
+//		contentPane.add(txt_lp);
+//		txt_lp.setColumns(10);
+//		
+		JTextField txt_date = new JTextField();
+		txt_date.setBounds(393, 171, 178, 48);
+		contentPane.add(txt_date);
 		
 		JComboBox cmb_time = new JComboBox();
-		cmb_time.setBounds(193, 349, 178, 48);
+		cmb_time.setBounds(393, 261, 178, 48);
 		contentPane.add(cmb_time);
 		cmb_time.addItem("0:00 EST");
 		cmb_time.addItem("1:00 EST");
@@ -126,7 +130,7 @@ public class EditBooking extends JFrame {
 		cmb_time.addItem("23:00 EST");
 		
 		JComboBox cmb_duration = new JComboBox();
-		cmb_duration.setBounds(577, 349, 178, 48);
+		cmb_duration.setBounds(393, 349, 178, 48);
 		contentPane.add(cmb_duration);
 		cmb_duration.addItem("1 Hour");
 		cmb_duration.addItem("2 Hours");
@@ -135,81 +139,79 @@ public class EditBooking extends JFrame {
 		cmb_duration.addItem("5 Hours");
 		cmb_duration.addItem("6 Hours");
 		
-		JTextField txt_date = new JTextField();
-		txt_date.setBounds(193, 261, 178, 48);
-		contentPane.add(txt_date);
 		
-		JComboBox cmb_ps = new JComboBox();
-		cmb_ps.setBounds(577, 261, 178, 48);
-		contentPane.add(cmb_ps);
-		
-		JComboBox cmb_pl = new JComboBox();
-		cmb_pl.setBounds(577, 171, 178, 48);
-		contentPane.add(cmb_pl);
-		cmb_pl.addItem("Select");
-		
-		String[] allPL = ReadCSV.allParkingLots();
-		ReadCSV.allParkingLots();
-		for(int i = 0; i < allPL.length; i++) {
-			cmb_pl.addItem("Parking Lot: " + (String)allPL[i]);
-		}
-		
-		cmb_pl.addActionListener (new ActionListener () {
-		    public void actionPerformed(ActionEvent e) {
-		    	cmb_ps.removeAllItems();
-		    	String s = (String) cmb_pl.getSelectedItem();
-		    	if(!s.equals("Select")) {
-		    		cmb_ps.addItem("Select");
-		    		String[] parts = s.split(": ");
-			    	String part2 = parts[1];
-			    	String[] allPS = ReadCSV.parkingSpacesOfLot(part2);
-			    	
-			    	ArrayList<Integer> allSpaces = new ArrayList<Integer>();
-			    	for(int i = 1; i < 101; i++) {
-			    		allSpaces.add(i);
-			    	}
-					for(int i = 0; i < allPS.length; i++) {
-						String[] parts3 = allPS[i].split("\r");
-				    	String part4 = parts3[0];
-						Integer arr = Integer.valueOf(part4);
-						if(allSpaces.contains(arr)) {
-							allSpaces.remove(arr);
-						}
-					}
-					for(int i = 0; i < allSpaces.size(); i++) {
-						cmb_ps.addItem("Parking Space: " + allSpaces.get(i));
-					}
-		    	}
-		    	else {
-		    		JOptionPane.showMessageDialog(null, "Please Choose a parking Lot");
-		    	}
-		    }
-		});
-		
-		
-		cmb_ps.addActionListener (new ActionListener () {
-			public void actionPerformed(ActionEvent e) {
-				cmb_time.removeAllItems();
-		    	String s = (String) cmb_ps.getSelectedItem();
-		    	if(!s.equals("Select")) {
-		    		cmb_time.addItem("Select");
-		    		String[] parts = s.split(": ");
-			    	String part2 = parts[1];
-		    	}
-			}
-		});
-		
-		Label label_2_2 = new Label("Parking Lot:");
-		label_2_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label_2_2.setBounds(400, 171, 140, 48);
-		contentPane.add(label_2_2);
-
-		
-		Label label_2_3 = new Label("Parking \r\nSpace:");
-		label_2_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label_2_3.setBounds(400, 261, 154, 48);
-		contentPane.add(label_2_3);
-		
+//		
+//		JComboBox cmb_ps = new JComboBox();
+//		cmb_ps.setBounds(577, 261, 178, 48);
+//		contentPane.add(cmb_ps);
+//		
+//		JComboBox cmb_pl = new JComboBox();
+//		cmb_pl.setBounds(577, 171, 178, 48);
+//		contentPane.add(cmb_pl);
+//		cmb_pl.addItem("Select");
+//		
+//		String[] allPL = ReadCSV.allParkingLots();
+//		ReadCSV.allParkingLots();
+//		for(int i = 0; i < allPL.length; i++) {
+//			cmb_pl.addItem("Parking Lot: " + (String)allPL[i]);
+//		}
+//		
+//		cmb_pl.addActionListener (new ActionListener () {
+//		    public void actionPerformed(ActionEvent e) {
+//		    	cmb_ps.removeAllItems();
+//		    	String s = (String) cmb_pl.getSelectedItem();
+//		    	if(!s.equals("Select")) {
+//		    		cmb_ps.addItem("Select");
+//		    		String[] parts = s.split(": ");
+//			    	String part2 = parts[1];
+//			    	String[] allPS = ReadCSV.parkingSpacesOfLot(part2);
+//			    	
+//			    	ArrayList<Integer> allSpaces = new ArrayList<Integer>();
+//			    	for(int i = 1; i < 101; i++) {
+//			    		allSpaces.add(i);
+//			    	}
+//					for(int i = 0; i < allPS.length; i++) {
+//						String[] parts3 = allPS[i].split("\r");
+//				    	String part4 = parts3[0];
+//						Integer arr = Integer.valueOf(part4);
+//						if(allSpaces.contains(arr)) {
+//							allSpaces.remove(arr);
+//						}
+//					}
+//					for(int i = 0; i < allSpaces.size(); i++) {
+//						cmb_ps.addItem("Parking Space: " + allSpaces.get(i));
+//					}
+//		    	}
+//		    	else {
+//		    		JOptionPane.showMessageDialog(null, "Please Choose a parking Lot");
+//		    	}
+//		    }
+//		});
+//		
+//		
+//		cmb_ps.addActionListener (new ActionListener () {
+//			public void actionPerformed(ActionEvent e) {
+//				cmb_time.removeAllItems();
+//		    	String s = (String) cmb_ps.getSelectedItem();
+//		    	if(!s.equals("Select")) {
+//		    		cmb_time.addItem("Select");
+//		    		String[] parts = s.split(": ");
+//			    	String part2 = parts[1];
+//		    	}
+//			}
+//		});
+//		
+//		Label label_2_2 = new Label("Parking Lot:");
+//		label_2_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		label_2_2.setBounds(400, 171, 140, 48);
+//		contentPane.add(label_2_2);
+//
+//		
+//		Label label_2_3 = new Label("Parking \r\nSpace:");
+//		label_2_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
+//		label_2_3.setBounds(400, 261, 154, 48);
+//		contentPane.add(label_2_3);
+//		
 		JButton btn_Add = new JButton("Update Booking");
 		btn_Add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -335,5 +337,3 @@ public class EditBooking extends JFrame {
 //		textField_1.setColumns(10);
 //		
 //	}
-
-
