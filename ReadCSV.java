@@ -47,7 +47,7 @@ public class ReadCSV {
 			// create reading tools, x is the file
 			x = new Scanner(new File(filepath));
 			// Separate values in x using "," and "\n"
-			x.useDelimiter("[,\n\r]");
+			x.useDelimiter("[,\n]");
 			
 			while (x.hasNext() && !found) {
 				
