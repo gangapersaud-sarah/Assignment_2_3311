@@ -8,6 +8,7 @@ import javax.swing.JLabel;
 import java.awt.Font;
 
 public class System {
+	private static System instance = null;
     public static Object out;
     JFrame frame = new JFrame();
     JTextField txt_username = new JTextField();
@@ -18,7 +19,7 @@ public class System {
     public static String loggedInAccountType;
 
 
-    public System() {
+    private System() {
         
         frame = new JFrame();
 		frame.setBounds(100, 100, 800, 600);
@@ -108,6 +109,13 @@ public class System {
         System s = new System();
         s.frame.setVisible(true);
     }
+
+	public static System getInstance(){
+		if (instance == null){
+			instance = new System();
+		}
+		return instance;
+	}
 }
 
 
