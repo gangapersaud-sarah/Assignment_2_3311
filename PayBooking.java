@@ -86,66 +86,54 @@ public class PayBooking extends JFrame {
 		username = System.loggedInUserName;
 		type = System.loggedInAccountType;
 		ArrayList<String> returnList = new ArrayList<String>();
-		String price = returnList.get(5);
-		
+		String price;
+		Random rd = new Random(); // creating Random object
+		attended = rd.nextBoolean(); // displaying a random boolean
+		if(attended = true)
+		{
+			String val = returnList.get(6);
+			int x = Integer.parseInt(val);
+			if(type == "Student")
+			{
+				x = x - 5;
+			}
+			else if(type == "Faculty")
+			{
+				x = x - 8;
+			}
+			else if(type == "non-Faculty")
+			{
+				x = x - 10;
+			}
+			else
+			{
+				x = x - 15;
+			}
+			String s=String.valueOf(x);  
+			returnList.set(6,s);
+		}
+		else
+		{
+			//If you did show up
+		}
+			
+		price = returnList.get(6);
 		Label label_3 = new Label("$" + price);
 		label_3.setFont(new Font("Tahoma", Font.BOLD, 20));
 		label_3.setBounds(298, 130, 216, 48);
 		contentPane.add(label_3);
 
 		JButton btnNewButton = new JButton("Credit");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Random rd = new Random(); // creating Random object
-				attended = rd.nextBoolean(); // displaying a random boolean
-				if(attended = true)
-				{
-					
-				}
-				else
-				{
-
-				}
-			}
-		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btnNewButton.setBounds(257, 264, 257, 88);
 		contentPane.add(btnNewButton);
 		
 		JButton btnDebt = new JButton("Debit");
-		btnDebt.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Random rd = new Random(); // creating Random object
-				attended = rd.nextBoolean(); // displaying a random boolean
-				if(attended = true)
-				{
-
-				}
-				else
-				{
-
-				}
-			}
-		});
 		btnDebt.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btnDebt.setBounds(257, 363, 257, 88);
 		contentPane.add(btnDebt);
 		
 		JButton btnOther = new JButton("Other");
-		btnOther.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Random rd = new Random(); // creating Random object
-				attended = rd.nextBoolean(); // displaying a random boolean
-				if(attended = true)
-				{
-
-				}
-				else
-				{
-
-				}
-			}
-		});
 		btnOther.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btnOther.setBounds(257, 462, 257, 88);
 		contentPane.add(btnOther);
