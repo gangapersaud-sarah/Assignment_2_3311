@@ -191,6 +191,10 @@ public class DeleteCSV {
 				JOptionPane.showMessageDialog(null, "error");
 			}
 	}
+
+	public static void RemoveParkingEntry(String name, int val){
+
+	}
 	
 }
 

@@ -11,6 +11,7 @@ import java.awt.Font;
 import java.awt.ScrollPane;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -162,9 +163,9 @@ public class manageParkingLot {
 		manageParkingLot.add(disableParkingLotButton);
 		disableParkingLotButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//Update Line in CSV
 				if(list.getSelectedValue()!=null){
 					parkingInfo.get(list.getSelectedValue()).add(-1);
+					WriteCSV.addDisabled(list.getSelectedValue(), -1);
 					list.clearSelection();
 				}
 			}
@@ -179,6 +180,8 @@ public class manageParkingLot {
 			public void actionPerformed(ActionEvent e) {
 				if(list.getSelectedValue()!=null){
 					parkingInfo.get(list.getSelectedValue()).removeAll(Collections.singletonList(-1));
+					
+					WriteCSV.addDisabled(list.getSelectedValue(), 0);
 					list.clearSelection();
 				}
 			}
