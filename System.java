@@ -54,28 +54,17 @@ public class System {
 				String password = txt_password.getText();
 				ArrayList<String> returnList = new ArrayList<String>();
 				returnList = ReadCSV.findUserName(userName, "Clients.txt");
+				
+				SystemFacade s = new SystemFacade(frame, returnList, password);
 				if(returnList.get(4).equals(password)) {
-					if(returnList.get(5).equals("Student") || returnList.get(5).equals("Faculty") || returnList.get(5).equals("non-Faculty") || returnList.get(5).equals("Visitor")) {
-						ClientWindow newFrame = new ClientWindow();
-						newFrame.setUsername(userName);
-						newFrame.setType(returnList.get(5));
-						newFrame.setAmountDue(Integer.valueOf(returnList.get(6)));
-						
-						loggedInUserName = userName;
-						loggedInAccountType = returnList.get(5);
-						
-						newFrame.setVisible(true);
-						frame.setVisible(false);
+					if(returnList.get(5).equals("Student") || returnList.get(5).equals("Faculty") || returnList.get(5).equals("Staff") || returnList.get(5).equals("Visitor")) {
+						s.viewClientWindow();
 					}
 					else if(returnList.get(5).equals("Manager")) {
-						Manager newFrame = new Manager();
-						newFrame.setVisible(true);
-						frame.setVisible(false);
+						s.viewManagerWindow();
 					}
 					else if(returnList.get(5).equals("Super-Manager")) {
-						superManagerMainPage newFrame = new superManagerMainPage();
-						newFrame.setVisible(true);
-						frame.setVisible(false);
+						s.viewSuperWindow();
 					}
 				}
 			}
