@@ -59,6 +59,8 @@ public class System {
 				if(returnList.get(4).equals(password)) {
 					if(returnList.get(5).equals("Student") || returnList.get(5).equals("Faculty") || returnList.get(5).equals("Staff") || returnList.get(5).equals("Visitor")) {
 						s.viewClientWindow();
+						loggedInUserName = userName;
+						loggedInAccountType = returnList.get(5);
 					}
 					else if(returnList.get(5).equals("Manager")) {
 						s.viewManagerWindow();
