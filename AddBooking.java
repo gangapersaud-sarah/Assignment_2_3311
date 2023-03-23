@@ -268,7 +268,7 @@ public class AddBooking extends JFrame {
 						newEmail = x.next();
 						newPassword = x.next();
 						newType = x.next();
-						newBalance = x.next();;
+						newBalance = x.next();
 						if(newUserName.equals(username))
 						{
 							pw.println(username + "," + returnList.get(1) + "," + returnList.get(2) + "," + returnList.get(3) + "," + returnList.get(4) + "," + type + "," + returnList.get(6));
