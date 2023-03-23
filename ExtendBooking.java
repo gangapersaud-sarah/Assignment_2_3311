@@ -31,7 +31,7 @@ import java.awt.BorderLayout;
 
 public class ExtendBooking extends JFrame  {
 
-	private JPanel contentPane;
+	public JPanel contentPane;
 
 	/**
 	 * Launch the application.
