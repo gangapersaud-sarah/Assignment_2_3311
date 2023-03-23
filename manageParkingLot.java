@@ -34,6 +34,7 @@ public class manageParkingLot {
 	public JFrame parkingLotFrame;
 	public static JList<String> list;
 	public static DefaultListModel<String> model; 
+	public static Hashtable<String, ArrayList<Integer>> parkingInfo;
 	/**
 	 * Launch the application.
 	 */
@@ -101,13 +102,14 @@ public class manageParkingLot {
 		manageParkingLot.add(scrollPane_1);
 
 		String[] parking = ReadCSV.allParking();
-		Hashtable<String, ArrayList<Integer>> parkingInfo = new Hashtable<String, ArrayList<Integer>>();
+		parkingInfo = new Hashtable<String, ArrayList<Integer>>();
 		// A,3
 		String[] temp = new String[2];
 		String key = "";
 		for (int i = 0; i < parking.length; i++) {
 			temp = parking[i].split(",");
-			key = "Parking Lot " + temp[0];
+			//key = "Parking Lot " + temp[0];
+			key = temp[0];
 			if (!parkingInfo.containsKey(key)) {
 				ArrayList<Integer> values = new ArrayList<Integer>();
 				values.add(Integer.valueOf(temp[1]));
@@ -121,32 +123,15 @@ public class manageParkingLot {
 		model = new DefaultListModel<String>();
 		model.addAll(parkingInfo.keySet());
 		list = new JList<String>(model);
-		// list.setModel(new AbstractListModel<String>() {
-		// 	String[] values = parkingInfo.keySet().toArray(new String[0]);
-
-		// 	public int getSize() {
-		// 		return values.length;
-		// 	}
-
-		// 	public String getElementAt(int index) {
-		// 		return values[index];
-		// 	}
-
-		// 	public void addElement(String name){
-		// 		String[] temp = Arrays.copyOf(values, values.length+1); 
-		// 		temp[values.length] = name;
-		// 	}
-
-		// });
 
 		list.setCellRenderer(new DefaultListCellRenderer() {
 
 			@Override
 			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 				Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-				// JOptionPane.showMessageDialog(null,"Index = " + index + " , Value = "+ value);	
-				if(parkingInfo.get(value).contains(-1)){
-					setBackground(Color.RED);
+				if(parkingInfo.get(value)!=null && parkingInfo.get(value).contains(-1)){
+						setBackground(Color.RED);
+					
 				}
 				else{
 					setBackground(Color.GREEN);
@@ -177,6 +162,7 @@ public class manageParkingLot {
 		manageParkingLot.add(disableParkingLotButton);
 		disableParkingLotButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				//Update Line in CSV
 				if(list.getSelectedValue()!=null){
 					parkingInfo.get(list.getSelectedValue()).add(-1);
 					list.clearSelection();
@@ -202,8 +188,16 @@ public class manageParkingLot {
 		JButton addParkingLotButton = new JButton("Add Parking Lot");
 		addParkingLotButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				addParkingLot addParkingLotFrame = new addParkingLot();
-				addParkingLotFrame.setVisible(true);
+				String name = JOptionPane.showInputDialog("Name of Parking Lot?", null);
+				if (name!=null) {
+					ArrayList<Integer> val = new ArrayList<Integer>();
+					val.add(0);
+					parkingInfo.put(name, val);
+					model.addElement(name);
+					WriteCSV.addDisabled(name, 0);
+			   }
+				// addParkingLot addParkingLotFrame = new addParkingLot();
+				// addParkingLotFrame.setVisible(true);
 			}
 		});
 

@@ -8,14 +8,15 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 
-public class addParkingLot extends manageParkingLot{
+public class addParkingLot{
 
 	private JFrame addParkingLot;
 	private JTextField nameTF;
-	private JTextField locationTF;
+	public String name = "";
 
 	/**
 	 * Launch the application.
@@ -45,7 +46,7 @@ public class addParkingLot extends manageParkingLot{
 	 */
 	private void initialize() {
 		addParkingLot = new JFrame();
-		addParkingLot.setBounds(100, 100, 406, 303);
+		addParkingLot.setBounds(100, 100, 406, 261);
 		addParkingLot.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		addParkingLot.getContentPane().setLayout(null);
 		
@@ -55,40 +56,30 @@ public class addParkingLot extends manageParkingLot{
 		NameLabel.setBounds(10, 33, 90, 46);
 		addParkingLot.getContentPane().add(NameLabel);
 		
-		JLabel LocationLabel = new JLabel("Location:");
-		LocationLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
-		LocationLabel.setBounds(10, 90, 106, 52);
-		addParkingLot.getContentPane().add(LocationLabel);
-		
 		nameTF = new JTextField();
 		nameTF.setBackground(new Color(204, 204, 153));
 		nameTF.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		nameTF.setBounds(110, 36, 247, 52);
 		addParkingLot.getContentPane().add(nameTF);
 		nameTF.setColumns(10);
-		
-		locationTF = new JTextField();
-		locationTF.setBackground(new Color(204, 204, 153));
-		locationTF.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		locationTF.setColumns(10);
-		locationTF.setBounds(110, 96, 247, 52);
-		addParkingLot.getContentPane().add(locationTF);
-		
 		JButton submitButton = new JButton("Submit");
 		submitButton.setBackground(new Color(204, 204, 153));
 		submitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String name = nameTF.getText();
-				String location  = locationTF.getText();
-				if (name != null && location!=null) {
-					manageParkingLot.model.addElement(name);
-					manageParkingLot.model.lastElement();
+				name = nameTF.getText();
+				if (!name.equals("")) {
+					 manageParkingLot.model.addElement(name);
+					 manageParkingLot.model.lastElement();
+					 ArrayList<Integer> val = new ArrayList<Integer>();
+					 val.add(0);
+					 manageParkingLot.parkingInfo.put(name, val);
+					 WriteCSV.addDisabled(name, 0);
 					addParkingLot.setVisible(false);
 				}
 			}
 		});
 		submitButton.setFont(new Font("Tahoma", Font.PLAIN, 31));
-		submitButton.setBounds(20, 172, 354, 70);
+		submitButton.setBounds(20, 130, 354, 70);
 		addParkingLot.getContentPane().add(submitButton);
 	}
 	public void setVisible(boolean b) {
