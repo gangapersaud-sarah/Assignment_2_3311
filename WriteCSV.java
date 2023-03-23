@@ -53,7 +53,7 @@ public class WriteCSV {
 			PrintWriter pw = new PrintWriter(bw);
 			
 			// what to write in file
-			pw.println(username + "," + first + "," + last + "," + email + "," + pwd + "," + type + "," + amount + ",");
+			pw.println(username + "," + first + "," + last + "," + email + "," + pwd + "," + type + "," + amount);
 			
 			//push and close file
 			pw.flush();
@@ -121,10 +121,6 @@ public class WriteCSV {
 			//push and close file
 			pw.flush();
 			pw.close();
-			
-			// update user if writing is successful
-			JOptionPane.showMessageDialog(null, "Booking Created for " + username + " at parking Lot " + pl + " parking space " + ps +
-					" from " + time + " to " + duration);
 		}
 		catch (Exception e){
 			JOptionPane.showMessageDialog(null, "Booking not Created, there has been a problem with our system please try again");

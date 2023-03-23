@@ -75,9 +75,6 @@ public class ReadCSV {
 				}
 			}
 			
-			if(found) {
-				JOptionPane.showMessageDialog(null, username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type + ", " + amount);
-			}
 		}
 		catch (Exception e){
 			
@@ -133,9 +130,6 @@ public class ReadCSV {
 					list.add(amount);
 					
 					returnList.add(list);
-					
-					JOptionPane.showMessageDialog(null, username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type + ", " + amount);
-
 				}
 			}
 			
@@ -152,10 +146,10 @@ public class ReadCSV {
 		 * @param filepath = Bookings.txt
 		 * @return the string array containing {username, license plate, parking lot, parking space, date, time, duration}
 		 */
-		public static ArrayList<String> findBooking(String findUsername, String filepath) {
+		public static ArrayList<ArrayList<String>> findBookings(String findUsername, String filepath) {
 			
-			boolean found = false;
 			ArrayList<String> returnList = new ArrayList<String>();
+			ArrayList<ArrayList<String>> returnList2 = new ArrayList<ArrayList<String>>();
 			String username = "";
 			String lp = "";
 			String pl = "";
@@ -171,7 +165,7 @@ public class ReadCSV {
 				// Separate values in x using "," and "\n"
 				x.useDelimiter("[,\n]");
 				
-				while (x.hasNext() && !found) {
+				while (x.hasNext()) {
 					
 					// get next line
 					username = x.next();
@@ -184,7 +178,6 @@ public class ReadCSV {
 					
 					// when booking is found (unique usernames)
 					if(username.equals(findUsername)) {
-						found = true;
 						// add the booking details to the array
 						returnList.add(username);
 						returnList.add(lp);
@@ -192,20 +185,17 @@ public class ReadCSV {
 						returnList.add(ps);
 						returnList.add(date);
 						returnList.add(time);
-						returnList.add(duration);
+						returnList.add(duration);	
 						
-						
+						returnList2.add(returnList);
 					}
-				}
-				
-				if(found) {
-					JOptionPane.showMessageDialog(null, username + ", " + lp + ", " + pl + ", " + ps + ", " + date + ", " + time + ", " + duration);
+					
 				}
 			}
 			catch (Exception e){
 				
 			}
-			return returnList;
+			return returnList2;
 		}
 	
 	/**
@@ -254,8 +244,6 @@ public class ReadCSV {
 				
 				// add the user (array list of details) to the arraylist of users
 				returnList.add(list);
-				JOptionPane.showMessageDialog(null, username + ", " + first + ", " + last + ", " + email + ", " + pwd + ", " + type + ", " + amount);
-
 				
 			}
 			
@@ -283,7 +271,7 @@ public class ReadCSV {
 			// create reading tools, x is the file
 			x = new Scanner(new File(filepath));
 			// Separate values in x using "," and "\n"
-			x.useDelimiter("[,\n]");
+			x.useDelimiter("[,\n\r]");
 			
 			while (x.hasNext()) {
 				
@@ -317,7 +305,7 @@ public class ReadCSV {
 		}
 		return returnList;
 	}
-
+	
 
 	public static String[] allParkingLots(){
 		String parkingLot = "";
@@ -417,19 +405,137 @@ public class ReadCSV {
 
 	public static String[] allParking(){
 		ArrayList<String> returnList = new ArrayList<String>();
-	try {
-		// create reading tools, x is the file
-		x = new Scanner(new File("Parking.txt"));
-		// Separate values in x using "," and "\n"
-		x.useDelimiter("[,\n]");
-		while(x.hasNext()){
-			returnList.add(x.nextLine());
+		try {
+			// create reading tools, x is the file
+			x = new Scanner(new File("Parking.txt"));
+			// Separate values in x using "," and "\n"
+			x.useDelimiter("[,\n]");
+			while(x.hasNext()){
+				returnList.add(x.nextLine());
+			}
 		}
+		catch (Exception e){
+			
+		}
+		return returnList.toArray(new String[0]);
 	}
-	catch (Exception e){
+	
+	public static ArrayList<ArrayList<String>> notDeleteBookings(String username, String lp, String pl, String ps, String date, String time, String duration) {
+	
 		
+		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
+		String usernameC = "";
+		String lpC = "";
+		String plC = "";
+		String psC = "";
+		String dateC = "";
+		String timeC = "";
+		String durationC = "";
+		
+		try {
+			
+			// create reading tools, x is the file
+			x = new Scanner(new File("Booking.txt"));
+			// Separate values in x using "," and "\n"
+			x.useDelimiter("[,\n]");
+			
+			while (x.hasNext()) {
+				
+				// get next line
+				usernameC = x.next();
+				lpC = x.next();
+				plC = x.next();
+				psC = x.next();
+				dateC = x.next();
+				timeC = x.next();
+				durationC = x.next();
+				
+				if(!(usernameC.equals(username) && lpC.equals(lp) && plC.equals(pl) && psC.equals(ps) 
+						&& dateC.equals(date) && timeC.equals(time) && durationC.equals(duration))) {
+					// add the booking details to the array
+					ArrayList<String> list = new ArrayList<String>();
+					// add the user details to the array
+					list.add(usernameC);
+					list.add(lpC);
+					list.add(plC);
+					list.add(psC);
+					list.add(dateC);
+					list.add(timeC);
+					list.add(durationC);
+					
+					// add the booking (array list of details) to the arraylist of bookings
+					returnList.add(list);
+				}	
+				
+			}
+		}
+		catch (Exception e){
+			
+		}
+		return returnList;
 	}
-	return returnList.toArray(new String[0]);
-}
+	
+	public static ArrayList<ArrayList<String>> notDeleteClients(String username) {
+	
+		
+		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
+		String usernameC = "";
+		String first = "";
+		String last = "";
+		String email = "";
+		String pw = "";
+		String type = "";
+		String amountDue = "";
+		
+		try {
+			
+			// create reading tools, x is the file
+			x = new Scanner(new File("Clients.txt"));
+			// Separate values in x using "," and "\n"
+			x.useDelimiter("[,\r]");
+			
+			while (x.hasNext()) {
+				
+				// get next line
+				usernameC = x.next();
+				first = x.next();
+				last = x.next();
+				email = x.next();
+				pw = x.next();
+				type = x.next();
+				amountDue = x.next();
+				
+				if(usernameC.contains("\n")) {
+					String[] parts = usernameC.split("\n");
+			    	usernameC = parts[1];
+				}
+				if(!(usernameC.equals(username))) {
+					// add the booking details to the array
+					ArrayList<String> list = new ArrayList<String>();
+					// add the user details to the array
+					list.add(usernameC);
+					list.add(first);
+					list.add(last);
+					list.add(email);
+					list.add(pw);
+					list.add(type);
+					list.add(amountDue);
+					
+					// add the booking (array list of details) to the arraylist of bookings
+					returnList.add(list);
+				}
+				
+				
+			}
+		}
+		catch (Exception e){
+			
+		}
+		return returnList;
+	}
+
+
+
+
 	
 }

@@ -7,16 +7,23 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Window;
 import java.util.ArrayList;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
 
 public class View_Bookings extends JFrame {
 
@@ -86,6 +93,33 @@ public class View_Bookings extends JFrame {
 		});
 		
 		JButton btnNewButton_2 = new JButton("Cancel Booking");
+		btnNewButton_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String lp = "";
+				String pl = "";
+				String ps = "";
+				String date = "";
+				String time = "";
+				String duration = "";
+				
+				lp = (String) table.getValueAt(table.getSelectedRow(), 0);
+				pl = (String) table.getValueAt(table.getSelectedRow(), 1);
+				ps = (String) table.getValueAt(table.getSelectedRow(), 2);
+				date = (String) table.getValueAt(table.getSelectedRow(), 3);
+				time = (String) table.getValueAt(table.getSelectedRow(), 4);
+				duration = (String) table.getValueAt(table.getSelectedRow(), 5);
+				
+				try {
+					DeleteCSV.CancelBooking("HappyBuddy77", lp, pl, ps, date, time, duration);
+					table.remove(table.getSelectedRow());
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			
+				
+			}
+		});
 		btnNewButton_2.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton_2.setBounds(513, 416, 200, 100);
 		contentPane.add(btnNewButton_2);
