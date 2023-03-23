@@ -14,6 +14,9 @@ public class System {
     JTextField txt_password = new JTextField();
     JLabel lblNewLabel = new JLabel("");
     JButton btnNewButton = new JButton("Enter");
+	public static String loggedInUserName;
+    public static String loggedInAccountType;
+
 
     public System() {
         
@@ -56,6 +59,10 @@ public class System {
 						newFrame.setUsername(userName);
 						newFrame.setType(returnList.get(5));
 						newFrame.setAmountDue(Integer.valueOf(returnList.get(6)));
+						
+						loggedInUserName = userName;
+						loggedInAccountType = returnList.get(5);
+						
 						newFrame.setVisible(true);
 						frame.setVisible(false);
 					}

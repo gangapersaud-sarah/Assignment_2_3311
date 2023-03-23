@@ -26,8 +26,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class AddBooking extends JFrame {
 
@@ -35,7 +33,6 @@ public class AddBooking extends JFrame {
 	public String username = "";
 	public String type = "";
 	public int amountDue = -1;
-	ArrayList<Integer> allTimes = new ArrayList<Integer>();
 
 	/**
 	 * Launch the application.
@@ -51,6 +48,7 @@ public class AddBooking extends JFrame {
 				}
 			}
 		});
+		
 	}
 
 	/**
@@ -137,15 +135,6 @@ public class AddBooking extends JFrame {
 		cmb_duration.addItem("6 Hours");
 		
 		JTextField txt_date = new JTextField();
-		txt_date.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
-				if(!isValid) {
-					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
-				}
-			}
-		});
 		txt_date.setBounds(193, 261, 178, 48);
 		contentPane.add(txt_date);
 		
@@ -163,18 +152,6 @@ public class AddBooking extends JFrame {
 		for(int i = 0; i < allPL.length; i++) {
 			cmb_pl.addItem("Parking Lot: " + (String)allPL[i]);
 		}
-		
-		Label label_2_2 = new Label("Parking Lot:");
-		label_2_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label_2_2.setBounds(400, 171, 140, 48);
-		contentPane.add(label_2_2);
-
-		
-		Label label_2_3 = new Label("Parking \r\nSpace:");
-		label_2_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label_2_3.setBounds(400, 261, 154, 48);
-		contentPane.add(label_2_3);
-		
 		
 		cmb_pl.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -208,74 +185,70 @@ public class AddBooking extends JFrame {
 		    }
 		});
 		
+		
 		cmb_ps.addActionListener (new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				cmb_time.removeAllItems();
-		    	String ps = (String) cmb_ps.getSelectedItem();
-		    	String pl = (String) cmb_pl.getSelectedItem();
-		    	boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
-		    	if(ps.equals("Select")) {
-		    		JOptionPane.showMessageDialog(null, "Please Choose a parking Space");
-		    	}
-		    	else if(!isValid){
-					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
-		    	}
-		    	else {
-		    		for(int i = 8; i < 22; i++) {
-		    			allTimes.add(i);
-			    	}
+		    	String s = (String) cmb_ps.getSelectedItem();
+		    	if(!s.equals("Select")) {
 		    		cmb_time.addItem("Select");
-		    		String[] parts = ps.split(": ");
-			    	String finalPS = parts[1];
-			    	
-			    	String[] parts3 = pl.split(": ");
-			    	String finalPL = parts3[1];
-			    	
-			    	ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
-			    	ReadCSV.allBookings("Booking.txt");
-			    	for(int i = 0; i < booking.size(); i++) {
-			    		if(booking.get(i).get(2).equals(finalPL) && booking.get(i).get(3).equals(finalPS) && booking.get(i).get(4).equals(txt_date.getText())) {
-					    	String[] parts5 = booking.get(i).get(6).split("\r");
-					    	String finalDuration = parts5[0];
-			    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDuration); k++) {
-			    				if(allTimes.contains(k)) {
-			    					allTimes.remove((Integer) k);
-									
-								}
-							}
-			    		}
-			    	}
-			    	
-			    	for(int i = 0; i < allTimes.size(); i++) {
-			    		cmb_time.addItem(allTimes.get(i) + ":00 EST");
-					}
+		    		String[] parts = s.split(": ");
+			    	String part2 = parts[1];
 		    	}
 			}
 		});
 		
+		Label label_2_2 = new Label("Parking Lot:");
+		label_2_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		label_2_2.setBounds(400, 171, 140, 48);
+		contentPane.add(label_2_2);
+
+		
+		Label label_2_3 = new Label("Parking \r\nSpace:");
+		label_2_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		label_2_3.setBounds(400, 261, 154, 48);
+		contentPane.add(label_2_3);
+		
 		JButton btn_Add = new JButton("Add Booking");
 		btn_Add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Chain chainCalc1 = new ValidLP();
-				Chain chainCalc2 = new ValidDate();
-				Chain chainCalc3 = new ValidTime();
+				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
+				if(!isValid) {
+					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
+				}
 				
-				chainCalc1.setNextChain(chainCalc2);
-				chainCalc2.setNextChain(chainCalc3);
-				
-				chainCalc1.validateBooking(username, txt_lp.getText(), (String) cmb_pl.getSelectedItem(), (String) cmb_ps.getSelectedItem(), txt_date.getText(), (String) cmb_time.getSelectedItem(), (String) cmb_duration.getSelectedItem(), allTimes);
-						
-				
+				username = System.loggedInUserName;
+				type = System.loggedInAccountType;
+				ArrayList<String> returnList = new ArrayList<String>();
+				char bookDurationChar = cmb_duration.getSelectedItem().toString().charAt(0);
+				int bookDuration = Character.getNumericValue(bookDurationChar); 
+				returnList = ReadCSV.findUserName(username, "Clients.txt");
+				if(type == "Student")
+				{
+					String s=String.valueOf(5 * bookDuration + 5);  
+					returnList.set(6,s);
+				}
+				else if (type == "Faculty")
+				{
+					String s=String.valueOf(8 * bookDuration + 8);  
+					returnList.set(6,s);
+				}
+				else if (type == "non-Faculty")
+				{
+					String s=String.valueOf(10 * bookDuration + 10);  
+					returnList.set(6,s);
+				}
+				else
+				{
+					String s=String.valueOf(15 * bookDuration + 15);  
+					returnList.set(6,s);
+				}
 			}
 		});
 		btn_Add.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btn_Add.setBounds(257, 449, 257, 88);
 		contentPane.add(btn_Add);
-			
 	}
-	
-	
-	
 	
 	public static boolean isValidFormat(String format, String value, Locale locale) {
 	    LocalDateTime ldt = null;

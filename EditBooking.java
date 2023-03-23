@@ -219,6 +219,33 @@ public class EditBooking extends JFrame {
 				if(!isValid) {
 					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
 				}
+				
+				username = System.loggedInUserName;
+				type = System.loggedInAccountType;
+				ArrayList<String> returnList = new ArrayList<String>();
+				char bookDurationChar = cmb_duration.getSelectedItem().toString().charAt(0);
+				int bookDuration = Character.getNumericValue(bookDurationChar); 
+				returnList = ReadCSV.findUserName(username, "Clients.txt");
+				if(type == "Student")
+				{
+					String s=String.valueOf(5 * bookDuration + 5);  
+					returnList.set(6,s);
+				}
+				else if (type == "Faculty")
+				{
+					String s=String.valueOf(8 * bookDuration + 8);  
+					returnList.set(6,s);
+				}
+				else if (type == "non-Faculty")
+				{
+					String s=String.valueOf(10 * bookDuration + 10);  
+					returnList.set(6,s);
+				}
+				else
+				{
+					String s=String.valueOf(15 * bookDuration + 15);  
+					returnList.set(6,s);
+				}
 			}
 		});
 		btn_Add.setFont(new Font("Tahoma", Font.BOLD, 30));
