@@ -87,7 +87,7 @@ public class DeleteCSV {
 					dateC = arr.get(i).get(4);
 					timeC = arr.get(i).get(5);
 					durationC = arr.get(i).get(6);
-					bw.write(usernameC + "," + lpC + "," + plC + "," + psC + "," + dateC + "," + timeC + "," + durationC);
+					pw.println(usernameC + "," + lpC + "," + plC + "," + psC + "," + dateC + "," + timeC + "," + durationC);
 				}
 				
 //				// create reading tools, x is the file
@@ -117,8 +117,6 @@ public class DeleteCSV {
 //				x.close();
 				pw.flush();
 				pw.close();
-				fw.flush();
-				fw.close();
 				bw.flush();
 				bw.close();
 				//bw.close();
@@ -197,4 +195,3 @@ public class DeleteCSV {
 }
 
 //
-

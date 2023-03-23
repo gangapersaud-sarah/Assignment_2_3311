@@ -1,4 +1,3 @@
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -110,9 +109,13 @@ public class View_Bookings extends JFrame {
 				time = (String) table.getValueAt(table.getSelectedRow(), 4);
 				duration = (String) table.getValueAt(table.getSelectedRow(), 5);
 				
+				if(duration.contains("\r")) {
+					String[] parts = duration.split("\r");
+					duration = parts[0];
+				}
+				
 				try {
 					DeleteCSV.CancelBooking("HappyBuddy77", lp, pl, ps, date, time, duration);
-					table.remove(table.getSelectedRow());
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
@@ -153,7 +156,6 @@ public class View_Bookings extends JFrame {
 		
 		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
 		returnList = ReadCSV.allBookings("Booking.txt");
-		ReadCSV.allBookings("Booking.txt");
 		String[] list = new String[6];
 		for (int i = 0; i < returnList.size(); i++) {
             for (int j = 0; j < returnList.get(i).size()-1; j++) {
@@ -178,14 +180,11 @@ public class View_Bookings extends JFrame {
 	
 	public void setUsername(String s) {
 		username = s;
-		
 	}
 	public void setType(String s) {
 		type = s;
-		
 	}
 	public void setAmountDue(int s) {
 		amountDue = s;
-		
 	}
 }

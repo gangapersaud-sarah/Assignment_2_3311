@@ -437,7 +437,7 @@ public class ReadCSV {
 			// create reading tools, x is the file
 			x = new Scanner(new File("Booking.txt"));
 			// Separate values in x using "," and "\n"
-			x.useDelimiter("[,\n]");
+			x.useDelimiter("[,\r]");
 			
 			while (x.hasNext()) {
 				
@@ -449,6 +449,11 @@ public class ReadCSV {
 				dateC = x.next();
 				timeC = x.next();
 				durationC = x.next();
+				
+				if(usernameC.contains("\n")) {
+					String[] parts = usernameC.split("\n");
+			    	usernameC = parts[1];
+				}
 				
 				if(!(usernameC.equals(username) && lpC.equals(lp) && plC.equals(pl) && psC.equals(ps) 
 						&& dateC.equals(date) && timeC.equals(time) && durationC.equals(duration))) {
