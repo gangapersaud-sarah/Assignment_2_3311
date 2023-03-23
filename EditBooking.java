@@ -12,7 +12,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -26,6 +25,41 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
+import java.util.Scanner;
+import java.io.File;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.Label;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.ActionEvent;
+import java.util.Scanner;
+import java.io.File;
 
 
 public class EditBooking extends JFrame {
@@ -34,6 +68,7 @@ public class EditBooking extends JFrame {
 	public String username = "";
 	public String type = "";
 	public int amountDue = -1;
+	private static Scanner x;
 //	private JFrame frame;
 //	private JTextField textField;
 //	private JTextField textField_1;
@@ -218,25 +253,24 @@ public class EditBooking extends JFrame {
 				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
 				if(!isValid) {
 					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
-				}
-				
+				}	
 				username = System.loggedInUserName;
 				type = System.loggedInAccountType;
 				ArrayList<String> returnList = new ArrayList<String>();
 				char bookDurationChar = cmb_duration.getSelectedItem().toString().charAt(0);
-				int bookDuration = Character.getNumericValue(bookDurationChar); 
+				int bookDuration = Character.getNumericValue(bookDurationChar);
 				returnList = ReadCSV.findUserName(username, "Clients.txt");
-				if(type == "Student")
+				if(type.equals("Student"))
 				{
 					String s=String.valueOf(5 * bookDuration + 5);  
 					returnList.set(6,s);
 				}
-				else if (type == "Faculty")
+				else if (type.equals("Faculty"))
 				{
 					String s=String.valueOf(8 * bookDuration + 8);  
 					returnList.set(6,s);
 				}
-				else if (type == "non-Faculty")
+				else if (type.equals("non-Faculty"))
 				{
 					String s=String.valueOf(10 * bookDuration + 10);  
 					returnList.set(6,s);
@@ -245,6 +279,47 @@ public class EditBooking extends JFrame {
 				{
 					String s=String.valueOf(15 * bookDuration + 15);  
 					returnList.set(6,s);
+				}
+				String filePath = "Clients.txt";
+				String tempFile = "tempClients.txt";
+				File oldFile = new File(filePath);
+				File newFile = new File(tempFile);
+				String newUserName = ""; String newFirstName = ""; String newLastName = ""; String newEmail = ""; String newPassword = ""; String newType = ""; String newBalance = "";
+				try
+				{
+					FileWriter fw = new FileWriter(tempFile, true);
+					BufferedWriter bw = new BufferedWriter(fw);
+					PrintWriter pw = new PrintWriter(bw);
+					x = new Scanner(filePath);
+					x.useDelimiter("[,\n]");
+					while(x.hasNext())
+					{
+						newUserName = x.next();
+						newFirstName = x.next();
+						newLastName = x.next();
+						newEmail = x.next();
+						newPassword = x.next();
+						newType = x.next();
+						newBalance = x.next();;
+						if(newUserName.equals(username))
+						{
+							pw.println(username + "," + returnList.get(1) + "," + returnList.get(2) + "," + returnList.get(3) + "," + returnList.get(4) + "," + type + "," + returnList.get(6));
+						}
+						else
+						{
+							pw.println(newUserName + "," + newFirstName + "," + newLastName + "," + newEmail + "," + newPassword + "," + newType + "," + newBalance);
+						}
+					}
+					x.close();
+					pw.flush();
+					pw.close();
+					oldFile.delete();
+					File dump = new File(filePath);
+					newFile.renameTo(dump);
+				}
+				catch(Exception e2)
+				{
+
 				}
 			}
 		});

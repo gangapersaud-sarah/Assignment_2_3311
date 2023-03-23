@@ -51,10 +51,9 @@ public class WriteCSV {
 			FileWriter fw = new FileWriter(filepath , true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
-			
 			// what to write in file
 			pw.println(username + "," + first + "," + last + "," + email + "," + pwd + "," + type + "," + amount);
-			
+
 			//push and close file
 			pw.flush();
 			pw.close();
@@ -80,7 +79,7 @@ public class WriteCSV {
 			FileWriter fw = new FileWriter(filepath , true);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw = new PrintWriter(bw);
-			
+
 			// what to write in file
 			pw.println(username + "," + null + "," + null + "," + null + "," + pwd + "," + "Manager"+ "," + -1);
 			
