@@ -192,8 +192,30 @@ public class DeleteCSV {
 			}
 	}
 
-	public static void RemoveParkingEntry(String name, int val){
+	public static void RemoveParkingEntry(String name){
+		try {
+			ArrayList<ArrayList<String>> arr = ReadCSV.notDeleteParking(name);
+			String val = "";
+			FileWriter fw = new FileWriter("Parking.txt" , false);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw2 = new PrintWriter(bw);
+			
+			for (int i = 0; i < arr.size(); i ++){
+				LotName = arr.get(i).get(0);
+				firstC = arr.get(i).get(1);
+				pw2.println(usernameC + "," + firstC + "," + lastC + "," + emailC + "," + pwC + "," + typeC + "," + amountDueC);
+			}
 
+			bw.flush();
+			bw.close();
+			pw2.flush();
+			pw2.close();
+
+			JOptionPane.showMessageDialog(null, "user deleted");
+		}
+		catch (Exception e){
+			JOptionPane.showMessageDialog(null, "error");
+		}
 	}
 	
 }
