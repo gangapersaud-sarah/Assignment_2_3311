@@ -165,8 +165,9 @@ public class manageParkingLot {
 			public void actionPerformed(ActionEvent e) {
 				if(list.getSelectedValue()!=null){
 					String selected = list.getSelectedValue();
-					parkingInfo.get(selected ).add(-1);
-					DeleteCSV.RemoveParkingEntry(selected);
+					parkingInfo.get(selected).clear();
+					parkingInfo.get(selected).add(-1);
+					DeleteCSV.RemoveParkingEntry(selected, 0);
 					WriteCSV.addDisabled(selected , -1);
 					list.clearSelection();
 				}
@@ -181,8 +182,10 @@ public class manageParkingLot {
 		enableParkingLotButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(list.getSelectedValue()!=null){
-					parkingInfo.get(list.getSelectedValue()).removeAll(Collections.singletonList(-1));
-					
+					String selected = list.getSelectedValue();
+					parkingInfo.get(selected).removeAll(Collections.singletonList(-1));
+					DeleteCSV.RemoveParkingEntry(selected, -1);
+					parkingInfo.get(selected).add(0);
 					WriteCSV.addDisabled(list.getSelectedValue(), 0);
 					list.clearSelection();
 				}

@@ -539,12 +539,12 @@ public class ReadCSV {
 		return returnList;
 	}
 
-	public static ArrayList<ArrayList<String>> notDeleteParking(String name) {
+	public static ArrayList<ArrayList<String>> notDeleteParking(String name, int value) {
 	
 		
 		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
 		String LotName= "";
-		String val = "";
+		int val = 0;
 		try {
 			
 			// create reading tools, x is the file
@@ -555,24 +555,37 @@ public class ReadCSV {
 			while (x.hasNextLine()) {
 				String temp = x.nextLine();
 				LotName = temp.split(",")[0];
-				val = temp.split(",")[1];
+				val = Integer.valueOf(temp.split(",")[1]);
 				
 				
 				if(LotName.contains("\n")) {
 					String[] parts = LotName.split("\n");
 			    	LotName = parts[1];
 				}
+
 				if(!(LotName.equals(name))) {
 					// add the booking details to the array
 					ArrayList<String> list = new ArrayList<String>();
 					// add the user details to the array
 					list.add(LotName);
-					list.add(val);
+					list.add(String.valueOf(val));
 					
 					// add the booking (array list of details) to the arraylist of bookings
 					returnList.add(list);
 				}
-				
+				else{
+					if(value == -1){
+						if (val != -1){
+							ArrayList<String> list = new ArrayList<String>();
+							// add the user details to the array
+							list.add(LotName);
+							list.add(String.valueOf(val));
+							
+							// add the booking (array list of details) to the arraylist of bookings
+							returnList.add(list);
+						}
+					}
+				}
 				
 			}
 		}

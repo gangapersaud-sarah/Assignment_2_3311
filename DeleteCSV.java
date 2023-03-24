@@ -192,11 +192,10 @@ public class DeleteCSV {
 			}
 	}
 
-	public static void RemoveParkingEntry(String name){
+	public static void RemoveParkingEntry(String name, int val){
 		try {
 			//arr = every parking lot info except Parking Lot: name
-			ArrayList<ArrayList<String>> arr = ReadCSV.notDeleteParking(name);
-			String val = "";
+			ArrayList<ArrayList<String>> arr = ReadCSV.notDeleteParking(name, val);
 			FileWriter fw = new FileWriter("Parking.txt" , false);
 			BufferedWriter bw = new BufferedWriter(fw);
 			PrintWriter pw2 = new PrintWriter(bw);
