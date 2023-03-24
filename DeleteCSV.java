@@ -216,6 +216,50 @@ public class DeleteCSV {
 		}
 	}
 	
+	
+	public static void RemoveValidateClient(String username) throws IOException {
+		
+		File oldFile = new File("validateClients.txt");
+		
+			String usernameC = "";
+			String firstC = "";
+			String lastC = "";
+			String emailC = "";
+			String pwC = "";
+			String typeC = "";
+			String amountDueC = "";
+			
+			try {
+				ArrayList<ArrayList<String>> arr = ReadCSV.notDeleteClients(username);
+				//ReadCSV.notDeleteClients(username);
+
+				FileWriter fw = new FileWriter(oldFile , false);
+				BufferedWriter bw = new BufferedWriter(fw);
+				PrintWriter pw2 = new PrintWriter(bw);
+				
+				for (int i = 0; i < arr.size(); i ++) {
+					usernameC = arr.get(i).get(0);
+					firstC = arr.get(i).get(1);
+					lastC = arr.get(i).get(2);
+					emailC = arr.get(i).get(3);
+					pwC = arr.get(i).get(4);
+					typeC = arr.get(i).get(5);
+					amountDueC = arr.get(i).get(6);
+					pw2.println(usernameC + "," + firstC + "," + lastC + "," + emailC + "," + pwC + "," + typeC + "," + amountDueC);
+				}
+
+				bw.flush();
+				bw.close();
+				pw2.flush();
+				pw2.close();
+				//fw.flush();
+				//fw.close();
+				JOptionPane.showMessageDialog(null, "Validate-User deleted");
+			}
+			catch (Exception e){
+				JOptionPane.showMessageDialog(null, "error");
+			}
+	}
 }
 
 //

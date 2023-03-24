@@ -596,5 +596,64 @@ public class ReadCSV {
 	}
 
 
+	public static ArrayList<ArrayList<String>> notDeleteValidateClients(String username) {
+	
+		
+		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
+		String usernameC = "";
+		String first = "";
+		String last = "";
+		String email = "";
+		String pw = "";
+		String type = "";
+		String amountDue = "";
+		
+		try {
+			
+			// create reading tools, x is the file
+			x = new Scanner(new File("validatingClients.txt"));
+			// Separate values in x using "," and "\n"
+			x.useDelimiter("[,\r]");
+			
+			while (x.hasNext()) {
+				
+				// get next line
+				usernameC = x.next();
+				first = x.next();
+				last = x.next();
+				email = x.next();
+				pw = x.next();
+				type = x.next();
+				amountDue = x.next();
+				
+				if(usernameC.contains("\n")) {
+					String[] parts = usernameC.split("\n");
+			    	usernameC = parts[1];
+				}
+				if(!(usernameC.equals(username))) {
+					// add the booking details to the array
+					ArrayList<String> list = new ArrayList<String>();
+					// add the user details to the array
+					list.add(usernameC);
+					list.add(first);
+					list.add(last);
+					list.add(email);
+					list.add(pw);
+					list.add(type);
+					list.add(amountDue);
+					
+					// add the booking (array list of details) to the arraylist of bookings
+					returnList.add(list);
+				}
+				
+				
+			}
+		}
+		catch (Exception e){
+			
+		}
+		return returnList;
+	}
+
 	
 }
