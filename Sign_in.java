@@ -1,4 +1,3 @@
-
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -151,12 +150,7 @@ public class Sign_in extends JFrame {
 				}
 				else {
 					if(pwd.matches("(.*)[0-9](.*)") && pwd.matches("(.*)[a-z](.*)") && pwd.matches("(.*)[!@#$&()\\-`.+,/\"](.*)") && pwd.matches("(.*)[A-Z](.*)")) {
-						if(type.equals("Student") && type.equals("Faculty") && type.equals("Staff")) {
-							WriteCSV.ClientValid(username, first, last, email, pwd, type, 0);
-						}
-						else {
-							WriteCSV.saveClient(username, first, last, email, pwd, type, 0);
-						}
+						UserFactory.newUser(username, first, last, email, pwd, type, 0);
 					}
 					else if(!(pwd.matches("(.*)[a-z](.*)"))) {
 						lbl_response.setText("must include lowercase letter");
