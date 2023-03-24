@@ -123,74 +123,70 @@ public class ExtendBooking extends JFrame  {
 		
 		JButton btnNewButton = new JButton("Extend Booking");
 		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				username = System.loggedInUserName;
-				type = System.loggedInAccountType;
-				ArrayList<String> returnList = new ArrayList<String>();
-				char bookDurationChar = comboBox.getSelectedItem().toString().charAt(0);
-				int bookDuration = Character.getNumericValue(bookDurationChar);
-				returnList = ReadCSV.findUserName(username, "Clients.txt");
-				if(returnList.get(5).equals("Student"))
-				{
-					String s=String.valueOf(5 * bookDuration + 5);  
-					returnList.set(6,s);
+			ppublic void actionPerformed(ActionEvent e) {
+				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
+				if(!isValid) {
+					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
 				}
-				else if (returnList.get(5).equals("Faculty"))
-				{
-					String s=String.valueOf(8 * bookDuration + 8);  
-					returnList.set(6,s);
-				}
-				else if (returnList.get(5).equals("non-Faculty"))
-				{
-					String s=String.valueOf(10 * bookDuration + 10);  
-					returnList.set(6,s);
-				}
-				else
-				{
-					String s=String.valueOf(15 * bookDuration + 15);  
-					returnList.set(6,s);
-				}
-				String filePath = "Clients.txt";
-				String tempFile = "tempClients.txt";
-				File oldFile = new File(filePath);
-				File newFile = new File(tempFile);
-				String newUserName = ""; String newFirstName = ""; String newLastName = ""; String newEmail = ""; String newPassword = ""; String newType = ""; String newBalance = "";
-				try
-				{
-					FileWriter fw = new FileWriter(tempFile, true);
-					BufferedWriter bw = new BufferedWriter(fw);
-					PrintWriter pw = new PrintWriter(bw);
-					x = new Scanner(filePath);
-					x.useDelimiter("[,\n]");
-					while(x.hasNext())
+				else {
+					username = System.loggedInUserName;
+					type = System.loggedInAccountType;
+					// username = "HappyBuddy77";
+					// type = "Student";
+					ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
+					char bookDurationChar = cmb_duration.getSelectedItem().toString().charAt(0);
+					int bookDuration = Character.getNumericValue(bookDurationChar);
+					returnList = ReadCSV.findBookings(username, "Booking.txt");
+					String filePathBook = "Booking.txt";
+					String tempFileBook = "tempBooking.txt";
+					File oldFileBook = new File(filePathBook);
+					File newFileBook = new File(tempFileBook);
+					String newUserNameB = ""; 
+					String newLP = ""; 
+					String newPL = ""; 
+					String newPS = ""; 
+					String newDate = ""; 
+					String newTime = ""; 
+					String newDuration = "";
+					try
 					{
-						newUserName = x.next();
-						newFirstName = x.next();
-						newLastName = x.next();
-						newEmail = x.next();
-						newPassword = x.next();
-						newType = x.next();
-						newBalance = x.next();
-						if(newUserName.equals(username))
-						{
-							pw.println(username + "," + returnList.get(1) + "," + returnList.get(2) + "," + returnList.get(3) + "," + returnList.get(4) + "," + type + "," + returnList.get(6));
+						FileWriter fw = new FileWriter(tempFileBook, true);
+						BufferedWriter bw = new BufferedWriter(fw);
+						PrintWriter pw = new PrintWriter(bw);
+						x =  new Scanner(new File(filePathBook));
+						x.useDelimiter("[,\n]");
+			
+						while(x.hasNext()) {
+							newUserNameB = x.next();
+							newLP = x.next();
+							newPL = x.next();
+							newPS = x.next();
+							newDate = x.next();
+							newTime = x.next();
+							newDuration = x.next();
+							if (newUserNameB.equals(username)) {
+								pw.println(username + "," + returnList.get(1) + "," + returnList.get(2) + "," + returnList.get(3) + "," + returnList.get(4) + "," + returnList.get(5) + "," + returnList.get(6));
+							}
+							else
+							{
+								pw.println(newUserNameB + "," + newLP + "," + newPL + "," + newPS + "," + newDate + "," + newTime + "," + newDuration);
+							}
 						}
-						else
-						{
-							pw.println(newUserName + "," + newFirstName + "," + newLastName + "," + newEmail + "," + newPassword + "," + newType + "," + newBalance);
-						}
+						
+						x.close();
+						pw.flush();
+						pw.close();
+						oldFileBook.delete();
+						File dump = new File(filePathBook);
+						newFileBook.renameTo(dump);
 					}
-					x.close();
-					pw.flush();
-					pw.close();
-					oldFile.delete();
-					File dump = new File(filePath);
-					newFile.renameTo(dump);
+					catch(Exception e3)
+					{
+						
+					}
 				}
-				catch(Exception e2)
-				{
-
-				}
+				
+				
 			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 30));

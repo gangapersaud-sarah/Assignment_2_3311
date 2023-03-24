@@ -66,25 +66,25 @@ public class View_Bookings extends JFrame {
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton.setBounds(63, 416, 200, 100);
 		contentPane.add(btnNewButton);
-//		btnNewButton.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				ExtendBooking newFrame = new ExtendBooking();
-//				newFrame.setVisible(true);
-//				setVisible(false);
-//			}
-//		});
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				ExtendBooking newFrame = new ExtendBooking();
+				newFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 		
 		JButton btnNewButton_1 = new JButton("Edit Booking");
 		btnNewButton_1.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		btnNewButton_1.setBounds(288, 416, 200, 100);
 		contentPane.add(btnNewButton_1);
-//		btnNewButton_1.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent e) {
-//				EditBooking newFrame = new EditBooking();
-//				newFrame.setVisible(true);
-//				setVisible(false);
-//			}
-//		});
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				EditBooking newFrame = new EditBooking();
+				newFrame.setVisible(true);
+				setVisible(false);
+			}
+		});
 		
 		JButton btnNewButton_2 = new JButton("Cancel Booking");
 		btnNewButton_2.addActionListener(new ActionListener() {
