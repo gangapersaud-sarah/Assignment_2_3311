@@ -1,3 +1,4 @@
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -96,7 +97,7 @@ public class Sign_in extends JFrame {
 		contentPane.add(cmb_userType);
 		cmb_userType.addItem("Student");
 		cmb_userType.addItem("Faculty");
-		cmb_userType.addItem("Non-Faculty");
+		cmb_userType.addItem("Staff");
 		cmb_userType.addItem("Visitor");
 		
 		JLabel lbl_type = new JLabel("User Type:");
@@ -149,11 +150,13 @@ public class Sign_in extends JFrame {
 					lbl_response.setText(email + " has been taken please choose another email");
 				}
 				else {
-					lbl_response.setText(pwd + " is invalid please choose another password");
-					
-					if(pwd.matches("(.*)[0-9](.*)") && pwd.matches("(.*)[a-z](.*)") 
-							&& pwd.matches("(.*)[!@#$&()\\-`.+,/\"](.*)") && pwd.matches("(.*)[A-Z](.*)")) {
+					if(pwd.matches("(.*)[0-9](.*)") && pwd.matches("(.*)[a-z](.*)") && pwd.matches("(.*)[!@#$&()\\-`.+,/\"](.*)") && pwd.matches("(.*)[A-Z](.*)")) {
+						if(type.equals("Student") && type.equals("Faculty") && type.equals("Staff")) {
 							WriteCSV.ClientValid(username, first, last, email, pwd, type, 0);
+						}
+						else {
+							WriteCSV.saveClient(username, first, last, email, pwd, type, 0);
+						}
 					}
 					else if(!(pwd.matches("(.*)[a-z](.*)"))) {
 						lbl_response.setText("must include lowercase letter");
