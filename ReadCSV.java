@@ -539,48 +539,7 @@ public class ReadCSV {
 		return returnList;
 	}
 
-	public static ArrayList<ArrayList<String>> notDeleteParking(String name) {
-	
-		
-		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
-		String LotName= "";
-		String val = "";
-		try {
-			
-			// create reading tools, x is the file
-			x = new Scanner(new File("Parking.txt"));
-			// Separate values in x using "," and "\n"
-			x.useDelimiter("[,\r]");
-			
-			while (x.hasNextLine()) {
-				String temp = x.nextLine();
-				LotName = temp.split(",")[0];
-				val = temp.split(",")[1];
-				
-				
-				if(LotName.contains("\n")) {
-					String[] parts = LotName.split("\n");
-			    	LotName = parts[1];
-				}
-				if(!(LotName.equals(name))) {
-					// add the booking details to the array
-					ArrayList<String> list = new ArrayList<String>();
-					// add the user details to the array
-					list.add(LotName);
-					list.add(val);
-					
-					// add the booking (array list of details) to the arraylist of bookings
-					returnList.add(list);
-				}
-				
-				
-			}
-		}
-		catch (Exception e){
-			
-		}
-		return returnList;
-	}
+
 
 
 	
