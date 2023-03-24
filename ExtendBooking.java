@@ -134,7 +134,7 @@ public class ExtendBooking extends JFrame  {
 					// username = "HappyBuddy77";
 					// type = "Student";
 					ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
-					char bookDurationChar = cmb_duration.getSelectedItem().toString().charAt(0);
+					char bookDurationChar = comboBox.getSelectedItem().toString().charAt(0);
 					int bookDuration = Character.getNumericValue(bookDurationChar);
 					returnList = ReadCSV.findBookings(username, "Booking.txt");
 					String filePathBook = "Booking.txt";
