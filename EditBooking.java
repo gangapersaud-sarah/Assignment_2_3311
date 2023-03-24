@@ -188,9 +188,44 @@ public class EditBooking extends JFrame {
 			    	String d = (String) cmb_duration.getSelectedItem();
 					String[] parts2 = d.split(" Hours");
 			    	String finalDuration = parts2[0];
+			    	
+			    	ArrayList<Integer> allTimes = new ArrayList<Integer>();
+			    	for(int i = 8; i < 23; i++) {
+		    			allTimes.add(i);
+			    	}
+			    	
 					try {
-						DeleteCSV.CancelBooking("HappyBuddy77", lp, pl, ps, date, time, duration);
-						WriteCSV.CreateBooking("HappyBuddy77", lp, pl, ps, txt_date.getText(), finalStart, finalDuration);
+						DeleteCSV.CancelBooking(username, lp, pl, ps, date, time, duration);
+						
+						ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
+				    	for(int i = 0; i < booking.size(); i++) {
+				    		if(booking.get(i).get(2).equals(pl) && booking.get(i).get(3).equals(ps) && booking.get(i).get(4).equals(txt_date.getText())) {
+						    	String[] parts5 = booking.get(i).get(6).split("\r");
+						    	String finalDurationI = parts5[0];
+				    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDurationI); k++) {
+				    				if(allTimes.contains(k)) {
+				    					allTimes.remove((Integer) k);
+										
+									}
+								}
+				    		}
+				    	}
+				    	boolean valid = true;
+				    	for(int i = Integer.valueOf(finalStart); i < Integer.valueOf(finalStart) + Integer.valueOf(finalDuration); i++) {
+							if(!allTimes.contains(i)) {
+								valid = false;
+							}
+						}
+				    	
+				    	if(valid) {
+							WriteCSV.CreateBooking(username, lp, pl, ps, txt_date.getText(), finalStart, finalDuration);
+							JOptionPane.showMessageDialog(null, "Booking Edited");
+				    	}
+				    	else {
+				    		WriteCSV.CreateBooking(username, lp, pl, ps, date, time, duration);
+							JOptionPane.showMessageDialog(null, "Booking not Edited, time and duration of booking is unavalible");
+				    	}
+				    					    	
 					} catch (IOException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

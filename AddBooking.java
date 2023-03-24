@@ -234,7 +234,7 @@ public class AddBooking extends JFrame {
 					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
 		    	}
 		    	else {
-		    		for(int i = 8; i < 22; i++) {
+		    		for(int i = 8; i < 23; i++) {
 		    			allTimes.add(i);
 			    	}
 		    		cmb_time.addItem("Select");
