@@ -136,19 +136,6 @@ public class AddBooking extends JFrame {
 		cmb_duration.addItem("5 Hours");
 		cmb_duration.addItem("6 Hours");
 		
-		JTextField txt_date = new JTextField();
-		txt_date.addFocusListener(new FocusAdapter() {
-			@Override
-			public void focusLost(FocusEvent e) {
-				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
-				if(!isValid) {
-					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
-				}
-			}
-		});
-		txt_date.setBounds(193, 261, 178, 48);
-		contentPane.add(txt_date);
-		
 		JComboBox cmb_ps = new JComboBox();
 		cmb_ps.setBounds(577, 261, 178, 48);
 		contentPane.add(cmb_ps);
@@ -157,6 +144,52 @@ public class AddBooking extends JFrame {
 		cmb_pl.setBounds(577, 171, 178, 48);
 		contentPane.add(cmb_pl);
 		cmb_pl.addItem("Select");
+		
+		JTextField txt_date = new JTextField();
+		txt_date.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
+				if(!isValid) {
+					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
+				}
+				else {
+					cmb_time.removeAllItems();
+			    	String ps = (String) cmb_ps.getSelectedItem();
+			    	String pl = (String) cmb_pl.getSelectedItem();
+					for(int i = 8; i < 22; i++) {
+		    			allTimes.add(i);
+			    	}
+		    		cmb_time.addItem("Select");
+		    		String[] parts = ps.split(": ");
+			    	String finalPS = parts[1];
+			    	
+			    	String[] parts3 = pl.split(": ");
+			    	String finalPL = parts3[1];
+			    	
+			    	ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
+			    	ReadCSV.allBookings("Booking.txt");
+			    	for(int i = 0; i < booking.size(); i++) {
+			    		if(booking.get(i).get(2).equals(finalPL) && booking.get(i).get(3).equals(finalPS) && booking.get(i).get(4).equals(txt_date.getText())) {
+					    	String[] parts5 = booking.get(i).get(6).split("\r");
+					    	String finalDuration = parts5[0];
+			    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDuration); k++) {
+			    				if(allTimes.contains(k)) {
+			    					allTimes.remove((Integer) k);
+									
+								}
+							}
+			    		}
+			    	}
+			    	
+			    	for(int i = 0; i < allTimes.size(); i++) {
+			    		cmb_time.addItem(allTimes.get(i) + ":00 EST");
+					}
+				}
+			}
+		});
+		txt_date.setBounds(193, 261, 178, 48);
+		contentPane.add(txt_date);
 		
 		String[] allPL = ReadCSV.allParkingLots();
 		ReadCSV.allParkingLots();
