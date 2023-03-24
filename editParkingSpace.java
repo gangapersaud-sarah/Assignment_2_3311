@@ -1,18 +1,22 @@
-
-
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.EventQueue;
+import java.util.Arrays;
+
+import javax.swing.DefaultCellEditor;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ListSelectionModel;
+import javax.swing.JLabel;
 
 public class editParkingSpace {
 
@@ -90,7 +94,7 @@ public class editParkingSpace {
 		}
 		ParkingSpaceScrollPane.setViewportView(parkingSpaceTable);
 		
-		JButton enableParkingSpace = new JButton("Enabled Selected Parking Space");
+		JButton enableParkingSpace = new JButton("Enable");
 		enableParkingSpace.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int[] rows = parkingSpaceTable.getSelectedRows();
@@ -99,16 +103,16 @@ public class editParkingSpace {
 						tableModel.setValueAt("enabled", rows[i], 1);
 					}
 				}
-                tableModel.fireTableDataChanged();
+				tableModel.fireTableDataChanged();
 			}
 		});
 		enableParkingSpace.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		enableParkingSpace.setBackground(Color.WHITE);
 		enableParkingSpace.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		enableParkingSpace.setBounds(94, 510, 297, 23);
+		enableParkingSpace.setBounds(81, 510, 126, 23);
 		manageParkingSpace.add(enableParkingSpace);
 		
-		JButton disableParkingSpace = new JButton("Disable Selected Parking Space");
+		JButton disableParkingSpace = new JButton("Disable");
 		disableParkingSpace.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int[] rows = parkingSpaceTable.getSelectedRows();
@@ -117,13 +121,13 @@ public class editParkingSpace {
 						tableModel.setValueAt("disabled", rows[i], 1);
 					}
 				}
-                tableModel.fireTableDataChanged();
+				tableModel.fireTableDataChanged();
 			}
 		});
 		disableParkingSpace.setBorder(new LineBorder(new Color(0, 0, 0), 2));
 		disableParkingSpace.setBackground(Color.WHITE);
 		disableParkingSpace.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		disableParkingSpace.setBounds(392, 510, 393, 23);
+		disableParkingSpace.setBounds(205, 510, 126, 23);
 		manageParkingSpace.add(disableParkingSpace);
 		
 		JButton backButton = new JButton("Back");
@@ -136,13 +140,35 @@ public class editParkingSpace {
 		});
 		backButton.setFont(new Font("Tahoma", Font.PLAIN, 19));
 		backButton.setBackground(Color.WHITE);
-		backButton.setBounds(0, 510, 93, 23);
+		backButton.setBounds(0, 510, 81, 23);
 		manageParkingSpace.add(backButton);
+		
+		JLabel dateLabel = new JLabel("");
+		dateLabel.setBounds(323, 510, 185, 23);
+		manageParkingSpace.add(dateLabel);
+		
+		JButton nextDate = new JButton("Next Date");
+		nextDate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		nextDate.setBackground(new Color(255, 255, 255));
+		nextDate.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		nextDate.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		nextDate.setBounds(506, 510, 140, 23);
+		manageParkingSpace.add(nextDate);
+		
+		JButton prevDate = new JButton("Previous Date");
+		prevDate.setBackground(new Color(255, 255, 255));
+		prevDate.setBorder(new LineBorder(new Color(0, 0, 0), 2));
+		prevDate.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		prevDate.setBounds(646, 510, 140, 23);
+		manageParkingSpace.add(prevDate);
 	}
 	
 	public String[][] fillTable(){
 		String[][] table = new String[100][20];
-
+		
 		for (int i = 0; i < 100; i++) {
 		    table[i][0] = Integer.toString(i + 1);
 		    table[i][1] = "enabled";
@@ -157,5 +183,4 @@ public class editParkingSpace {
 		this.parkingSpaceFrame.setVisible(b);
 	}
 }
-
 
