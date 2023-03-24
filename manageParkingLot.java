@@ -27,6 +27,7 @@ public class manageParkingLot {
 	public static JList<String> list;
 	public static DefaultListModel<String> model; 
 	public static Hashtable<String, ArrayList<Integer>> parkingInfo;
+	public static String selectedLot;
 	/**
 	 * Launch the application.
 	 */
@@ -215,6 +216,7 @@ public class manageParkingLot {
 			public void actionPerformed(ActionEvent e) {
 				editParkingSpace parkingSpaceFrame = new editParkingSpace();
 				parkingSpaceFrame.setVisible(true);
+				selectedLot = list.getSelectedValue();
 				parkingLotFrame.setVisible(false);
 			}
 		});
