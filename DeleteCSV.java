@@ -194,6 +194,7 @@ public class DeleteCSV {
 
 	public static void RemoveParkingEntry(String name){
 		try {
+			//arr = every parking lot info except Parking Lot: name
 			ArrayList<ArrayList<String>> arr = ReadCSV.notDeleteParking(name);
 			String val = "";
 			FileWriter fw = new FileWriter("Parking.txt" , false);
@@ -201,9 +202,7 @@ public class DeleteCSV {
 			PrintWriter pw2 = new PrintWriter(bw);
 			
 			for (int i = 0; i < arr.size(); i ++){
-				LotName = arr.get(i).get(0);
-				firstC = arr.get(i).get(1);
-				pw2.println(usernameC + "," + firstC + "," + lastC + "," + emailC + "," + pwC + "," + typeC + "," + amountDueC);
+				pw2.println(arr.get(i).get(0) + "," + arr.get(i).get(1));
 			}
 
 			bw.flush();
@@ -211,7 +210,7 @@ public class DeleteCSV {
 			pw2.flush();
 			pw2.close();
 
-			JOptionPane.showMessageDialog(null, "user deleted");
+			JOptionPane.showMessageDialog(null, "Parking Lot: " + name + " entries deleted");
 		}
 		catch (Exception e){
 			JOptionPane.showMessageDialog(null, "error");

@@ -166,7 +166,7 @@ public class manageParkingLot {
 				if(list.getSelectedValue()!=null){
 					String selected = list.getSelectedValue();
 					parkingInfo.get(selected ).add(-1);
-					DeleteCSV(selected);
+					DeleteCSV.RemoveParkingEntry(selected);
 					WriteCSV.addDisabled(selected , -1);
 					list.clearSelection();
 				}

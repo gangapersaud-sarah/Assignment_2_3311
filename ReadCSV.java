@@ -556,7 +556,6 @@ public class ReadCSV {
 				String temp = x.nextLine();
 				LotName = temp.split(",")[0];
 				val = temp.split(",")[1];
-				// get next line
 				
 				
 				if(LotName.contains("\n")) {
