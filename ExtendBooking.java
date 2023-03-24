@@ -123,7 +123,7 @@ public class ExtendBooking extends JFrame  {
 		
 		JButton btnNewButton = new JButton("Extend Booking");
 		btnNewButton.addActionListener(new ActionListener() {
-			ppublic void actionPerformed(ActionEvent e) {
+			public void actionPerformed(ActionEvent e) {
 				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
 				if(!isValid) {
 					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
