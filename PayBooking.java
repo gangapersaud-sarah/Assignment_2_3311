@@ -92,9 +92,10 @@ public class PayBooking extends JFrame {
 
 		if(attended = true)
 		{
-			int x = 0;
-			String y = returnList.get(6);
-			x = Integer.parseInt(y);
+			int x;
+			String amountDueI = returnList.get(6);
+			String[] parts9 = amountDueI.split("\r");
+			x = Integer.valueOf(parts9[0]);
 			if(returnList.get(5).equals("Student"))
 			{
 				x = x - 5;
