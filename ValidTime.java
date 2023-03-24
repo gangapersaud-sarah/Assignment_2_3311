@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 public class ValidTime implements Chain{
-	public String userName = "";
-	public String userType = "";
 
 	private  Chain nextInChain;
 	
@@ -43,11 +41,8 @@ public class ValidTime implements Chain{
 		
 		if(valid){
 			
-			
-			userName = System.loggedInUserName;
-			userType = System.loggedInAccountType;
-			ArrayList<String> user = ReadCSV.findUserName(userName, "Clients.txt");
-			ReadCSV.findUserName(userName, "Clients.txt");
+			ArrayList<String> user = ReadCSV.findUserName(username, "Clients.txt");
+			ReadCSV.findUserName(username, "Clients.txt");
 			String amountDueI = user.get(6);
 			String[] parts9 = amountDueI.split("\r");
 			int amountDue = Integer.valueOf(parts9[0]);
@@ -68,10 +63,10 @@ public class ValidTime implements Chain{
 				amountDue += 20;
 			}
 			
-			WriteCSV.CreateBooking(userName, lp, finalPL, finalPS, date, finalStart, finalDuration);
+			WriteCSV.CreateBooking(username, lp, finalPL, finalPS, date, finalStart, finalDuration);
 			try {
-				DeleteCSV.CancelClient(userName, user.get(1), user.get(2), user.get(3), user.get(4), user.get(5), user.get(6));
-				WriteCSV.saveClient(userName, user.get(1), user.get(2), user.get(3), user.get(4), user.get(5), amountDue);
+				DeleteCSV.CancelClient(username, user.get(1), user.get(2), user.get(3), user.get(4), user.get(5), user.get(6));
+				WriteCSV.saveClient(username, user.get(1), user.get(2), user.get(3), user.get(4), user.get(5), amountDue);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
