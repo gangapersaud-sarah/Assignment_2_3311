@@ -1,0 +1,11 @@
+HappyBuddy, Mary, Nguyen, Mary@gmail.com, 1234, Student, 0
+HappyBuddy, null, null, null, 1234, Manager, -1
+h4hvqr41dj, null, null, null, Bl%92IaCR8, Staff,0
+6fbl67p19h, null, null, null, wKr9J^y%7B, Manager,-1
+scko6240an, null, null, null, XkqzdCGNvt, Manager,-1
+HappyBuddy88,Moh,A,Moh@gmail.com,5678,Student,0
+HappyBuddy99,Sarah,B,Sarah@gmail.com,9012,Student,0
+HappyBuddy66,Yazan,C,Yazan@gmail.com,3456,Student,0
+HappyBuddy11,null,null,null,7890,Manager,-1 
+HappyBuddy22,null,null,null,7890,Super-Manager,-1
+HappyBuddy77,Mary,Nguyen,Mary@gmail.com,1234,Student,30

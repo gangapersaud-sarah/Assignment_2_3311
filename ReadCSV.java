@@ -611,7 +611,7 @@ public class ReadCSV {
 		try {
 			
 			// create reading tools, x is the file
-			x = new Scanner(new File("validatingClients.txt"));
+			x = new Scanner(new File("validateClients.txt"));
 			// Separate values in x using "," and "\n"
 			x.useDelimiter("[,\r]");
 			

@@ -217,10 +217,7 @@ public class DeleteCSV {
 	}
 	
 	
-	public static void RemoveValidateClient(String username) throws IOException {
-		
-		File oldFile = new File("validateClients.txt");
-		
+	public static void RemoveValidateClient(String username) {
 			String usernameC = "";
 			String firstC = "";
 			String lastC = "";
@@ -230,10 +227,8 @@ public class DeleteCSV {
 			String amountDueC = "";
 			
 			try {
-				ArrayList<ArrayList<String>> arr = ReadCSV.notDeleteClients(username);
-				//ReadCSV.notDeleteClients(username);
-
-				FileWriter fw = new FileWriter(oldFile , false);
+				ArrayList<ArrayList<String>> arr = ReadCSV.notDeleteValidateClients(username);
+				FileWriter fw = new FileWriter("validateClients.txt" , false);
 				BufferedWriter bw = new BufferedWriter(fw);
 				PrintWriter pw2 = new PrintWriter(bw);
 				
@@ -252,8 +247,6 @@ public class DeleteCSV {
 				bw.close();
 				pw2.flush();
 				pw2.close();
-				//fw.flush();
-				//fw.close();
 				JOptionPane.showMessageDialog(null, "Validate-User deleted");
 			}
 			catch (Exception e){

@@ -13,6 +13,7 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.awt.event.ActionEvent;
 
@@ -87,7 +88,7 @@ public class validateAccounts {
 		validateAccounts.add(scrollPane);
 		
 		validateTable = new JTable();
-		ArrayList<ArrayList<String>>  test = ReadCSV.allUsers("validatingClients.txt");
+		ArrayList<ArrayList<String>>  test = ReadCSV.allUsers("validateClients.txt");
 		String[][] stringArray = test.stream().map(u -> u.toArray(new String[0])).toArray(String[][]::new);
 
 		DefaultTableModel tableModel = new DefaultTableModel(
@@ -121,6 +122,7 @@ public class validateAccounts {
 			public void actionPerformed(ActionEvent e) {
 				int row = validateTable.getSelectedRow();
 				int val;
+				String username;
 				while(row != -1){		
 					if(tableModel.getValueAt(row, 5).equals("Manager")){
 						val = -1;
@@ -128,9 +130,9 @@ public class validateAccounts {
 					else{
 						val = 0;
 					}
-					DeleteCSV.CancelClient(tableModel.getValueAt(row, 0));
+					username = tableModel.getValueAt(row, 0).toString();
+					DeleteCSV.RemoveValidateClient(username);
 					WriteCSV.saveClient(tableModel.getValueAt(row, 0).toString(), tableModel.getValueAt(row, 1).toString(), tableModel.getValueAt(row, 2).toString(), tableModel.getValueAt(row, 3).toString(), tableModel.getValueAt(row, 4).toString(), tableModel.getValueAt(row, 5).toString(),   val);
-					//REMOVE FROM VALIDATING CLIENTS FILE
 					tableModel.removeRow(row);
 					row = validateTable.getSelectedRow();
 				}
@@ -147,8 +149,11 @@ public class validateAccounts {
 		declineButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				int row = validateTable.getSelectedRow();
+				String username;
 				while(row != -1){
 					//REMOVE FROM VALIDATING CLIENTS FILE
+					username = tableModel.getValueAt(row, 0).toString();
+					DeleteCSV.RemoveValidateClient(username);
 					tableModel.removeRow(row);
 					row = validateTable.getSelectedRow();
 				}
