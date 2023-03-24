@@ -31,6 +31,7 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Random;
 
 public class PayBooking extends JFrame {
 
@@ -38,7 +39,9 @@ public class PayBooking extends JFrame {
 	public String username = "";
 	public String type = "";
 	public int amountDue;
-	public boolean attended;
+	public int attended;
+    private static Scanner x;
+
 	/**
 	 * Launch the application.
 	 */
@@ -87,7 +90,7 @@ public class PayBooking extends JFrame {
 		contentPane.add(label_1);
 
 		username = System.loggedInUserName;
-        type = System.loggedInAccountType
+        type = System.loggedInAccountType;
         ArrayList<String> returnList = new ArrayList<String>();
         returnList = ReadCSV.findUserName(username, "Clients.txt");
 		amountDue = 0;
@@ -121,12 +124,12 @@ public class PayBooking extends JFrame {
                 if(userName.equals(username)) {
                     // add the booking details to the array
                     Random rd = new Random(); // creating Random object
-		            attended = rd.nextBoolean(); // displaying a random boolean
+		            attended = rd.nextInt(2); // displaying a random boolean
                     int x = 0;
                     int y = 0;
                     String[] parts9 = duration.split("\r");
                     x = Integer.valueOf(parts9[0]);
-                    if(attended = true)
+                    if(attended == 0)
 		            {
                         if(type.equals("Student"))
                         {
@@ -175,135 +178,56 @@ public class PayBooking extends JFrame {
         String s=String.valueOf(amountDue);  
         returnList.set(6,s);
         
-        /*Update backend with new price: commented since I'm not sure if tempClients is remade after being renamed once Clients is deleted(may have to remake it at the end), will test when I'm back
-        String filePath = "Clients.txt";
-        String tempFile = "tempClients.txt";
-        File oldFile = new File(filePath);
-        File newFile = new File(tempFile);
-        String newUserName = ""; String newFirstName = ""; String newLastName = ""; String newEmail = ""; String newPassword = ""; String newType = ""; String newBalance = "";
-        try
-        {
-            FileWriter fw = new FileWriter(tempFile, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-            x = new Scanner(filePath);
-            x.useDelimiter("[,\n]");
-            while(x.hasNext())
-            {
-                newUserName = x.next();
-                newFirstName = x.next();
-                newLastName = x.next();
-                newEmail = x.next();
-                newPassword = x.next();
-                newType = x.next();
-                newBalance = x.next();;
-                if(newUserName.equals(username))
-                {
-                    pw.println(username + "," + returnList.get(1) + "," + returnList.get(2) + "," + returnList.get(3) + "," + returnList.get(4) + "," + type + "," + returnList.get(6));
-                }
-                else
-                {
-                    pw.println(newUserName + "," + newFirstName + "," + newLastName + "," + newEmail + "," + newPassword + "," + newType + "," + newBalance);
-                }
-            }
-            x.close();
-            pw.flush();
-            pw.close();
-            oldFile.delete();
-            File dump = new File(filePath);
-            newFile.renameTo(dump);
-        }
-        catch(Exception e2)
-        {
+        Label label_3 = new Label("$" + returnList.get(6));
+        label_3.setFont(new Font("Tahoma", Font.BOLD, 20));
+        label_3.setBounds(298, 130, 216, 48);
+        contentPane.add(label_3);
 
-        }
-	*/
-        
-	Label label_3 = new Label("$" + returnList.get(6));
-	label_3.setFont(new Font("Tahoma", Font.BOLD, 20));
-	label_3.setBounds(298, 130, 216, 48);
-	contentPane.add(label_3);
-
-	JButton btnNewButton = new JButton("Credit");
+        JButton btnNewButton = new JButton("Credit");
         btnNewButton.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			returnList.set(6,"0");	
-                	label_3.setText("$" + returnList.get(6));	
-		}
-	});
-	btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 30));
-	btnNewButton.setBounds(257, 264, 257, 88);
-	contentPane.add(btnNewButton);
-		
-	JButton btnDebt = new JButton("Debit");
+        public void actionPerformed(ActionEvent e) {
+            /*
+            returnList.set(6,"0");	
+            label_3.setText("$" + returnList.get(6));	
+            */
+            label_3.setText("$0");
+        }
+        });
+        btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 30));
+        btnNewButton.setBounds(257, 264, 257, 88);
+        contentPane.add(btnNewButton);
+            
+        JButton btnDebt = new JButton("Debit");
         btnDebt.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			returnList.set(6,"0");	
-                	label_3.setText("$" + returnList.get(6));	
-		}
-	});
-	btnDebt.setFont(new Font("Tahoma", Font.BOLD, 30));
-	btnDebt.setBounds(257, 363, 257, 88);
-	contentPane.add(btnDebt);
-		
-	JButton btnOther = new JButton("Other");
+        public void actionPerformed(ActionEvent e) {
+            /*
+            returnList.set(6,"0");	
+            label_3.setText("$" + returnList.get(6));	
+            */
+            label_3.setText("$0");
+        }
+        });
+        btnDebt.setFont(new Font("Tahoma", Font.BOLD, 30));
+        btnDebt.setBounds(257, 363, 257, 88);
+        contentPane.add(btnDebt);
+            
+        JButton btnOther = new JButton("Other");
         btnOther.addActionListener(new ActionListener() {
-		public void actionPerformed(ActionEvent e) {
-			returnList.set(6,"0");	
-                	label_3.setText("$" + returnList.get(6));	
-		}
-	});	
-	btnOther.setFont(new Font("Tahoma", Font.BOLD, 30));
-	btnOther.setBounds(257, 462, 257, 88);
-	contentPane.add(btnOther);
-
-        /*Update backend with new value now that price has been paid: commented since I'm not sure if tempClients is remade after being renamed once Clients is deleted(may have to remake it at the end), will test when I'm back
-        String filePath = "Clients.txt";
-        String tempFile = "tempClients.txt";
-        File oldFile = new File(filePath);
-        File newFile = new File(tempFile);
-        String newUserName = ""; String newFirstName = ""; String newLastName = ""; String newEmail = ""; String newPassword = ""; String newType = ""; String newBalance = "";
-        try
-        {
-            FileWriter fw = new FileWriter(tempFile, true);
-            BufferedWriter bw = new BufferedWriter(fw);
-            PrintWriter pw = new PrintWriter(bw);
-            x = new Scanner(filePath);
-            x.useDelimiter("[,\n]");
-            while(x.hasNext())
-            {
-                newUserName = x.next();
-                newFirstName = x.next();
-                newLastName = x.next();
-                newEmail = x.next();
-                newPassword = x.next();
-                newType = x.next();
-                newBalance = x.next();;
-                if(newUserName.equals(username))
-                {
-                    pw.println(username + "," + returnList.get(1) + "," + returnList.get(2) + "," + returnList.get(3) + "," + returnList.get(4) + "," + type + "," + returnList.get(6));
-                }
-                else
-                {
-                    pw.println(newUserName + "," + newFirstName + "," + newLastName + "," + newEmail + "," + newPassword + "," + newType + "," + newBalance);
-                }
-            }
-            x.close();
-            pw.flush();
-            pw.close();
-            oldFile.delete();
-            File dump = new File(filePath);
-            newFile.renameTo(dump);
+        public void actionPerformed(ActionEvent e) {
+            /*
+            returnList.set(6,"0");	
+            label_3.setText("$" + returnList.get(6));	
+            */
+            label_3.setText("$0");
         }
-        catch(Exception e2)
-        {
+        });	
+        btnOther.setFont(new Font("Tahoma", Font.BOLD, 30));
+        btnOther.setBounds(257, 462, 257, 88);
+        contentPane.add(btnOther);
 
-        }
-	*/
-
-	JLabel label_2 = new JLabel("New label");
-	label_2.setBounds(207, 135, 49, 14);
-	contentPane.add(label_2);
+        JLabel label_2 = new JLabel("New label");
+        label_2.setBounds(207, 135, 49, 14);
+	    contentPane.add(label_2);
 
 	}
 	
