@@ -124,11 +124,11 @@ public class ExtendBooking extends JFrame  {
 		JButton btnNewButton = new JButton("Extend Booking");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
-				if(!isValid) {
-					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
-				}
-				else {
+//				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
+//				if(!isValid) {
+//					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
+//				}
+				
 					username = System.loggedInUserName;
 					type = System.loggedInAccountType;
 					// username = "HappyBuddy77";
@@ -186,8 +186,6 @@ public class ExtendBooking extends JFrame  {
 					}
 				}
 				
-				
-			}
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btnNewButton.setBounds(252, 398, 293, 88);
