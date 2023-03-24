@@ -72,6 +72,13 @@ public class EditBooking extends JFrame {
 //	private JFrame frame;
 //	private JTextField textField;
 //	private JTextField textField_1;
+	public String lp;
+	public String pl;
+	public String ps;
+	public String date;
+	public String time;
+	public String duration;
+	
 
 	/**
 	 * Launch the application.
@@ -139,14 +146,6 @@ public class EditBooking extends JFrame {
 		JComboBox cmb_time = new JComboBox();
 		cmb_time.setBounds(393, 261, 178, 48);
 		contentPane.add(cmb_time);
-		cmb_time.addItem("0:00 EST");
-		cmb_time.addItem("1:00 EST");
-		cmb_time.addItem("2:00 EST");
-		cmb_time.addItem("3:00 EST");
-		cmb_time.addItem("4:00 EST");
-		cmb_time.addItem("5:00 EST");
-		cmb_time.addItem("6:00 EST");
-		cmb_time.addItem("7:00 EST");
 		cmb_time.addItem("8:00 EST");
 		cmb_time.addItem("9:00 EST");
 		cmb_time.addItem("10:00 EST");
@@ -162,7 +161,6 @@ public class EditBooking extends JFrame {
 		cmb_time.addItem("20:00 EST");
 		cmb_time.addItem("21:00 EST");
 		cmb_time.addItem("22:00 EST");
-		cmb_time.addItem("23:00 EST");
 		
 		JComboBox cmb_duration = new JComboBox();
 		cmb_duration.setBounds(393, 349, 178, 48);
@@ -181,74 +179,23 @@ public class EditBooking extends JFrame {
 				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
 				if(!isValid) {
 					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
-				}	
-				username = System.loggedInUserName;
-				type = System.loggedInAccountType;
-				ArrayList<String> returnList = new ArrayList<String>();
-				char bookDurationChar = cmb_duration.getSelectedItem().toString().charAt(0);
-				int bookDuration = Character.getNumericValue(bookDurationChar);
-				returnList = ReadCSV.findUserName(username, "Clients.txt");
-				if(returnList.get(5).equals("Student"))
-				{
-					String s=String.valueOf(5 * bookDuration + 5);  
-					returnList.set(6,s);
 				}
-				else if (returnList.get(5).equals("Faculty"))
-				{
-					String s=String.valueOf(8 * bookDuration + 8);  
-					returnList.set(6,s);
-				}
-				else if (returnList.get(5).equals("non-Faculty"))
-				{
-					String s=String.valueOf(10 * bookDuration + 10);  
-					returnList.set(6,s);
-				}
-				else
-				{
-					String s=String.valueOf(15 * bookDuration + 15);  
-					returnList.set(6,s);
-				}
-				String filePath = "Clients.txt";
-				String tempFile = "tempClients.txt";
-				File oldFile = new File(filePath);
-				File newFile = new File(tempFile);
-				String newUserName = ""; String newFirstName = ""; String newLastName = ""; String newEmail = ""; String newPassword = ""; String newType = ""; String newBalance = "";
-				try
-				{
-					FileWriter fw = new FileWriter(tempFile, true);
-					BufferedWriter bw = new BufferedWriter(fw);
-					PrintWriter pw = new PrintWriter(bw);
-					x = new Scanner(filePath);
-					x.useDelimiter("[,\n]");
-					while(x.hasNext())
-					{
-						newUserName = x.next();
-						newFirstName = x.next();
-						newLastName = x.next();
-						newEmail = x.next();
-						newPassword = x.next();
-						newType = x.next();
-						newBalance = x.next();
-						if(newUserName.equals(username))
-						{
-							pw.println(username + "," + returnList.get(1) + "," + returnList.get(2) + "," + returnList.get(3) + "," + returnList.get(4) + "," + type + "," + returnList.get(6));
-						}
-						else
-						{
-							pw.println(newUserName + "," + newFirstName + "," + newLastName + "," + newEmail + "," + newPassword + "," + newType + "," + newBalance);
-						}
+				else {
+					String t = (String) cmb_time.getSelectedItem();
+					String[] parts = t.split(":");
+			    	String finalStart = parts[0];
+			    	
+			    	String d = (String) cmb_duration.getSelectedItem();
+					String[] parts2 = d.split(" Hours");
+			    	String finalDuration = parts2[0];
+					try {
+						DeleteCSV.CancelBooking("HappyBuddy77", lp, pl, ps, date, time, duration);
+						WriteCSV.CreateBooking("HappyBuddy77", lp, pl, ps, txt_date.getText(), finalStart, finalDuration);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
-					x.close();
-					pw.flush();
-					pw.close();
-					oldFile.delete();
-					File dump = new File(filePath);
-					newFile.renameTo(dump);
-				}
-				catch(Exception e2)
-				{
-
-				}
+				}		
 			}
 		});
 		btn_Add.setFont(new Font("Tahoma", Font.BOLD, 30));
@@ -293,6 +240,25 @@ public class EditBooking extends JFrame {
 	}
 	public void setAmountDue(int s) {
 		amountDue = s;
+	}
+	
+	public void setLP(String s) {
+		lp = s;
+	}
+	public void setPL(String s) {
+		pl = s;
+	}
+	public void setPS(String s) {
+		ps = s;
+	}
+	public void setDate(String s) {
+		date = s;
+	}
+	public void setTime(String s) {
+		time = s;
+	}
+	public void setDuration(String s) {
+		duration = s;
 	}
 }
 	
@@ -367,3 +333,4 @@ public class EditBooking extends JFrame {
 //		textField_1.setColumns(10);
 //		
 //	}
+

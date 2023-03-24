@@ -68,7 +68,13 @@ public class ExtendBooking extends JFrame  {
 	public String username = "";
 	public String type = "";
 	public int amountDue = -1;
-	private static Scanner x;
+	
+	public String lp;
+	public String pl;
+	public String ps;
+	public String date;
+	public String time;
+	public String duration;
 
 	/**
 	 * Launch the application.
@@ -124,65 +130,16 @@ public class ExtendBooking extends JFrame  {
 		JButton btnNewButton = new JButton("Extend Booking");
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-//				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
-//				if(!isValid) {
-//					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
-//				}
-				
-					username = System.loggedInUserName;
-					type = System.loggedInAccountType;
-					// username = "HappyBuddy77";
-					// type = "Student";
-					ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
-					char bookDurationChar = comboBox.getSelectedItem().toString().charAt(0);
-					int bookDuration = Character.getNumericValue(bookDurationChar);
-					returnList = ReadCSV.findBookings(username, "Booking.txt");
-					String filePathBook = "Booking.txt";
-					String tempFileBook = "tempBooking.txt";
-					File oldFileBook = new File(filePathBook);
-					File newFileBook = new File(tempFileBook);
-					String newUserNameB = ""; 
-					String newLP = ""; 
-					String newPL = ""; 
-					String newPS = ""; 
-					String newDate = ""; 
-					String newTime = ""; 
-					String newDuration = "";
-					try
-					{
-						FileWriter fw = new FileWriter(tempFileBook, true);
-						BufferedWriter bw = new BufferedWriter(fw);
-						PrintWriter pw = new PrintWriter(bw);
-						x =  new Scanner(new File(filePathBook));
-						x.useDelimiter("[,\n]");
-			
-						while(x.hasNext()) {
-							newUserNameB = x.next();
-							newLP = x.next();
-							newPL = x.next();
-							newPS = x.next();
-							newDate = x.next();
-							newTime = x.next();
-							newDuration = x.next();
-							if (newUserNameB.equals(username)) {
-								pw.println(username + "," + returnList.get(1) + "," + returnList.get(2) + "," + returnList.get(3) + "," + returnList.get(4) + "," + returnList.get(5) + "," + returnList.get(6));
-							}
-							else
-							{
-								pw.println(newUserNameB + "," + newLP + "," + newPL + "," + newPS + "," + newDate + "," + newTime + "," + newDuration);
-							}
-						}
-						
-						x.close();
-						pw.flush();
-						pw.close();
-						oldFileBook.delete();
-						File dump = new File(filePathBook);
-						newFileBook.renameTo(dump);
-					}
-					catch(Exception e3)
-					{
-						
+					
+			    	String d = (String) comboBox.getSelectedItem();
+					String[] parts2 = d.split(" Hours");
+			    	String finalDuration = parts2[0];
+					try {
+						DeleteCSV.CancelBooking("HappyBuddy77", lp, pl, ps, date, time, duration);
+						WriteCSV.CreateBooking("HappyBuddy77", lp, pl, ps, date, time, finalDuration);
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
 					}
 				}
 				
@@ -192,31 +149,24 @@ public class ExtendBooking extends JFrame  {
 		contentPane.add(btnNewButton);
 	}
 	
-//	    LocalDateTime ldt = null;
-//	    DateTimeFormatter fomatter = DateTimeFormatter.ofPattern(format, locale);
-//
-//	    try {
-//	        ldt = LocalDateTime.parse(value, fomatter);
-//	        String result = ldt.format(fomatter);
-//	        return result.equals(value);
-//	    } catch (DateTimeParseException e) {
-//	        try {
-//	            LocalDate ld = LocalDate.parse(value, fomatter);
-//	            String result = ld.format(fomatter);
-//	            return result.equals(value);
-//	        } catch (DateTimeParseException exp) {
-//	            try {
-//	                LocalTime lt = LocalTime.parse(value, fomatter);
-//	                String result = lt.format(fomatter);
-//	                return result.equals(value);
-//	            } catch (DateTimeParseException e2) {
-//	                // Debugging purposes
-//	                //e2.printStackTrace();
-//	            }
-//	        }
-//	    }
-//
-//	    return false;
-//	}
+	public void setLP(String s) {
+		lp = s;
+	}
+	public void setPL(String s) {
+		pl = s;
+	}
+	public void setPS(String s) {
+		ps = s;
+	}
+	public void setDate(String s) {
+		date = s;
+	}
+	public void setTime(String s) {
+		time = s;
+	}
+	public void setDuration(String s) {
+		duration = s;
+	}
 
 }
+
