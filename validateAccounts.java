@@ -128,6 +128,7 @@ public class validateAccounts {
 					else{
 						val = 0;
 					}
+					DeleteCSV.CancelClient(tableModel.getValueAt(row, 0));
 					WriteCSV.saveClient(tableModel.getValueAt(row, 0).toString(), tableModel.getValueAt(row, 1).toString(), tableModel.getValueAt(row, 2).toString(), tableModel.getValueAt(row, 3).toString(), tableModel.getValueAt(row, 4).toString(), tableModel.getValueAt(row, 5).toString(),   val);
 					//REMOVE FROM VALIDATING CLIENTS FILE
 					tableModel.removeRow(row);
