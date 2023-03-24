@@ -61,9 +61,12 @@ public class superManagerMainPage extends JFrame {
 		btn_view_auto1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				contentPane.setVisible(false);
-				viewAutoAccount a2 = new viewAutoAccount();
-				a2.frame.setVisible(true);
-				
+				try {
+					viewAutoAccount frame = new viewAutoAccount();
+					frame.setVisible(true);
+				} catch (Exception a2) {
+					a2.printStackTrace();
+				}
 			}
 		});
 		

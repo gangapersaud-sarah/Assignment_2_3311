@@ -12,10 +12,7 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
@@ -29,8 +26,8 @@ import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.ActionEvent;
-import java.util.Scanner;
-import java.io.File;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 public class AddBooking extends JFrame {
 
@@ -38,7 +35,7 @@ public class AddBooking extends JFrame {
 	public String username = "";
 	public String type = "";
 	public int amountDue = -1;
-	private static Scanner x;
+	ArrayList<Integer> allTimes = new ArrayList<Integer>();
 
 	/**
 	 * Launch the application.
@@ -54,7 +51,6 @@ public class AddBooking extends JFrame {
 				}
 			}
 		});
-
 	}
 
 	/**
@@ -140,10 +136,6 @@ public class AddBooking extends JFrame {
 		cmb_duration.addItem("5 Hours");
 		cmb_duration.addItem("6 Hours");
 		
-		JTextField txt_date = new JTextField();
-		txt_date.setBounds(193, 261, 178, 48);
-		contentPane.add(txt_date);
-		
 		JComboBox cmb_ps = new JComboBox();
 		cmb_ps.setBounds(577, 261, 178, 48);
 		contentPane.add(cmb_ps);
@@ -153,11 +145,69 @@ public class AddBooking extends JFrame {
 		contentPane.add(cmb_pl);
 		cmb_pl.addItem("Select");
 		
+		JTextField txt_date = new JTextField();
+		txt_date.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusLost(FocusEvent e) {
+				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
+				if(!isValid) {
+					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
+				}
+				else {
+					cmb_time.removeAllItems();
+			    	String ps = (String) cmb_ps.getSelectedItem();
+			    	String pl = (String) cmb_pl.getSelectedItem();
+					for(int i = 8; i < 22; i++) {
+		    			allTimes.add(i);
+			    	}
+		    		cmb_time.addItem("Select");
+		    		String[] parts = ps.split(": ");
+			    	String finalPS = parts[1];
+			    	
+			    	String[] parts3 = pl.split(": ");
+			    	String finalPL = parts3[1];
+			    	
+			    	ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
+			    	ReadCSV.allBookings("Booking.txt");
+			    	for(int i = 0; i < booking.size(); i++) {
+			    		if(booking.get(i).get(2).equals(finalPL) && booking.get(i).get(3).equals(finalPS) && booking.get(i).get(4).equals(txt_date.getText())) {
+					    	String[] parts5 = booking.get(i).get(6).split("\r");
+					    	String finalDuration = parts5[0];
+			    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDuration); k++) {
+			    				if(allTimes.contains(k)) {
+			    					allTimes.remove((Integer) k);
+									
+								}
+							}
+			    		}
+			    	}
+			    	
+			    	for(int i = 0; i < allTimes.size(); i++) {
+			    		cmb_time.addItem(allTimes.get(i) + ":00 EST");
+					}
+				}
+			}
+		});
+		txt_date.setBounds(193, 261, 178, 48);
+		contentPane.add(txt_date);
+		
 		String[] allPL = ReadCSV.allParkingLots();
 		ReadCSV.allParkingLots();
 		for(int i = 0; i < allPL.length; i++) {
 			cmb_pl.addItem("Parking Lot: " + (String)allPL[i]);
 		}
+		
+		Label label_2_2 = new Label("Parking Lot:");
+		label_2_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		label_2_2.setBounds(400, 171, 140, 48);
+		contentPane.add(label_2_2);
+
+		
+		Label label_2_3 = new Label("Parking \r\nSpace:");
+		label_2_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
+		label_2_3.setBounds(400, 261, 154, 48);
+		contentPane.add(label_2_3);
+		
 		
 		cmb_pl.addActionListener (new ActionListener () {
 		    public void actionPerformed(ActionEvent e) {
@@ -191,147 +241,109 @@ public class AddBooking extends JFrame {
 		    }
 		});
 		
-		
 		cmb_ps.addActionListener (new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				cmb_time.removeAllItems();
-		    	String s = (String) cmb_ps.getSelectedItem();
-		    	if(!s.equals("Select")) {
+		    	String ps = (String) cmb_ps.getSelectedItem();
+		    	String pl = (String) cmb_pl.getSelectedItem();
+		    	boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
+		    	if(ps.equals("Select")) {
+		    		JOptionPane.showMessageDialog(null, "Please Choose a parking Space");
+		    	}
+		    	else if(!isValid){
+					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
+		    	}
+		    	else {
+		    		for(int i = 8; i < 22; i++) {
+		    			allTimes.add(i);
+			    	}
 		    		cmb_time.addItem("Select");
-		    		String[] parts = s.split(": ");
-			    	String part2 = parts[1];
+		    		String[] parts = ps.split(": ");
+			    	String finalPS = parts[1];
+			    	
+			    	String[] parts3 = pl.split(": ");
+			    	String finalPL = parts3[1];
+			    	
+			    	ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
+			    	ReadCSV.allBookings("Booking.txt");
+			    	for(int i = 0; i < booking.size(); i++) {
+			    		if(booking.get(i).get(2).equals(finalPL) && booking.get(i).get(3).equals(finalPS) && booking.get(i).get(4).equals(txt_date.getText())) {
+					    	String[] parts5 = booking.get(i).get(6).split("\r");
+					    	String finalDuration = parts5[0];
+			    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDuration); k++) {
+			    				if(allTimes.contains(k)) {
+			    					allTimes.remove((Integer) k);
+									
+								}
+							}
+			    		}
+			    	}
+			    	
+			    	for(int i = 0; i < allTimes.size(); i++) {
+			    		cmb_time.addItem(allTimes.get(i) + ":00 EST");
+					}
 		    	}
 			}
 		});
 		
-		Label label_2_2 = new Label("Parking Lot:");
-		label_2_2.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label_2_2.setBounds(400, 171, 140, 48);
-		contentPane.add(label_2_2);
-
-		
-		Label label_2_3 = new Label("Parking \r\nSpace:");
-		label_2_3.setFont(new Font("Tahoma", Font.PLAIN, 17));
-		label_2_3.setBounds(400, 261, 154, 48);
-		contentPane.add(label_2_3);
-		
 		JButton btn_Add = new JButton("Add Booking");
 		btn_Add.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
-				if(!isValid) {
-					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
-				}
-				username = System.loggedInUserName;
-				type = System.loggedInAccountType;
-				ArrayList<String> returnList = new ArrayList<String>();
-				char bookDurationChar = cmb_duration.getSelectedItem().toString().charAt(0);
-				int bookDuration = Character.getNumericValue(bookDurationChar);
-				returnList = ReadCSV.findUserName(username, "Clients.txt");
-				if(type.equals("Student"))
-				{
-					String s=String.valueOf(5 * bookDuration + 5);  
-					returnList.set(6,s);
-				}
-				else if (type.equals("Faculty"))
-				{
-					String s=String.valueOf(8 * bookDuration + 8);  
-					returnList.set(6,s);
-				}
-				else if (type.equals("non-Faculty"))
-				{
-					String s=String.valueOf(10 * bookDuration + 10);  
-					returnList.set(6,s);
-				}
-				else
-				{
-					String s=String.valueOf(15 * bookDuration + 15);  
-					returnList.set(6,s);
-				}
-				String filePath = "Clients.txt";
-				String tempFile = "tempClients.txt";
-				File oldFile = new File(filePath);
-				File newFile = new File(tempFile);
-				String newUserName = ""; String newFirstName = ""; String newLastName = ""; String newEmail = ""; String newPassword = ""; String newType = ""; String newBalance = "";
-				try
-				{
-					FileWriter fw = new FileWriter(tempFile, true);
-					BufferedWriter bw = new BufferedWriter(fw);
-					PrintWriter pw = new PrintWriter(bw);
-					x = new Scanner(filePath);
-					x.useDelimiter("[,\n]");
-					while(x.hasNext())
-					{
-						newUserName = x.next();
-						newFirstName = x.next();
-						newLastName = x.next();
-						newEmail = x.next();
-						newPassword = x.next();
-						newType = x.next();
-						newBalance = x.next();
-						if(newUserName.equals(username))
-						{
-							pw.println(username + "," + returnList.get(1) + "," + returnList.get(2) + "," + returnList.get(3) + "," + returnList.get(4) + "," + type + "," + returnList.get(6));
-						}
-						else
-						{
-							pw.println(newUserName + "," + newFirstName + "," + newLastName + "," + newEmail + "," + newPassword + "," + newType + "," + newBalance);
-						}
-					}
-					x.close();
-					pw.flush();
-					pw.close();
-					oldFile.delete();
-					File dump = new File(filePath);
-					newFile.renameTo(dump);
-				}
-				catch(Exception e2)
-				{
-
-				}
+				Chain chainCalc1 = new ValidLP();
+				Chain chainCalc2 = new ValidDate();
+				Chain chainCalc3 = new ValidTime();
+				
+				chainCalc1.setNextChain(chainCalc2);
+				chainCalc2.setNextChain(chainCalc3);
+				
+				chainCalc1.validateBooking(username, txt_lp.getText(), (String) cmb_pl.getSelectedItem(), (String) cmb_ps.getSelectedItem(), txt_date.getText(), (String) cmb_time.getSelectedItem(), (String) cmb_duration.getSelectedItem(), allTimes);
+						
+				
 			}
 		});
 		btn_Add.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btn_Add.setBounds(257, 449, 257, 88);
 		contentPane.add(btn_Add);
+			
 	}
-
+	
+	
+	
+	
 	public static boolean isValidFormat(String format, String value, Locale locale) {
-		LocalDateTime ldt = null;
-		DateTimeFormatter fomatter = DateTimeFormatter.ofPattern(format, locale);
+	    LocalDateTime ldt = null;
+	    DateTimeFormatter fomatter = DateTimeFormatter.ofPattern(format, locale);
 
-		try {
-			ldt = LocalDateTime.parse(value, fomatter);
-			String result = ldt.format(fomatter);
-			return result.equals(value);
-		} catch (DateTimeParseException e) {
-			try {
-				LocalDate ld = LocalDate.parse(value, fomatter);
-				String result = ld.format(fomatter);
-				return result.equals(value);
-			} catch (DateTimeParseException exp) {
-				try {
-					LocalTime lt = LocalTime.parse(value, fomatter);
-					String result = lt.format(fomatter);
-					return result.equals(value);
-				} catch (DateTimeParseException e2) {
-					// Debugging purposes
-					// e2.printStackTrace();
-				}
-			}
-		}
+	    try {
+	        ldt = LocalDateTime.parse(value, fomatter);
+	        String result = ldt.format(fomatter);
+	        return result.equals(value);
+	    } catch (DateTimeParseException e) {
+	        try {
+	            LocalDate ld = LocalDate.parse(value, fomatter);
+	            String result = ld.format(fomatter);
+	            return result.equals(value);
+	        } catch (DateTimeParseException exp) {
+	            try {
+	                LocalTime lt = LocalTime.parse(value, fomatter);
+	                String result = lt.format(fomatter);
+	                return result.equals(value);
+	            } catch (DateTimeParseException e2) {
+	                // Debugging purposes
+	                //e2.printStackTrace();
+	            }
+	        }
+	    }
 
-		return false;
+	    return false;
 	}
-
+	
 	public void setUsername(String s) {
 		username = s;
 	}
-
 	public void setType(String s) {
 		type = s;
 	}
-
 	public void setAmountDue(int s) {
 		amountDue = s;
 	}
