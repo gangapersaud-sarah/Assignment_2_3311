@@ -1,7 +1,9 @@
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.EventQueue;
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Hashtable;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.JFrame;
@@ -17,6 +19,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.ListSelectionModel;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 public class editParkingSpace {
 
@@ -168,7 +171,18 @@ public class editParkingSpace {
 	
 	public String[][] fillTable(){
 		String[][] table = new String[100][20];
-		
+		ArrayList<ArrayList<String>> bookingInfo = ReadCSV.allBookings("Booking.txt");
+		Hashtable<String, int[]> lotBookings = new Hashtable<String, int[]>();
+		int[] hrs = new int[3];
+		for(int i = 0; i < bookingInfo.size(); i++){
+			String lot = bookingInfo.get(i).get(2);
+			if(lot.equals(manageParkingLot.selectedLot)){
+				hrs[0] = Integer.valueOf(bookingInfo.get(i).get(2));
+				hrs[1] = Integer.valueOf(bookingInfo.get(i).get(5));
+				hrs[2] = Integer.valueOf(bookingInfo.get(i).get(6));
+				lotBookings.put(bookingInfo.get(i).get(4), hrs);
+			}
+		}
 		for (int i = 0; i < 100; i++) {
 		    table[i][0] = Integer.toString(i + 1);
 		    table[i][1] = "enabled";
