@@ -101,30 +101,6 @@ public class AddBooking extends JFrame {
 		JComboBox cmb_time = new JComboBox();
 		cmb_time.setBounds(193, 349, 178, 48);
 		contentPane.add(cmb_time);
-		cmb_time.addItem("0:00 EST");
-		cmb_time.addItem("1:00 EST");
-		cmb_time.addItem("2:00 EST");
-		cmb_time.addItem("3:00 EST");
-		cmb_time.addItem("4:00 EST");
-		cmb_time.addItem("5:00 EST");
-		cmb_time.addItem("6:00 EST");
-		cmb_time.addItem("7:00 EST");
-		cmb_time.addItem("8:00 EST");
-		cmb_time.addItem("9:00 EST");
-		cmb_time.addItem("10:00 EST");
-		cmb_time.addItem("11:00 EST");
-		cmb_time.addItem("12:00 EST");
-		cmb_time.addItem("13:00 EST");
-		cmb_time.addItem("14:00 EST");
-		cmb_time.addItem("15:00 EST");
-		cmb_time.addItem("16:00 EST");
-		cmb_time.addItem("17:00 EST");
-		cmb_time.addItem("18:00 EST");
-		cmb_time.addItem("19:00 EST");
-		cmb_time.addItem("20:00 EST");
-		cmb_time.addItem("21:00 EST");
-		cmb_time.addItem("22:00 EST");
-		cmb_time.addItem("23:00 EST");
 		
 		JComboBox cmb_duration = new JComboBox();
 		cmb_duration.setBounds(577, 349, 178, 48);
@@ -155,32 +131,35 @@ public class AddBooking extends JFrame {
 				}
 				else {
 					cmb_time.removeAllItems();
+					allTimes = new ArrayList<Integer>();
 			    	String ps = (String) cmb_ps.getSelectedItem();
 			    	String pl = (String) cmb_pl.getSelectedItem();
-					for(int i = 8; i < 22; i++) {
-		    			allTimes.add(i);
-			    	}
-		    		cmb_time.addItem("Select");
-		    		String[] parts = ps.split(": ");
-			    	String finalPS = parts[1];
-			    	
-			    	String[] parts3 = pl.split(": ");
-			    	String finalPL = parts3[1];
-			    	
-			    	ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
-			    	ReadCSV.allBookings("Booking.txt");
-			    	for(int i = 0; i < booking.size(); i++) {
-			    		if(booking.get(i).get(2).equals(finalPL) && booking.get(i).get(3).equals(finalPS) && booking.get(i).get(4).equals(txt_date.getText())) {
-					    	String[] parts5 = booking.get(i).get(6).split("\r");
-					    	String finalDuration = parts5[0];
-			    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDuration); k++) {
-			    				if(allTimes.contains(k)) {
-			    					allTimes.remove((Integer) k);
-									
-								}
-							}
-			    		}
-			    	}
+						if(pl.contains(":") && ps.contains(":")) {
+							for(int i = 8; i < 22; i++) {
+				    			allTimes.add(i);
+					    	}
+				    		cmb_time.addItem("Select");
+				    		String[] parts = ps.split(": ");
+					    	String finalPS = parts[1];
+					    	
+					    	String[] parts3 = pl.split(": ");
+					    	String finalPL = parts3[1];
+					    	
+					    	ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
+					    	ReadCSV.allBookings("Booking.txt");
+					    	for(int i = 0; i < booking.size(); i++) {
+					    		if(booking.get(i).get(2).equals(finalPL) && booking.get(i).get(3).equals(finalPS) && booking.get(i).get(4).equals(txt_date.getText())) {
+							    	String[] parts5 = booking.get(i).get(6).split("\r");
+							    	String finalDuration = parts5[0];
+					    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDuration); k++) {
+					    				if(allTimes.contains(k)) {
+					    					allTimes.remove((Integer) k);
+											
+										}
+									}
+					    		}
+					    	}
+						}
 			    	
 			    	for(int i = 0; i < allTimes.size(); i++) {
 			    		cmb_time.addItem(allTimes.get(i) + ":00 EST");
@@ -244,6 +223,7 @@ public class AddBooking extends JFrame {
 		cmb_ps.addActionListener (new ActionListener () {
 			public void actionPerformed(ActionEvent e) {
 				cmb_time.removeAllItems();
+				allTimes = new ArrayList<Integer>();
 		    	String ps = (String) cmb_ps.getSelectedItem();
 		    	String pl = (String) cmb_pl.getSelectedItem();
 		    	boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
