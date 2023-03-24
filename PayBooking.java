@@ -175,8 +175,23 @@ public class PayBooking extends JFrame {
             
         }
 		
+        try {
+            DeleteCSV.CancelClient(username,returnList.get(1), returnList.get(2), returnList.get(3), returnList.get(4), type, returnList.get(6));
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         String s=String.valueOf(amountDue);  
         returnList.set(6,s);
+        WriteCSV.saveClient(username,returnList.get(1), returnList.get(2), returnList.get(3), returnList.get(4), type, amountDue);
+
+        String temp_username = returnList.get(0);
+        String temp_fname = returnList.get(1);
+        String temp_lname = returnList.get(2);
+        String temp_email = returnList.get(3);
+        String temp_pw = returnList.get(4);
+        String temp_amnt = returnList.get(6);
+
         
         Label label_3 = new Label("$" + returnList.get(6));
         label_3.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -186,10 +201,14 @@ public class PayBooking extends JFrame {
         JButton btnNewButton = new JButton("Credit");
         btnNewButton.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            /*
-            returnList.set(6,"0");	
-            label_3.setText("$" + returnList.get(6));	
-            */
+            amountDue = 0;
+            try {
+                DeleteCSV.CancelClient(temp_username,temp_fname, temp_lname, temp_email, temp_pw, type, temp_amnt);
+            } catch (IOException e3) {
+                // TODO Auto-generated catch block
+                e3.printStackTrace();
+            }
+            WriteCSV.saveClient(temp_username,temp_fname, temp_lname, temp_email, temp_pw, type, amountDue);
             label_3.setText("$0");
         }
         });
@@ -200,10 +219,14 @@ public class PayBooking extends JFrame {
         JButton btnDebt = new JButton("Debit");
         btnDebt.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            /*
-            returnList.set(6,"0");	
-            label_3.setText("$" + returnList.get(6));	
-            */
+            amountDue = 0;
+            try {
+                DeleteCSV.CancelClient(temp_username,temp_fname, temp_lname, temp_email, temp_pw, type, temp_amnt);
+            } catch (IOException e3) {
+                // TODO Auto-generated catch block
+                e3.printStackTrace();
+            }
+            WriteCSV.saveClient(temp_username,temp_fname, temp_lname, temp_email, temp_pw, type, amountDue);
             label_3.setText("$0");
         }
         });
@@ -214,10 +237,14 @@ public class PayBooking extends JFrame {
         JButton btnOther = new JButton("Other");
         btnOther.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
-            /*
-            returnList.set(6,"0");	
-            label_3.setText("$" + returnList.get(6));	
-            */
+            amountDue = 0;
+            try {
+                DeleteCSV.CancelClient(temp_username,temp_fname, temp_lname, temp_email, temp_pw, type, temp_amnt);
+            } catch (IOException e3) {
+                // TODO Auto-generated catch block
+                e3.printStackTrace();
+            }
+            WriteCSV.saveClient(temp_username,temp_fname, temp_lname, temp_email, temp_pw, type, amountDue);
             label_3.setText("$0");
         }
         });	
