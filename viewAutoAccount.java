@@ -7,65 +7,78 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Window;
 import java.util.ArrayList;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.awt.event.ActionEvent;
 
-public class viewAutoAccount{
-	 JFrame frame = new JFrame();
+public class viewAutoAccount extends JFrame {
 
+	private JPanel contentPane;
+	private JTable table;
+	private JTextField textField;
+	public String username = "";
+	public String type = "";
+	public int amountDue = -1;
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-			viewAutoAccount s = new viewAutoAccount();
-			s.frame.setVisible(true);
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					viewAutoAccount frame = new viewAutoAccount();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
 	}
 
 	/**
 	 * Create the frame.
 	 */
 	public viewAutoAccount() {
-		frame = new JFrame();
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setBounds(100, 100, 800, 600);
-		JPanel contentPane = new JPanel();
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 800, 600);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 
-		JLabel lblViewBooking = new JLabel("View Auto Accounts");
-		lblViewBooking.setHorizontalAlignment(SwingConstants.CENTER);
-		lblViewBooking.setFont(new Font("Tahoma", Font.BOLD, 40));
-		lblViewBooking.setBackground(Color.LIGHT_GRAY);
-		lblViewBooking.setBounds(39, 0, 701, 100);
-		contentPane.add(lblViewBooking);
-
-		frame.setContentPane(contentPane);
+		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+
 		
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setBounds(63, 131, 650, 245);
 		contentPane.add(scrollPane);
 		
-		JTable table = new JTable();
+		table = new JTable();
 		DefaultTableModel tableModel = new DefaultTableModel(
 				new Object[][] {
 					
 				},
 				new String[] {
-					"Username", "First name", "Last name", "Email", "Password", "Type"
+					"User Name", "First Name", "Last Name", "Email", "Password", "Type", "Balance"
 				}
 			) 
 		{
 			Class[] columnTypes = new Class[] {
-				String.class, String.class, String.class, String.class, String.class, String.class
+				String.class, String.class, String.class, String.class, String.class, String.class, String.class
 			};
 			public Class getColumnClass(int columnIndex) {
 				return columnTypes[columnIndex];
@@ -78,33 +91,40 @@ public class viewAutoAccount{
 		
 		ArrayList<ArrayList<String>> returnList = new ArrayList<ArrayList<String>>();
 		returnList = ReadCSV.allUsers("Clients.txt");
-		String[] list = new String[6];
+		String[] list = new String[7];
 		for (int i = 0; i < returnList.size(); i++) {
-			for (int j = 0; j < returnList.get(i).size(); j++) {
+            for (int j = 0; j < returnList.get(i).size(); j++) {
                 list[j] = returnList.get(i).get(j);
-            }
 
-			if(list[1].equals(" null"))
+            }
+			if(list[5].equals("Manager"))
 			{
 				tableModel.addRow(list);
 			}
+	
         }
 		
+		//String[] list2 = {"1", "2", "3", "4", "5", "6"};
+		//tableModel.addRow(l);
 		
 		scrollPane.setViewportView(table);
 		table.setModel(tableModel);
 		
-		JButton button = new JButton("Return");
-		button.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				frame.setVisible(false);
-				superManagerMainPage a2 = new superManagerMainPage();
-				a2.setVisible(true);
-			}
-		});
-		
-		button.setBounds(10, 494, 124, 45);
-		contentPane.add(button);
+		textField = new JTextField();
+		textField.setBackground(new Color(192, 192, 192));
+		textField.setBounds(0, 0, 800, 100);
+		contentPane.add(textField);
+		textField.setColumns(10);
 		table.getColumnModel().getColumn(4).setPreferredWidth(107);
+	}
+	
+	public void setUsername(String s) {
+		username = s;
+	}
+	public void setType(String s) {
+		type = s;
+	}
+	public void setAmountDue(int s) {
+		amountDue = s;
 	}
 }
