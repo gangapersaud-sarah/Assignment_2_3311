@@ -84,24 +84,26 @@ public class PayBooking extends JFrame {
 		contentPane.add(label_1);
 
 		username = System.loggedInUserName;
-		type = System.loggedInAccountType;
 		ArrayList<String> returnList = new ArrayList<String>();
-		String price;
+		returnList = ReadCSV.findUserName(username, "Clients.txt");
 		Random rd = new Random(); // creating Random object
 		attended = rd.nextBoolean(); // displaying a random boolean
+		String price;
+
 		if(attended = true)
 		{
-			String val = returnList.get(6);
-			int x = Integer.parseInt(val);
-			if(type == "Student")
+			int x = 0;
+			String y = returnList.get(6);
+			x = Integer.parseInt(y);
+			if(returnList.get(5).equals("Student"))
 			{
 				x = x - 5;
 			}
-			else if(type == "Faculty")
+			else if(returnList.get(5).equals("Faculty"))
 			{
 				x = x - 8;
 			}
-			else if(type == "non-Faculty")
+			else if(returnList.get(5).equals("non-Faculty"))
 			{
 				x = x - 10;
 			}
@@ -116,7 +118,7 @@ public class PayBooking extends JFrame {
 		{
 			//If you did show up
 		}
-			
+		
 		price = returnList.get(6);
 		Label label_3 = new Label("$" + price);
 		label_3.setFont(new Font("Tahoma", Font.BOLD, 20));

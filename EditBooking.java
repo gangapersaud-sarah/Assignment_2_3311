@@ -260,17 +260,17 @@ public class EditBooking extends JFrame {
 				char bookDurationChar = cmb_duration.getSelectedItem().toString().charAt(0);
 				int bookDuration = Character.getNumericValue(bookDurationChar);
 				returnList = ReadCSV.findUserName(username, "Clients.txt");
-				if(type.equals("Student"))
+				if(returnList.get(5).equals("Student"))
 				{
 					String s=String.valueOf(5 * bookDuration + 5);  
 					returnList.set(6,s);
 				}
-				else if (type.equals("Faculty"))
+				else if (returnList.get(5).equals("Faculty"))
 				{
 					String s=String.valueOf(8 * bookDuration + 8);  
 					returnList.set(6,s);
 				}
-				else if (type.equals("non-Faculty"))
+				else if (returnList.get(5).equals("non-Faculty"))
 				{
 					String s=String.valueOf(10 * bookDuration + 10);  
 					returnList.set(6,s);
