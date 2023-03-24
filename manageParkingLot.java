@@ -164,8 +164,10 @@ public class manageParkingLot {
 		disableParkingLotButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(list.getSelectedValue()!=null){
-					parkingInfo.get(list.getSelectedValue()).add(-1);
-					WriteCSV.addDisabled(list.getSelectedValue(), -1);
+					String selected = list.getSelectedValue();
+					parkingInfo.get(selected ).add(-1);
+					DeleteCSV.RemoveParkingEntry(selected);
+					WriteCSV.addDisabled(selected , -1);
 					list.clearSelection();
 				}
 			}
