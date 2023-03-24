@@ -65,6 +65,31 @@ public class WriteCSV {
 			JOptionPane.showMessageDialog(null, "User not Registered, there has been a problem with our system please try again");
 		}
 	}
+
+
+	public static void ClientValid(String username, String first, String last, String email, String pwd, String type, int amount) {
+		try {
+			
+			// create file writers
+			String filepath = "validatingClients.txt";
+			FileWriter fw = new FileWriter(filepath , true);
+			BufferedWriter bw = new BufferedWriter(fw);
+			PrintWriter pw = new PrintWriter(bw);
+			
+			// what to write in file
+			pw.println(username + "," + first + "," + last + "," + email + "," + pwd + "," + type + "," + amount);
+			
+			//push and close file
+			pw.flush();
+			pw.close();
+			
+			// update user if writing is successful
+			JOptionPane.showMessageDialog(null, "User Registered");
+		}
+		catch (Exception e){
+			JOptionPane.showMessageDialog(null, "User not Registered, there has been a problem with our system please try again");
+		}
+	}
 	
 	/**
 	 * write values into CSV for autoAccount

@@ -153,7 +153,7 @@ public class Sign_in extends JFrame {
 					
 					if(pwd.matches("(.*)[0-9](.*)") && pwd.matches("(.*)[a-z](.*)") 
 							&& pwd.matches("(.*)[!@#$&()\\-`.+,/\"](.*)") && pwd.matches("(.*)[A-Z](.*)")) {
-							WriteCSV.saveClient(username, first, last, email, pwd, type, 0);
+							WriteCSV.ClientValid(username, first, last, email, pwd, type, 0);
 					}
 					else if(!(pwd.matches("(.*)[a-z](.*)"))) {
 						lbl_response.setText("must include lowercase letter");

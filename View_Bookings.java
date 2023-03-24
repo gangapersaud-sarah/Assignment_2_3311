@@ -4,26 +4,20 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JList;
 import javax.swing.JTable;
 import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JTabbedPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 import java.awt.Color;
 import javax.swing.JLabel;
 import java.awt.Font;
-import java.awt.Window;
 import java.util.ArrayList;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ActionListener;
-import java.io.File;
+
 import java.io.IOException;
-import java.awt.event.ActionEvent;
+
 
 public class View_Bookings extends JFrame {
 
