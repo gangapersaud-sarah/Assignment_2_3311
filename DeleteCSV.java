@@ -185,7 +185,6 @@ public class DeleteCSV {
 				pw2.close();
 				//fw.flush();
 				//fw.close();
-				JOptionPane.showMessageDialog(null, "user deleted");
 			}
 			catch (Exception e){
 				JOptionPane.showMessageDialog(null, "error");
