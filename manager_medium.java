@@ -35,7 +35,7 @@ public class manager_medium {
 		btn_goto_manager.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				frame.setVisible(false);
-				Manager b2 = new Manager();
+				LandingPageManager b2 = new LandingPageManager();
 				b2.setVisible(true);
 			}
 		});

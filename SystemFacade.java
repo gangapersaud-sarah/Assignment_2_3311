@@ -29,7 +29,7 @@ public class SystemFacade {
 	
 	
 	public void viewManagerWindow(){
-		Manager newFrame = new Manager();
+		LandingPageManager newFrame = new LandingPageManager();
 		newFrame.setVisible(true);
 		f.setVisible(false);
 	}

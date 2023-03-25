@@ -9,10 +9,9 @@ Parking Lot B,2
 Parking Lot B,11
 Parking Lot B,12
 Parking Lot B,15
-Parking Lot C,8
-Parking Lot C,9
 Parking Lot D,-1
 Parking Lot E,-1
 Parking Lot Q,0
 Parking Lot D,0
 Parking Lot E,0
+Parking Lot C,0
