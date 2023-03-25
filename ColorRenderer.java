@@ -13,17 +13,19 @@ public class ColorRenderer extends JLabel implements TableCellRenderer  {
 		setOpaque(true); //MUST do this for background to show up.
 	}
 
-	public Component getTableCellRendererComponent(
-			JTable table, Object value,
-			boolean isSelected, boolean hasFocus,
-			int row, int column) { 
+	public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) { 
 		if (table.getValueAt(row, 1).equals("disabled"))
 		{
 			setBackground(Color.RED);
 		}
 		else
 		{
-			setBackground(Color.GREEN);
+			if(!table.getModel().getValueAt(row, column).equals("")){
+				setBackground(Color.RED);
+			}
+			else{
+				setBackground(Color.GREEN);
+			}
 		}
 		//}
 		return this;

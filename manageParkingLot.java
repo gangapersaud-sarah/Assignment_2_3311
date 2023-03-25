@@ -143,6 +143,7 @@ public class manageParkingLot {
 		list.setFont(new Font("Trebuchet MS", Font.PLAIN, 39));
 		scrollPane_1.setViewportView(list);
 
+		list.setSelectedIndex(0);
 		JLabel lblNewLabel_2 = new JLabel("Existing Parking Lots");
 		lblNewLabel_2.setFont(new Font("Trebuchet MS", Font.BOLD, 27));
 		lblNewLabel_2.setBorder(new LineBorder(new Color(0, 0, 0), 2));
@@ -214,9 +215,9 @@ public class manageParkingLot {
 
 		editParkingLotButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				selectedLot = list.getSelectedValue();
 				editParkingSpace parkingSpaceFrame = new editParkingSpace();
 				parkingSpaceFrame.setVisible(true);
-				selectedLot = list.getSelectedValue();
 				parkingLotFrame.setVisible(false);
 			}
 		});

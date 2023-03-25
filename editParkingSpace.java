@@ -25,7 +25,7 @@ public class editParkingSpace {
 
 	private JFrame parkingSpaceFrame;
 	private JTable parkingSpaceTable;
-
+	private String date;
 	/**
 	 * Launch the application.
 	 */
@@ -71,7 +71,11 @@ public class editParkingSpace {
 		parkingSpaceTable = new JTable();
 		parkingSpaceTable.setSelectionMode(ListSelectionModel.SINGLE_INTERVAL_SELECTION);
 		parkingSpaceTable.setName("ParkingSpaceTable");
-		String[][] tableFilled= fillTable();
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		String[][] tableFilled = fillTable();
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+		//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 		DefaultTableModel tableModel = new DefaultTableModel( tableFilled, new String[] {"Space #", "Status", "8:00", "9:00", "10:00", "11:00", "12:00", "13:00", "14:00", "15:00", "16:00", "17:00", "18:00", "19:00", "20:00", "21:00", "22:00"}) 
 		{
 		Class[] columnTypes = new Class[] {
@@ -146,8 +150,8 @@ public class editParkingSpace {
 		backButton.setBounds(0, 510, 81, 23);
 		manageParkingSpace.add(backButton);
 		
-		JLabel dateLabel = new JLabel("");
-		dateLabel.setBounds(323, 510, 185, 23);
+		JLabel dateLabel = new JLabel(date);
+		dateLabel.setBounds(333, 510, 175, 23);
 		manageParkingSpace.add(dateLabel);
 		
 		JButton nextDate = new JButton("Next Date");
@@ -172,17 +176,29 @@ public class editParkingSpace {
 	public String[][] fillTable(){
 		String[][] table = new String[100][20];
 		ArrayList<ArrayList<String>> bookingInfo = ReadCSV.allBookings("Booking.txt");
-		Hashtable<String, int[]> lotBookings = new Hashtable<String, int[]>();
+		Hashtable<String, ArrayList<int[]>> lotBookings = new Hashtable<String, ArrayList<int[]>>();
 		int[] hrs = new int[3];
 		for(int i = 0; i < bookingInfo.size(); i++){
-			String lot = bookingInfo.get(i).get(2);
-			if(lot.equals(manageParkingLot.selectedLot)){
-				hrs[0] = Integer.valueOf(bookingInfo.get(i).get(2));
+			// if lot == selectedLot
+			// JOptionPane.showMessageDialog(null,manageParkingLot.selectedLot);
+			// JOptionPane.showMessageDialog(null,"Parking Lot " + bookingInfo.get(i).get(2));
+			if(("Parking Lot " + bookingInfo.get(i).get(2)).equals(manageParkingLot.selectedLot)){
+				hrs[0] = Integer.valueOf(bookingInfo.get(i).get(3));
 				hrs[1] = Integer.valueOf(bookingInfo.get(i).get(5));
-				hrs[2] = Integer.valueOf(bookingInfo.get(i).get(6));
-				lotBookings.put(bookingInfo.get(i).get(4), hrs);
+				hrs[2] = Integer.valueOf(bookingInfo.get(i).get(6).charAt(bookingInfo.get(i).get(6).length()-1));
+				if(lotBookings.get(bookingInfo.get(i).get(4)) != null){
+					lotBookings.get(bookingInfo.get(i).get(4)).add(hrs);					
+				}
+				else{
+					lotBookings.put(bookingInfo.get(i).get(4), new ArrayList<int[]>());
+					lotBookings.get(bookingInfo.get(i).get(4)).add(hrs);
+					//lotBookings.put(bookingInfo.get(i).get(4), lotBookings.get(bookingInfo.get(i).get(4)).add(hrs));
+				}
 			}
 		}
+
+		date = lotBookings.keySet().iterator().next();
+		//JOptionPane.showMessageDialog(null, date);
 		for (int i = 0; i < 100; i++) {
 		    table[i][0] = Integer.toString(i + 1);
 		    table[i][1] = "enabled";
@@ -190,6 +206,15 @@ public class editParkingSpace {
 		        table[i][j] = "";
 		    }
 		}
+		//table[parking Space][time]
+
+		ArrayList<int[]> reservations = lotBookings.get(date);
+		for(int i =0; i < reservations.size(); i++){
+			//JOptionPane.showMessageDialog(null, reservations.get(i)[1]);
+			table[reservations.get(i)[0]-1][reservations.get(i)[1]] = " ";
+			
+		}
+
 		return table;
 	}
 

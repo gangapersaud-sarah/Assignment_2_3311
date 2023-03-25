@@ -14,7 +14,5 @@ Parking Lot C,9
 Parking Lot D,-1
 Parking Lot E,-1
 Parking Lot Q,0
-Parking Lot A,-1
-Parking Lot A,0
 Parking Lot D,0
 Parking Lot E,0
