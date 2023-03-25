@@ -168,6 +168,12 @@ public class PayBooking extends JFrame {
                         }
                     }
                     amountDue += y;
+                    try {
+                        DeleteCSV.CancelBooking(userName,lp,pl,ps,date,time,duration);
+                    } catch (IOException e) {
+                        // TODO Auto-generated catch block
+                        e.printStackTrace();
+                    }
                 }  
             }
         }
@@ -175,6 +181,7 @@ public class PayBooking extends JFrame {
             
         }
 		
+
         try {
             DeleteCSV.CancelClient(username,returnList.get(1), returnList.get(2), returnList.get(3), returnList.get(4), type, returnList.get(6));
         } catch (IOException e) {
@@ -191,7 +198,6 @@ public class PayBooking extends JFrame {
         String temp_email = returnList.get(3);
         String temp_pw = returnList.get(4);
         String temp_amnt = returnList.get(6);
-
         
         Label label_3 = new Label("$" + returnList.get(6));
         label_3.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -210,8 +216,45 @@ public class PayBooking extends JFrame {
             }
             WriteCSV.saveClient(temp_username,temp_fname, temp_lname, temp_email, temp_pw, type, amountDue);
             label_3.setText("$0");
-        }
-        });
+           
+            /*
+            String userName = "";
+            String lp = "";
+            String pl = "";
+            String ps = "";
+            String date = "";
+            String time = "";
+            String duration = "";
+            try {
+                
+                // create reading tools, x is the file
+                x = new Scanner(new File("Booking.txt"));
+                // Separate values in x using "," and "\n"
+                x.useDelimiter("[,\n]");
+                
+                while (x.hasNext()) {
+                    
+                    // get next line
+                    userName = x.next();
+                    lp = x.next();
+                    pl = x.next();
+                    ps = x.next();
+                    date = x.next();
+                    time = x.next();
+                    duration = x.next();
+                    
+                    // when booking is found (unique usernames)
+                    if(userName.equals(username)) {
+                        DeleteCSV.CancelBooking(userName, lp, pl, ps, date, time, duration);
+                    }  
+                }
+            }
+            catch (Exception e3){
+                
+            }
+            */
+            }
+            });
         btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 30));
         btnNewButton.setBounds(257, 264, 257, 88);
         contentPane.add(btnNewButton);
