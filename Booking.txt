@@ -4,3 +4,5 @@ HappyBuddy77,L2CP02,A,2,13/04/2023,8,2
 HappyBuddy77,L2CP02,A,2,13/04/2023,18,2
 HappyBuddy77,Mary122,A,2,13/04/2023,12,1
 HappyBuddy77,mary123,A,2,13/04/2023,11,1
+HappyBuddy77,mash123,Parking Lot A,2,13/04/2023,8,1
+HappyBuddy77,L2CP02,A,2,13/09/2023,10,6
