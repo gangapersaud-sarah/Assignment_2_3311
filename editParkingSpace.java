@@ -185,9 +185,11 @@ public class editParkingSpace {
 			if(("Parking Lot " + bookingInfo.get(i).get(2)).equals(manageParkingLot.selectedLot)){
 				hrs[0] = Integer.valueOf(bookingInfo.get(i).get(3));
 				hrs[1] = Integer.valueOf(bookingInfo.get(i).get(5));
+				//JOptionPane.showMessageDialog(null, hrs[1]);
 				hrs[2] = Integer.valueOf(bookingInfo.get(i).get(6).charAt(bookingInfo.get(i).get(6).length()-1));
 				if(lotBookings.get(bookingInfo.get(i).get(4)) != null){
-					lotBookings.get(bookingInfo.get(i).get(4)).add(hrs);					
+					lotBookings.get(bookingInfo.get(i).get(4)).add(hrs);		
+					JOptionPane.showMessageDialog(null, lotBookings.get(bookingInfo.get(i).get(4)).size());
 				}
 				else{
 					lotBookings.put(bookingInfo.get(i).get(4), new ArrayList<int[]>());
@@ -210,9 +212,8 @@ public class editParkingSpace {
 
 		ArrayList<int[]> reservations = lotBookings.get(date);
 		for(int i =0; i < reservations.size(); i++){
-			//JOptionPane.showMessageDialog(null, reservations.get(i)[1]);
+			JOptionPane.showMessageDialog(null, reservations.get(i)[1]);
 			table[reservations.get(i)[0]-1][reservations.get(i)[1]] = " ";
-			
 		}
 
 		return table;
