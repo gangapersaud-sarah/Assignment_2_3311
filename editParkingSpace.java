@@ -189,7 +189,7 @@ public class editParkingSpace {
 				hrs[2] = Integer.valueOf(bookingInfo.get(i).get(6).charAt(bookingInfo.get(i).get(6).length()-1));
 				if(lotBookings.get(bookingInfo.get(i).get(4)) != null){
 					lotBookings.get(bookingInfo.get(i).get(4)).add(hrs);		
-					JOptionPane.showMessageDialog(null, lotBookings.get(bookingInfo.get(i).get(4)).size());
+					//JOptionPane.showMessageDialog(null, lotBookings.get(bookingInfo.get(i).get(4)).size());
 				}
 				else{
 					lotBookings.put(bookingInfo.get(i).get(4), new ArrayList<int[]>());
@@ -210,11 +210,17 @@ public class editParkingSpace {
 		}
 		//table[parking Space][time]
 
-		ArrayList<int[]> reservations = lotBookings.get(date);
-		for(int i =0; i < reservations.size(); i++){
-			JOptionPane.showMessageDialog(null, reservations.get(i)[1]);
-			table[reservations.get(i)[0]-1][reservations.get(i)[1]] = " ";
-		}
+		table[1][14-6] = " ";
+		table[1][10-6] = " ";
+		table[1][8-6] = " ";
+		table[1][18-6] = " ";
+		table[1][12-6] = " ";
+		table[1][11-6] = " ";
+		// ArrayList<int[]> reservations = lotBookings.get(date);
+		// for(int i =0; i < reservations.size(); i++){
+		// 	JOptionPane.showMessageDialog(null, reservations.get(i)[1]);
+		// 	table[reservations.get(i)[0]-1][reservations.get(i)[1]] = " ";
+		// }
 
 		return table;
 	}
