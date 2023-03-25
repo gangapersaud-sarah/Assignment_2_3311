@@ -35,8 +35,8 @@ public class SystemFacade {
 	}
 	
 	public void viewSuperWindow(){
-		superManagerMainPage newFrame = new superManagerMainPage();
-		newFrame.setVisible(true);
+		manager_medium newFrame = new manager_medium();
+		newFrame.frame.setVisible(true);
 		f.setVisible(false);
 	}
 	
