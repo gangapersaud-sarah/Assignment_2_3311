@@ -25,6 +25,8 @@ public class Sign_in extends JFrame {
 	private JTextField txt_email;
 	private JPasswordField pwf_password;
 	private JTextField txt_username;
+	public JLabel lbl_response;
+	public JComboBox cmb_userType;
 
 	/**
 	 * Launch the application.
@@ -90,7 +92,7 @@ public class Sign_in extends JFrame {
 		lbl_password.setBounds(119, 321, 200, 40);
 		contentPane.add(lbl_password);
 		
-		JComboBox cmb_userType = new JComboBox();
+		cmb_userType = new JComboBox();
 		cmb_userType.setFont(new Font("Tahoma", Font.PLAIN, 20));
 		cmb_userType.setBounds(329, 375, 300, 40);
 		contentPane.add(cmb_userType);
@@ -118,7 +120,7 @@ public class Sign_in extends JFrame {
 		txt_username.setBounds(329, 210, 300, 40);
 		contentPane.add(txt_username);
 		
-		JLabel lbl_response = new JLabel("");
+		lbl_response = new JLabel("");
 		lbl_response.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_response.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lbl_response.setBounds(119, 447, 510, 46);
@@ -134,40 +136,7 @@ public class Sign_in extends JFrame {
 				String pwd = String.valueOf(pwf_password.getPassword());
 				String type = (String) cmb_userType.getSelectedItem();
 				
-				Validate v = new Validate();
-				
-				v.ChangeStrat(new authUsername());
-				boolean isUsername = v.DoOp(username);
-				
-				v.ChangeStrat(new authEmail());
-				boolean isEmail = v.DoOp(email);
-				
-				if(isUsername) {
-					lbl_response.setText(username + " has been taken please choose another name");
-				}
-				else if(isEmail) {
-					lbl_response.setText(email + " has been taken please choose another email");
-				}
-				else {
-					if(pwd.matches("(.*)[0-9](.*)") && pwd.matches("(.*)[a-z](.*)") && pwd.matches("(.*)[!@#$&()\\-`.+,/\"](.*)") && pwd.matches("(.*)[A-Z](.*)")) {
-						UserFactory.newUser(username, first, last, email, pwd, type, 0);
-					}
-					else if(!(pwd.matches("(.*)[a-z](.*)"))) {
-						lbl_response.setText("must include lowercase letter");
-					}
-					else if(!(pwd.matches("(.*)[!@#$&()\\-`.+,/\"](.*)"))) {
-						lbl_response.setText("must include special charcter");
-					}
-					else if(!(pwd.matches("(.*)[A-Z](.*)"))) {
-						lbl_response.setText("must include uppercase letter");
-					}
-					else if(!(pwd.matches("(.*)[0-9](.*)"))) {
-						lbl_response.setText("must include number");
-					}
-					else {
-						lbl_response.setText(pwd + " is invalid please choose another password");
-					}
-				}
+				lbl_response.setText(register(username, email, first, last, pwd, type));
 			}
 		});
 		btn_register.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -175,5 +144,44 @@ public class Sign_in extends JFrame {
 		contentPane.add(btn_register);
 		
 		
+	}
+	
+	public String register(String username, String email, String first, String last, String pwd, String type) {
+		
+		Validate v = new Validate();
+		
+		v.ChangeStrat(new authUsername());
+		boolean isUsername = v.DoOp(username);
+		
+		v.ChangeStrat(new authEmail());
+		boolean isEmail = v.DoOp(email);
+		
+		if(isUsername) {
+			return username + " has been taken please choose another name";
+		}
+		else if(isEmail) {
+			return email + " has been taken please choose another email";
+		}
+		else {
+			if(pwd.matches("(.*)[0-9](.*)") && pwd.matches("(.*)[a-z](.*)") && pwd.matches("(.*)[!@#$&()\\-`.+,/\"](.*)") && pwd.matches("(.*)[A-Z](.*)")) {
+				UserFactory.newUser(username, first, last, email, pwd, type, 0);
+				return "";
+			}
+			else if(!(pwd.matches("(.*)[a-z](.*)"))) {
+				return "must include lowercase letter";
+			}
+			else if(!(pwd.matches("(.*)[!@#$&()\\-`.+,/\"](.*)"))) {
+				return "must include special charcter";
+			}
+			else if(!(pwd.matches("(.*)[A-Z](.*)"))) {
+				return "must include uppercase letter";
+			}
+			else if(!(pwd.matches("(.*)[0-9](.*)"))) {
+				return "must include number";
+			}
+			else {
+				return pwd + " is invalid please choose another password";
+			}
+		}
 	}
 }
