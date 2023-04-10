@@ -16,7 +16,7 @@ public class ValidTime implements Chain{
 
 	// Tries to calculate the data, or passes it
 	// to the Object defined in method setNextChain()
-	public void validateBooking(String username, String lp, String pl, String ps, String date, String start, String duration, ArrayList<Integer> allTimes) {
+	public String validateBooking(String username, String lp, String pl, String ps, String date, String start, String duration, ArrayList<Integer> allTimes) {
 		boolean valid = true;
 		
 		String[] parts = start.split(":");
@@ -39,41 +39,42 @@ public class ValidTime implements Chain{
 			}
 		}
 		
+		ArrayList<String> user = ReadCSV.findUserName(username, "Clients.txt");
+		ReadCSV.findUserName(username, "Clients.txt");
+		String amountDueI = user.get(6);
+		String[] parts9 = amountDueI.split("\r");
+		int amountDue = Integer.valueOf(parts9[0]);
+		
+		if(user.get(5).equals("Visitor")) {
+			amountDue += 15;
+		}
+		else if(user.get(5).equals("Faculty")) {
+			amountDue += 8;
+		}
+		else if(user.get(5).equals("Staff")) {
+			amountDue += 10;
+		}
+		else if (user.get(5).equals("Student")){
+			amountDue += 5;
+		}
+		else {
+			amountDue += 20;
+		}
+		
 		if(valid){
 			
-			ArrayList<String> user = ReadCSV.findUserName(username, "Clients.txt");
-			ReadCSV.findUserName(username, "Clients.txt");
-			String amountDueI = user.get(6);
-			String[] parts9 = amountDueI.split("\r");
-			int amountDue = Integer.valueOf(parts9[0]);
-			
-			if(user.get(5).equals("Student")) {
-				amountDue += 5;
-			}
-			else if(user.get(5).equals("Faculty")) {
-				amountDue += 8;
-			}
-			else if(user.get(5).equals("Staff")) {
-				amountDue += 10;
-			}
-			else if (user.get(5).equals("Visitor")){
-				amountDue += 15;
-			}
-			else {
-				amountDue += 20;
-			}
-			
-			WriteCSV.CreateBooking(username, lp, finalPL, finalPS, date, finalStart, finalDuration);
+			WriteCSV.CreateBooking("HappyBuddy77", lp, finalPL, finalPS, date, finalStart, finalDuration);
 			try {
-				DeleteCSV.CancelClient(username, user.get(1), user.get(2), user.get(3), user.get(4), user.get(5), user.get(6));
-				WriteCSV.saveClient(username, user.get(1), user.get(2), user.get(3), user.get(4), user.get(5), amountDue);
+				DeleteCSV.CancelClient("HappyBuddy77", user.get(1), user.get(2), user.get(3), user.get(4), user.get(5), user.get(6));
+				WriteCSV.saveClient("HappyBuddy77", user.get(1), user.get(2), user.get(3), user.get(4), user.get(5), amountDue);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+			return "Booking Created";
 		} 
 		else {	
-			JOptionPane.showMessageDialog(null, "Booking not Created, time and duration of booking is unavalible");
+			return "Booking not Created, time and duration of booking is unavalible";
 		}
 		
 	}

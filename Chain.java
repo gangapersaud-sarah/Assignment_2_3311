@@ -8,6 +8,6 @@ public interface Chain {
 	
 	// Either solves the problem or passes the data
 	// to the next Object in the chain
-	public void validateBooking(String username, String lp, String pl, String ps, String date, String start, String duration, ArrayList<Integer> allTimes);
+	public String validateBooking(String username, String lp, String pl, String ps, String date, String start, String duration, ArrayList<Integer> allTimes);
 	
 }

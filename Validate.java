@@ -1,3 +1,4 @@
+
 public class Validate {
 	// have an instance of operations so that we always know which strategy we are implementing
 	public Authenticate typeOfStratagy;

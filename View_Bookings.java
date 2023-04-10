@@ -33,6 +33,12 @@ public class View_Bookings extends JFrame {
 	public String username = "";
 	public String type = "";
 	public int amountDue = -1;
+	String lp = "";
+	String pl = "";
+	String ps = "";
+	String date = "";
+	String time = "";
+	String duration = "";
 	/**
 	 * Launch the application.
 	 */
@@ -74,16 +80,8 @@ public class View_Bookings extends JFrame {
 		contentPane.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ExtendBooking newFrame = new ExtendBooking();
-				newFrame.setVisible(true);
-				setVisible(false);
-				
-				newFrame.setLP((String) table.getValueAt(table.getSelectedRow(), 0));
-				newFrame.setPL((String) table.getValueAt(table.getSelectedRow(), 1));
-				newFrame.setPS((String) table.getValueAt(table.getSelectedRow(), 2));
-				newFrame.setDate((String) table.getValueAt(table.getSelectedRow(), 3));
-				newFrame.setTime((String) table.getValueAt(table.getSelectedRow(), 4));
-				newFrame.setDuration((String) table.getValueAt(table.getSelectedRow(), 5));
+				getValues();
+				extend(lp, pl, ps, date, time, duration);
 			}
 		});
 		
@@ -93,37 +91,16 @@ public class View_Bookings extends JFrame {
 		contentPane.add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				EditBooking newFrame = new EditBooking();
-				newFrame.setVisible(true);
-				setVisible(false);
-				
-				newFrame.setLP((String) table.getValueAt(table.getSelectedRow(), 0));
-				newFrame.setPL((String) table.getValueAt(table.getSelectedRow(), 1));
-				newFrame.setPS((String) table.getValueAt(table.getSelectedRow(), 2));
-				newFrame.setDate((String) table.getValueAt(table.getSelectedRow(), 3));
-				newFrame.setTime((String) table.getValueAt(table.getSelectedRow(), 4));
-				newFrame.setDuration((String) table.getValueAt(table.getSelectedRow(), 5));
-				
-				
+				getValues();
+				edit(lp, pl, ps, date, time, duration);
 			}
 		});
 		
 		JButton btnNewButton_2 = new JButton("Cancel Booking");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String lp = "";
-				String pl = "";
-				String ps = "";
-				String date = "";
-				String time = "";
-				String duration = "";
 				
-				lp = (String) table.getValueAt(table.getSelectedRow(), 0);
-				pl = (String) table.getValueAt(table.getSelectedRow(), 1);
-				ps = (String) table.getValueAt(table.getSelectedRow(), 2);
-				date = (String) table.getValueAt(table.getSelectedRow(), 3);
-				time = (String) table.getValueAt(table.getSelectedRow(), 4);
-				duration = (String) table.getValueAt(table.getSelectedRow(), 5);
+				getValues();
 				
 				if(duration.contains("\r")) {
 					String[] parts = duration.split("\r");
@@ -192,6 +169,73 @@ public class View_Bookings extends JFrame {
 		contentPane.add(textField);
 		textField.setColumns(10);
 		table.getColumnModel().getColumn(4).setPreferredWidth(107);
+	}
+	
+	public ArrayList<String> getValues() {
+		ArrayList<String> a  = new ArrayList<String>();
+		
+		lp = (String) table.getValueAt(table.getSelectedRow(), 0);
+		pl = (String) table.getValueAt(table.getSelectedRow(), 1);
+		ps = (String) table.getValueAt(table.getSelectedRow(), 2);
+		date = (String) table.getValueAt(table.getSelectedRow(), 3);
+		time = (String) table.getValueAt(table.getSelectedRow(), 4);
+		duration = (String) table.getValueAt(table.getSelectedRow(), 5);
+		
+		a.add(date);
+		a.add(lp);
+		a.add(pl);
+		a.add(ps);
+		a.add(time);
+		a.add(duration);
+		return a;
+	}
+	
+	public ArrayList<String> edit(String lp, String pl, String ps, String date, String time, String duration) {
+		EditBooking newFrame = new EditBooking();
+		newFrame.setVisible(true);
+		setVisible(false);
+		
+		ArrayList<String> a  = new ArrayList<String>();
+		
+		newFrame.setLP(lp);
+		newFrame.setPL(pl);
+		newFrame.setPS(ps);
+		newFrame.setDate(date);
+		newFrame.setTime(time);
+		newFrame.setDuration(duration);
+		
+		a.add(date);
+		a.add(lp);
+		a.add(pl);
+		a.add(ps);
+		a.add(time);
+		a.add(duration);
+		
+		return a;
+	}
+	
+	public ArrayList<String> extend (String lp, String pl, String ps, String date, String time, String duration) {
+		ExtendBooking newFrame = new ExtendBooking();
+		newFrame.setVisible(true);
+		setVisible(false);
+		
+		ArrayList<String> a  = new ArrayList<String>();
+		
+		newFrame.setLP(lp);
+		newFrame.setPL(pl);
+		newFrame.setPS(ps);
+		newFrame.setDate(date);
+		newFrame.setTime(time);
+		newFrame.setDuration(duration);
+		
+		a.add(date);
+		a.add(lp);
+		a.add(pl);
+		a.add(ps);
+		a.add(time);
+		a.add(duration);
+		
+		return a;
 	}
 	
 	public void setUsername(String s) {

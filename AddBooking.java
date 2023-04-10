@@ -22,6 +22,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
@@ -36,6 +37,11 @@ public class AddBooking extends JFrame {
 	public String type = "";
 	public int amountDue = -1;
 	ArrayList<Integer> allTimes = new ArrayList<Integer>();
+	JComboBox cmb_time;
+	JComboBox cmb_ps;
+	JComboBox cmb_pl;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -98,7 +104,7 @@ public class AddBooking extends JFrame {
 		contentPane.add(txt_lp);
 		txt_lp.setColumns(10);
 		
-		JComboBox cmb_time = new JComboBox();
+		cmb_time = new JComboBox();
 		cmb_time.setBounds(193, 349, 178, 48);
 		contentPane.add(cmb_time);
 		
@@ -112,11 +118,11 @@ public class AddBooking extends JFrame {
 		cmb_duration.addItem("5 Hours");
 		cmb_duration.addItem("6 Hours");
 		
-		JComboBox cmb_ps = new JComboBox();
+		cmb_ps = new JComboBox();
 		cmb_ps.setBounds(577, 261, 178, 48);
 		contentPane.add(cmb_ps);
 		
-		JComboBox cmb_pl = new JComboBox();
+		cmb_pl = new JComboBox();
 		cmb_pl.setBounds(577, 171, 178, 48);
 		contentPane.add(cmb_pl);
 		cmb_pl.addItem("Select");
@@ -134,36 +140,9 @@ public class AddBooking extends JFrame {
 					allTimes = new ArrayList<Integer>();
 			    	String ps = (String) cmb_ps.getSelectedItem();
 			    	String pl = (String) cmb_pl.getSelectedItem();
-						if(pl.contains(":") && ps.contains(":")) {
-							for(int i = 8; i < 22; i++) {
-				    			allTimes.add(i);
-					    	}
-				    		cmb_time.addItem("Select");
-				    		String[] parts = ps.split(": ");
-					    	String finalPS = parts[1];
-					    	
-					    	String[] parts3 = pl.split(": ");
-					    	String finalPL = parts3[1];
-					    	
-					    	ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
-					    	ReadCSV.allBookings("Booking.txt");
-					    	for(int i = 0; i < booking.size(); i++) {
-					    		if(booking.get(i).get(2).equals(finalPL) && booking.get(i).get(3).equals(finalPS) && booking.get(i).get(4).equals(txt_date.getText())) {
-							    	String[] parts5 = booking.get(i).get(6).split("\r");
-							    	String finalDuration = parts5[0];
-					    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDuration); k++) {
-					    				if(allTimes.contains(k)) {
-					    					allTimes.remove((Integer) k);
-											
-										}
-									}
-					    		}
-					    	}
-						}
+			    	String date = txt_date.getText();
 			    	
-			    	for(int i = 0; i < allTimes.size(); i++) {
-			    		cmb_time.addItem(allTimes.get(i) + ":00 EST");
-					}
+			    	actionDate(pl, ps, date);
 				}
 			}
 		});
@@ -192,31 +171,9 @@ public class AddBooking extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		    	cmb_ps.removeAllItems();
 		    	String s = (String) cmb_pl.getSelectedItem();
-		    	if(!s.equals("Select")) {
-		    		cmb_ps.addItem("Select");
-		    		String[] parts = s.split(": ");
-			    	String part2 = parts[1];
-			    	String[] allPS = ReadCSV.parkingSpacesOfLot(part2);
-			    	
-			    	ArrayList<Integer> allSpaces = new ArrayList<Integer>();
-			    	for(int i = 1; i < 101; i++) {
-			    		allSpaces.add(i);
-			    	}
-					for(int i = 0; i < allPS.length; i++) {
-						String[] parts3 = allPS[i].split("\r");
-				    	String part4 = parts3[0];
-						Integer arr = Integer.valueOf(part4);
-						if(allSpaces.contains(arr)) {
-							allSpaces.remove(arr);
-						}
-					}
-					for(int i = 0; i < allSpaces.size(); i++) {
-						cmb_ps.addItem("Parking Space: " + allSpaces.get(i));
-					}
-		    	}
-		    	else {
-		    		JOptionPane.showMessageDialog(null, "Please Choose a parking Lot");
-		    	}
+		    	
+		    	actionPL(s);
+		    	
 		    }
 		});
 		
@@ -226,6 +183,7 @@ public class AddBooking extends JFrame {
 				allTimes = new ArrayList<Integer>();
 		    	String ps = (String) cmb_ps.getSelectedItem();
 		    	String pl = (String) cmb_pl.getSelectedItem();
+		    	String date = txt_date.getText();
 		    	boolean isValid = isValidFormat("dd/MM/yyyy", txt_date.getText(), Locale.ENGLISH);
 		    	if(ps.equals("Select")) {
 		    		JOptionPane.showMessageDialog(null, "Please Choose a parking Space");
@@ -234,34 +192,7 @@ public class AddBooking extends JFrame {
 					JOptionPane.showMessageDialog(null, "The date of the booking must be inputed in the form \"dd/MM/yyyy\"");
 		    	}
 		    	else {
-		    		for(int i = 8; i < 23; i++) {
-		    			allTimes.add(i);
-			    	}
-		    		cmb_time.addItem("Select");
-		    		String[] parts = ps.split(": ");
-			    	String finalPS = parts[1];
-			    	
-			    	String[] parts3 = pl.split(": ");
-			    	String finalPL = parts3[1];
-			    	
-			    	ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
-			    	ReadCSV.allBookings("Booking.txt");
-			    	for(int i = 0; i < booking.size(); i++) {
-			    		if(booking.get(i).get(2).equals(finalPL) && booking.get(i).get(3).equals(finalPS) && booking.get(i).get(4).equals(txt_date.getText())) {
-					    	String[] parts5 = booking.get(i).get(6).split("\r");
-					    	String finalDuration = parts5[0];
-			    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDuration); k++) {
-			    				if(allTimes.contains(k)) {
-			    					allTimes.remove((Integer) k);
-									
-								}
-							}
-			    		}
-			    	}
-			    	
-			    	for(int i = 0; i < allTimes.size(); i++) {
-			    		cmb_time.addItem(allTimes.get(i) + ":00 EST");
-					}
+		    		actionPS(pl, ps, date);
 		    	}
 			}
 		});
@@ -317,6 +248,102 @@ public class AddBooking extends JFrame {
 
 	    return false;
 	}
+	
+	public ArrayList<Integer> actionDate(String pl, String ps, String date) {
+		if(pl.contains(":") && ps.contains(":")) {
+			for(int i = 8; i < 22; i++) {
+    			allTimes.add(i);
+	    	}
+    		cmb_time.addItem("Select");
+    		String[] parts = ps.split(": ");
+	    	String finalPS = parts[1];
+	    	
+	    	String[] parts3 = pl.split(": ");
+	    	String finalPL = parts3[1];
+	    	
+	    	ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
+	    	ReadCSV.allBookings("Booking.txt");
+	    	for(int i = 0; i < booking.size(); i++) {
+	    		if(booking.get(i).get(2).equals(finalPL) && booking.get(i).get(3).equals(finalPS) && booking.get(i).get(4).equals(date)) {
+			    	String[] parts5 = booking.get(i).get(6).split("\r");
+			    	String finalDuration = parts5[0];
+	    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDuration); k++) {
+	    				if(allTimes.contains(k)) {
+	    					allTimes.remove((Integer) k);
+							
+						}
+					}
+	    		}
+	    	}
+		}
+		for(int i = 0; i < allTimes.size(); i++) {
+    		cmb_time.addItem(allTimes.get(i) + ":00 EST");
+		}
+		return allTimes;
+	}
+	
+	public ArrayList<Integer> actionPL(String s) {
+		ArrayList<Integer> allSpaces = new ArrayList<Integer>();
+		if(!s.equals("Select")) {
+    		cmb_ps.addItem("Select");
+    		String[] parts = s.split(": ");
+	    	String part2 = parts[1];
+	    	String[] allPS = ReadCSV.parkingSpacesOfLot(part2);
+	    	
+	    	for(int i = 1; i < 101; i++) {
+	    		allSpaces.add(i);
+	    	}
+			for(int i = 0; i < allPS.length; i++) {
+				String[] parts3 = allPS[i].split("\r");
+		    	String part4 = parts3[0];
+				Integer arr = Integer.valueOf(part4);
+				if(allSpaces.contains(arr)) {
+					allSpaces.remove(arr);
+				}
+			}
+			for(int i = 0; i < allSpaces.size(); i++) {
+				cmb_ps.addItem("Parking Space: " + allSpaces.get(i));
+			}
+    	}
+    	else {
+    		JOptionPane.showMessageDialog(null, "Please Choose a parking Lot");
+    	}
+		return allSpaces;
+	} 
+	
+	public ArrayList<Integer> actionPS (String pl, String ps, String date) {
+		for(int i = 8; i < 23; i++) {
+			allTimes.add(i);
+    	}
+		cmb_time.addItem("Select");
+		String[] parts = ps.split(": ");
+    	String finalPS = parts[1];
+    	
+    	String[] parts3 = pl.split(": ");
+    	String finalPL = parts3[1];
+    	
+    	ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
+    	ReadCSV.allBookings("Booking.txt");
+    	for(int i = 0; i < booking.size(); i++) {
+    		if(booking.get(i).get(2).equals(finalPL) && booking.get(i).get(3).equals(finalPS) && booking.get(i).get(4).equals(date)) {
+		    	String[] parts5 = booking.get(i).get(6).split("\r");
+		    	String finalDuration = parts5[0];
+    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDuration); k++) {
+    				if(allTimes.contains(k)) {
+    					allTimes.remove((Integer) k);
+						
+					}
+				}
+    		}
+    	}
+    	
+    	for(int i = 0; i < allTimes.size(); i++) {
+    		cmb_time.addItem(allTimes.get(i) + ":00 EST");
+		}
+    	
+    	return allTimes;
+	}
+	
 	
 	public void setUsername(String s) {
 		username = s;

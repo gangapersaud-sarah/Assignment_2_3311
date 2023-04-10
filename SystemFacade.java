@@ -17,7 +17,7 @@ public class SystemFacade {
 		this.username = username;
 		this.list = list;
 	}
-	public void viewClientWindow(){
+	public boolean viewClientWindow(){
 		ClientWindow newFrame = new ClientWindow();
 		newFrame.setUsername(username);
 		newFrame.setType(list.get(5));
@@ -25,19 +25,22 @@ public class SystemFacade {
 		newFrame.setAmountDue(Integer.valueOf(parts[0]));
 		newFrame.setVisible(true);
 		f.setVisible(false);
+		return true;
 	}
 	
 	
-	public void viewManagerWindow(){
+	public boolean viewManagerWindow(){
 		LandingPageManager newFrame = new LandingPageManager();
 		newFrame.setVisible(true);
 		f.setVisible(false);
+		return true;
 	}
 	
-	public void viewSuperWindow(){
+	public boolean viewSuperWindow(){
 		manager_medium newFrame = new manager_medium();
 		newFrame.frame.setVisible(true);
 		f.setVisible(false);
+		return true;
 	}
 	
 }

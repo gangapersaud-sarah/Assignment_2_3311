@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 
 public interface Authenticate {
@@ -34,4 +35,3 @@ class authEmail implements Authenticate {
 		return found;
 	}   
 }
-

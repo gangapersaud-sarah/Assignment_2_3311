@@ -15,17 +15,17 @@ public class ValidLP implements Chain{
 
 	// Tries to calculate the data, or passes it
 	// to the Object defined in method setNextChain()
-	public void validateBooking(String username, String lp, String pl, String ps, String date, String start, String duration, ArrayList<Integer> allTimes) {
+	public String validateBooking(String username, String lp, String pl, String ps, String date, String start, String duration, ArrayList<Integer> allTimes) {
 		boolean valid = false;
 		
 		if(lp.length() == 7 && lp.matches("(.*)[0-9](.*)")) {
 			valid = true;
 		}
 		if(valid){
-			nextInChain.validateBooking(username, lp, pl, ps, date, start, duration, allTimes);
+			return nextInChain.validateBooking(username, lp, pl, ps, date, start, duration, allTimes);
 		} 
 		else {	
-			JOptionPane.showMessageDialog(null, "Booking not Created, license plate invalid");
+			return "Booking not Created, license plate invalid";
 		}
 		
 	}

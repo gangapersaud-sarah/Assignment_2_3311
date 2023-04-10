@@ -99,7 +99,7 @@ public class System {
 		frame.setVisible(false);
 	}
 	
-	public void doLogin(String user, String pwd) {
+	public boolean doLogin(String user, String pwd) {
 		String userName = user;
 		String password = pwd;
 		ArrayList<String> returnList = new ArrayList<String>();
@@ -118,6 +118,10 @@ public class System {
 			else if(returnList.get(5).equals("Super-Manager")) {
 				s.viewSuperWindow();
 			}
+			return true;
+		}
+		else {
+			return false;
 		}
 	}
 	
