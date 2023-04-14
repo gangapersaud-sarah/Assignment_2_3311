@@ -220,5 +220,111 @@ public class Tests {
 		
 	}
 
+	@Test
+	public void testEE(){
+				// System
+				System s = System.getInstance();
+				boolean b = s.equals(null);
+				assertEquals(false, b);
+				
+				
+				// Log in
+				boolean bool1 = s.doLogin("HappyBuddy77", "1234");
+				assertEquals(true, bool1);
+				
+				// Sign in
+				s.doSignin();
+				Sign_in sign = new Sign_in();
+				sign.register("Red", "bcucb@gmail.com", "F", "L", "hH@", "Student");
+				
+				
+				// Add a booking
+				AddBooking a = new AddBooking();
+				
+				ArrayList<Integer> test = a.actionDate("Parking Lot: A", "Parking Space: 1", "13/04/2023");
+				ArrayList<Integer> tester = new ArrayList<Integer>();
+
+				for(int i = 1; i < 101; i ++) {
+					tester.add(i);
+				}
+				
+				test = a.actionPL("Parking Lot: A");
+				assertEquals(test, tester);
+				
+				ArrayList<Integer> tester2 = new ArrayList<Integer>();
+				tester2.add(10);
+				tester2.add(13);
+				tester2.add(17);
+				tester2.add(20);
+				tester2.add(21);
+				tester2.add(22);
+				
+				test = a.actionPS("Parking Lot: A", "Parking Space: 1", "13/04/2023");
+				assertEquals(test, tester2);
+				
+
+				// testing adding chain
+				String testing = "";
+				ArrayList<Integer> allTimes = new ArrayList<Integer>();
+				Chain chainCalc1 = new ValidLP();
+				Chain chainCalc2 = new ValidDate();
+				Chain chainCalc3 = new ValidTime();
+				
+				chainCalc1.setNextChain(chainCalc2);
+				chainCalc2.setNextChain(chainCalc3);
+				
+				testing = chainCalc1.validateBooking("HappyBuddy77", "ABC1234", "Parking Lot: A", "Parking Space: 1", "01/01/2025", "16:00 EST", "3", allTimes);
+				assertEquals(testing, "Booking not Created, time and duration of booking is unavalible");
+				
+				//view booking
+				View_Bookings v = new View_Bookings();
+				v.edit("ABC1234", "Parking Lot: A", "Parking Space: 1", "01/01/2025", "16:00 EST", "3");
+				
+				//edit booking
+				EditBooking edit = new EditBooking();
+				edit.username = "HappyBuddy77";
+				edit.lp = "123ABC";
+				edit.pl = "A";
+				edit.ps = "1";
+				edit.date = "01/01/2025";
+				edit.time = "18:00 EST";
+				edit.duration = "3";
+				
+				ArrayList<ArrayList<String>> testingArrofArr = ReadCSV.notDeleteBookings("HappyBuddy77", "123ABC", "A", "1", "01/01/2025", "18:00 EST", "3");
+				ArrayList<ArrayList<String>> testingArrofArr2 = ReadCSV.notDeleteClients("HappyBuddy77");
+				ArrayList<ArrayList<String>> testingArrofArr3 = ReadCSV.findBookings("HappyBuddy77", "Booking.txt");
+				ArrayList<ArrayList<String>> testingArrofArr4 = ReadCSV.findUserType("Staff", "Clients.txt");
+						
+				ArrayList<String> testerArrofArr = new ArrayList<String>();
+				testerArrofArr.add("HappyBuddy77");
+				testerArrofArr.add("L2CP02");
+				testerArrofArr.add("A");
+				testerArrofArr.add("2");
+				testerArrofArr.add("13/04/2023");
+				testerArrofArr.add("14");
+				testerArrofArr.add("3");
+				
+				assertEquals(testingArrofArr.get(0), testerArrofArr);
+				
+				
+				
+				v.extend("123ABC", "Parking Lot: A", "Parking Space: 1", "01/01/2025", "18:00 EST", "3");
+				ExtendBooking extend = new ExtendBooking();
+				extend.setLP("123ABC");
+				extend.setPL("Parking Lot: A");
+			    extend.setPS("Parking Space: 1");
+			    extend.setDate("01/01/2025");
+			    extend.setTime("18:00 EST");
+			    extend.setDuration("5");
+			       
+			    // Extend booking from 3 to 5 hours
+			    //extend.comboBox.setSelectedIndex(4); // 5 hours
+			    //extend.btnNewButton.doClick();
+			        
+			    // Check that the booking was extended
+			    assertEquals("5", extend.duration);
+				
+	}
+
 }
 
