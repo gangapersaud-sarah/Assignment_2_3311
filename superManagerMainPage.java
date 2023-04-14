@@ -13,6 +13,7 @@ import java.awt.event.ActionEvent;
 
 public class superManagerMainPage extends JFrame {
 
+	private static superManagerMainPage instance = null;
 	private JPanel contentPane;
     JTextField txt_username = new JTextField();
     JTextField txt_password = new JTextField();
@@ -106,4 +107,11 @@ public class superManagerMainPage extends JFrame {
     public boolean authenticatePassword() {
         return true;
     }
+    
+    public static superManagerMainPage getInstance(){
+		if (instance == null){
+			instance = new superManagerMainPage();
+		}
+		return instance;
+	}
 }

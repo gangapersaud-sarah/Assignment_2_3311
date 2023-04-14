@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import javax.swing.JPanel;
 
 public class manager_medium {
+	
+	private static manager_medium instance = null;
     JFrame frame = new JFrame();
     JTextField txt_username = new JTextField();
     JTextField txt_password = new JTextField();
@@ -63,6 +65,13 @@ public class manager_medium {
     public boolean authenticatePassword() {
         return true;
     }
+    
+    public static manager_medium getInstance(){
+		if (instance == null){
+			instance = new manager_medium();
+		}
+		return instance;
+	}
 
     public static void main(String args[]) {
         manager_medium s = new manager_medium();

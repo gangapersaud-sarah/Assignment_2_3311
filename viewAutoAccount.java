@@ -118,6 +118,27 @@ public class viewAutoAccount extends JFrame {
 		table.getColumnModel().getColumn(4).setPreferredWidth(107);
 	}
 	
+	public int numberRows()
+	{
+		return table.getRowCount();
+	}
+	
+	public int numberColumns()
+	{
+		return table.getColumnCount();
+	}
+	
+	public Object[] getAutoAccount(int rowNum)
+	{
+		Object[] rowData = new Object[7];
+		for (int i = 0; i < 7; i++)
+		{
+			rowData[i] = table.getValueAt(rowNum, i);
+		}
+		
+		return rowData;
+	}
+	
 	public void setUsername(String s) {
 		username = s;
 	}
@@ -128,3 +149,4 @@ public class viewAutoAccount extends JFrame {
 		amountDue = s;
 	}
 }
+
