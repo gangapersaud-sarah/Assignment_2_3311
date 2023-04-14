@@ -79,18 +79,18 @@ public class ExtendBooking extends JFrame  {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ExtendBooking window = new ExtendBooking();
-					window.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+//	public static void main(String[] args) {
+//		EventQueue.invokeLater(new Runnable() {
+//			public void run() {
+//				try {
+//					ExtendBooking window = new ExtendBooking();
+//					window.setVisible(true);
+//				} catch (Exception e) {
+//					e.printStackTrace();
+//				}
+//			}
+//		});
+//	}
 
 	/**
 	 * Create the application.
@@ -131,58 +131,68 @@ public class ExtendBooking extends JFrame  {
 		btnNewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 					
-			    	String d = (String) comboBox.getSelectedItem();
-					String[] parts2 = d.split(" Hours");
-			    	String finalDuration = parts2[0];
-			    	
-			    	// array of times, get rid of all times that are not avalible
-			    	ArrayList<Integer> allTimes = new ArrayList<Integer>();
-			    	for(int i = 8; i < 23; i++) {
-		    			allTimes.add(i);
-			    	}
-			    	
-					try {
-						DeleteCSV.CancelBooking(username, lp, pl, ps, date, time, duration);
-						
-						ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
-				    	for(int i = 0; i < booking.size(); i++) {
-				    		if(booking.get(i).get(2).equals(pl) && booking.get(i).get(3).equals(ps) && booking.get(i).get(4).equals(date)) {
-						    	String[] parts5 = booking.get(i).get(6).split("\r");
-						    	String finalDurationI = parts5[0];
-				    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDurationI); k++) {
-				    				if(allTimes.contains(k)) {
-				    					allTimes.remove((Integer) k);
-										
-									}
-								}
-				    		}
-				    	}
-				    	boolean valid = true;
-				    	for(int i = Integer.valueOf(time); i < Integer.valueOf(time) + Integer.valueOf(finalDuration); i++) {
-							if(!allTimes.contains(i)) {
-								valid = false;
-							}
-						}
-				    	if(valid) {
-				    		WriteCSV.CreateBooking(username, lp, pl, ps, date, time, finalDuration);
-							JOptionPane.showMessageDialog(null, "Booking Extended");
-				    	}
-				    	else {
-				    		WriteCSV.CreateBooking(username, lp, pl, ps, date, time, duration);
-							JOptionPane.showMessageDialog(null, "Booking not Extended, time and duration of booking is unavalible");
-				    	}
-				    	
-		
-					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+				String d = (String) comboBox.getSelectedItem();
+				extend(d, true);
 				}
 				
 		});
 		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 30));
 		btnNewButton.setBounds(252, 398, 293, 88);
 		contentPane.add(btnNewButton);
+	}
+	
+	public ArrayList<Integer> extend(String d, boolean b) {
+		String[] parts2 = d.split(" Hours");
+    	String finalDuration = parts2[0];
+    	
+    	// array of times, get rid of all times that are not avalible
+    	ArrayList<Integer> allTimes = new ArrayList<Integer>();
+    	for(int i = 8; i < 23; i++) {
+			allTimes.add(i);
+    	}
+    	
+		try {
+			if(b) {
+				DeleteCSV.CancelBooking("HappyBuddy77", lp, pl, ps, date, time, duration);
+			}
+			ArrayList<ArrayList<String>> booking = ReadCSV.allBookings("Booking.txt");
+	    	for(int i = 0; i < booking.size(); i++) {
+	    		if(booking.get(i).get(2).equals(pl) && booking.get(i).get(3).equals(ps) && booking.get(i).get(4).equals(date)) {
+			    	String[] parts5 = booking.get(i).get(6).split("\r");
+			    	String finalDurationI = parts5[0];
+	    			for(int k = Integer.valueOf(booking.get(i).get(5)); k < Integer.valueOf(booking.get(i).get(5)) + Integer.valueOf(finalDurationI); k++) {
+	    				if(allTimes.contains(k)) {
+	    					allTimes.remove((Integer) k);
+							
+						}
+					}
+	    		}
+	    	}
+	    	boolean valid = true;
+	    	for(int i = Integer.valueOf(time); i < Integer.valueOf(time) + Integer.valueOf(finalDuration); i++) {
+				if(!allTimes.contains(i)) {
+					valid = false;
+				}
+			}
+	    	if(valid) {
+	    		if(b) {
+	    			WriteCSV.CreateBooking("HappyBuddy77", lp, pl, ps, date, time, finalDuration);
+	    		}
+				JOptionPane.showMessageDialog(null, "Booking Extended");
+	    	}
+	    	else {
+	    		if(b) {
+	    			WriteCSV.CreateBooking("HappyBuddy77", lp, pl, ps, date, time, duration);
+	    		}
+	    		JOptionPane.showMessageDialog(null, "Booking Extended");
+	    	}
+	    	
+
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		return allTimes;
 	}
 	
 	public void setLP(String s) {

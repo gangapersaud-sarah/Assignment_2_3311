@@ -16,6 +16,9 @@ public class createAutoAccount {
     JTextField txt_password = new JTextField();
     JLabel lblNewLabel = new JLabel("");
     JButton btnNewButton = new JButton("Enter");
+    Random random = new Random();
+	String new_Name = "";
+	String password = "";
 
     public createAutoAccount() {
         
@@ -38,27 +41,9 @@ public class createAutoAccount {
 		btn_create_account.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				//method called from System class that generates and return
-				Random random = new Random();
-				String new_Name = "";
-				String password = "";
 				
-				String alphanumericCharacters = "abcdefghijklmnopqrstuvxyz12345678910";
-				StringBuffer randomString = new StringBuffer(10);
-				for (int i = 0; i < 10; i++) {
-					int randomIndex = random.nextInt(alphanumericCharacters.length());
-					char randomChar = alphanumericCharacters.charAt(randomIndex);
-					randomString.append(randomChar);
-				}
-				new_Name = randomString.toString();
-
-				String password_alphabet = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVxXwWyYzZ12345678910!#$%%^*";
-				StringBuffer randomPassword = new StringBuffer(10);
-				for (int i = 0; i < 10; i++) {
-					int randomIndex = random.nextInt(password_alphabet.length());
-					char randomChar = password_alphabet.charAt(randomIndex);
-					randomPassword.append(randomChar);
-				}
-				password = randomPassword.toString();
+				newName();
+				pwd();
 
 				WriteCSV.CreateAutoAccounts(new_Name, password);
 				txt_username.setText(new_Name);
@@ -97,6 +82,30 @@ public class createAutoAccount {
     }
 
 
+    public String newName() {
+    	String alphanumericCharacters = "abcdefghijklmnopqrstuvxyz12345678910";
+		StringBuffer randomString = new StringBuffer(10);
+		for (int i = 0; i < 10; i++) {
+			int randomIndex = random.nextInt(alphanumericCharacters.length());
+			char randomChar = alphanumericCharacters.charAt(randomIndex);
+			randomString.append(randomChar);
+		}
+		new_Name = randomString.toString();
+		return new_Name;
+    }
+    public String pwd() {
+    	String password_alphabet = "aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVxXwWyYzZ12345678910!#$%%^*";
+		StringBuffer randomPassword = new StringBuffer(10);
+		for (int i = 0; i < 10; i++) {
+			int randomIndex = random.nextInt(password_alphabet.length());
+			char randomChar = password_alphabet.charAt(randomIndex);
+			randomPassword.append(randomChar);
+		}
+		password = randomPassword.toString();
+		return password;
+    }
+    
+    
     // validate user email when user signs up
     public boolean authenticateEmail() {
         return true;
