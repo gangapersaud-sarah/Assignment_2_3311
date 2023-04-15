@@ -123,8 +123,8 @@ public class manageParkingLot {
 			public Component getListCellRendererComponent(JList list, Object value, int index, boolean isSelected, boolean cellHasFocus) {
 				Component c = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 				if(parkingInfo.get(value)!=null && parkingInfo.get(value).contains(-1)){
-						setBackground(Color.RED);
-					
+					setBackground(Color.RED);
+
 				}
 				else{
 					setBackground(Color.GREEN);
@@ -160,8 +160,7 @@ public class manageParkingLot {
 					String selected = list.getSelectedValue();
 					parkingInfo.get(selected).clear();
 					parkingInfo.get(selected).add(-1);
-					DeleteCSV.RemoveParkingEntry(selected, 0);
-					WriteCSV.addDisabled(selected , -1);
+					disableParkingLot(selected);
 					list.clearSelection();
 				}
 			}
@@ -171,15 +170,14 @@ public class manageParkingLot {
 		enableParkingLotButton.setBackground(new Color(204, 204, 153));
 		enableParkingLotButton.setBounds(354, 124, 344, 75);
 		manageParkingLot.add(enableParkingLotButton);
-		
+
 		enableParkingLotButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(list.getSelectedValue()!=null){
 					String selected = list.getSelectedValue();
 					parkingInfo.get(selected).removeAll(Collections.singletonList(-1));
-					DeleteCSV.RemoveParkingEntry(selected, -1);
 					parkingInfo.get(selected).add(0);
-					WriteCSV.addDisabled(list.getSelectedValue(), 0);
+					enableParkingLot(selected);
 					list.clearSelection();
 				}
 			}
@@ -196,7 +194,7 @@ public class manageParkingLot {
 					parkingInfo.put(name, val);
 					model.addElement(name);
 					WriteCSV.addDisabled(name, 0);
-			   }
+				}
 				// addParkingLot addParkingLotFrame = new addParkingLot();
 				// addParkingLotFrame.setVisible(true);
 			}
@@ -226,4 +224,28 @@ public class manageParkingLot {
 	public void setVisible(boolean b) {
 		this.parkingLotFrame.setVisible(b);
 	}
+
+	public static void addParkingLot(String name) {
+		if (name!=null) {
+			WriteCSV.addDisabled(name, 0);
+		}
+	}
+
+	public static void enableParkingLot(String name) {
+		DeleteCSV.RemoveParkingEntry(name, -1);
+		WriteCSV.addDisabled(name, 0);
+	}
+	
+	public static void disableParkingLot(String name) {
+		DeleteCSV.RemoveParkingEntry(name, 0);
+		WriteCSV.addDisabled(name, -1);
+	}
+	
+	public editParkingSpace editParking(String lotName) {
+		selectedLot = lotName;
+		editParkingSpace parkingSpaceFrame = new editParkingSpace();
+		return parkingSpaceFrame;
+	}
 }
+
+

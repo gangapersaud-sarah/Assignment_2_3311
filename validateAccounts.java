@@ -15,6 +15,9 @@ import javax.swing.border.LineBorder;
 import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Vector;
+import java.util.stream.Collectors;
 import java.awt.event.ActionEvent;
 
 public class validateAccounts {
@@ -88,9 +91,9 @@ public class validateAccounts {
 		validateAccounts.add(scrollPane);
 		
 		validateTable = new JTable();
-		ArrayList<ArrayList<String>>  test = ReadCSV.allUsers("validateClients.txt");
-		String[][] stringArray = test.stream().map(u -> u.toArray(new String[0])).toArray(String[][]::new);
-
+//		ArrayList<ArrayList<String>>  test = ReadCSV.allUsers("validateClients.txt");
+//		String[][] stringArray = test.stream().map(u -> u.toArray(new String[0])).toArray(String[][]::new);
+		String[][] stringArray = readValidateClients().stream().map(row -> row.toArray(new String[0])).toArray(String[][]::new);
 		DefaultTableModel tableModel = new DefaultTableModel(
 			stringArray,
 			new String[] {
@@ -140,6 +143,7 @@ public class validateAccounts {
 			}
 		});
 
+
 		JButton declineButton = new JButton("DECLINE");
 		declineButton.setBackground(new Color(204, 204, 153));
 		declineButton.setBorder(new LineBorder(new Color(0, 0, 0)));
@@ -162,7 +166,83 @@ public class validateAccounts {
 		});
 
 	}
-
+	
+	
+	public static Vector<Vector> readValidateClients(){
+		ArrayList<ArrayList<String>> test = ReadCSV.allUsers("validateClients.txt");
+		Vector<Vector> temp = test.stream().map(row -> new Vector<>(row)).collect(Collectors.toCollection(Vector::new));
+		return temp;
+	}
+	
+	public static Vector<Vector> readClients(){
+		ArrayList<ArrayList<String>> test = ReadCSV.allUsers("Clients.txt");
+		Vector<Vector> temp = test.stream().map(row -> new Vector<>(row)).collect(Collectors.toCollection(Vector::new));
+		return temp;
+	}
+//	public static Vector<Vector> acceptClients(int[] rows, Vector<Vector> stringArray) {
+//		if(rows == null) {
+//			return null;
+//		}
+//		int i = 0;
+//		int row;
+//		int val;
+//		String username;
+//		while(i < rows.length){		
+//			row = rows[i];
+//			if(stringArray.get(row-i).get(5).equals("Manager")){
+//				val = -1;
+//			}
+//			else{
+//				val = 0;
+//			}
+//			username = stringArray.get(row-i).get(0).toString();
+//			DeleteCSV.RemoveValidateClient(username);
+//			WriteCSV.saveClient(stringArray.get(row-i).get(0).toString(), stringArray.get(row-i).get(1).toString(), stringArray.get(row-i).get(2).toString(), stringArray.get(row-i).get(3).toString(), stringArray.get(row-i).get(4).toString(), stringArray.get(row-i).get(5).toString(), val);
+//			stringArray.remove(row);
+//			i++;
+//		}
+//		return stringArray;
+//	}
+	
+//	public static Vector<Vector> declineClients(int[] rows, Vector<Vector> stringArray) {
+//		if(rows == null) {
+//			return null;
+//		}
+//		int i = 0;
+//		int row;
+//		int val;
+//		String username;
+//		while(i < rows.length){		
+//			row = rows[i];
+//			username = stringArray.get(row-i).get(0).toString();
+//			
+//			DeleteCSV.RemoveValidateClient(username);
+//			stringArray.remove(row);
+//			i++;
+//		}
+//		return stringArray;
+//	}
+	
+	public static Vector<Vector> acceptClient(Vector username, Vector<Vector> stringArray) {
+		int val;
+		if(username.get(5).equals("Manager")){
+			val = -1;
+		}
+		else{
+			val = 0;
+		}
+		DeleteCSV.RemoveValidateClient(username.get(0).toString());
+		WriteCSV.saveClient(username.get(0).toString(), username.get(1).toString(), username.get(2).toString(), username.get(3).toString(), username.get(4).toString(), username.get(5).toString(), val);
+		stringArray.remove(username);
+		return stringArray;
+	}
+	
+	public static Vector<Vector> declineClient(Vector username, Vector<Vector> stringArray) {
+		DeleteCSV.RemoveValidateClient(username.get(0).toString());
+		stringArray.remove(username);
+		return stringArray;
+	}
+	
 	public void setVisible(boolean b) {
 		this.validateAccountsFrame.setVisible(b);
 	}

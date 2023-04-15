@@ -25,7 +25,7 @@ public class editParkingSpace {
 
 	private JFrame parkingSpaceFrame;
 	private JTable parkingSpaceTable;
-	private String date;
+	private static String date;
 	/**
 	 * Launch the application.
 	 */
@@ -173,7 +173,7 @@ public class editParkingSpace {
 		manageParkingSpace.add(prevDate);
 	}
 	
-	public String[][] fillTable(){
+	public static String[][] fillTable(){
 		String[][] table = new String[100][20];
 		ArrayList<ArrayList<String>> bookingInfo = ReadCSV.allBookings("Booking.txt");
 		Hashtable<String, ArrayList<int[]>> lotBookings = new Hashtable<String, ArrayList<int[]>>();
@@ -228,5 +228,14 @@ public class editParkingSpace {
 	public void setVisible(boolean b) {
 		this.parkingSpaceFrame.setVisible(b);
 	}
+	
+	public static void enableParkingSpace() {
+		
+	}
+	
+	public static void disableParkingSpace() {
+		
+	}
 }
+
 
